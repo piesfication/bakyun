@@ -1,0 +1,840 @@
+[gd_scene load_steps=86 format=3 uid="uid://d1u6i3t35llsd"]
+
+[ext_resource type="Script" uid="uid://c8cdaugw4lwkp" path="res://main.gd" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://i5asanwmdtcp" path="res://assets/level/sea/Untitled694_20260115180850.png" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://dct0qkwu3vopj" path="res://scenes/enemy.tscn" id="2_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://4wksodnvgnvv" path="res://assets/level/sea/Untitled694_20260115181335.png" id="3_tefeu"]
+[ext_resource type="Script" uid="uid://bjx0kjvqvauq1" path="res://script/background.gd" id="3_vxglm"]
+[ext_resource type="Texture2D" uid="uid://dssooydqpu272" path="res://assets/level/sea/Untitled694_20260115182142.png" id="4_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://dhx2rv2ssyyuj" path="res://assets/level/sea/Untitled694_20260115180839.png" id="5_tipki"]
+[ext_resource type="Script" uid="uid://bypc15arg18pu" path="res://script/crosshair.gd" id="6_85g3d"]
+[ext_resource type="Script" uid="uid://cbds8yq855re0" path="res://script/player.gd" id="7_eb6dy"]
+[ext_resource type="Script" uid="uid://vi3g0npkg8fp" path="res://script/baku_mahou.gd" id="9_ids8r"]
+[ext_resource type="Texture2D" uid="uid://ba250vyhdrhr4" path="res://assets/hando/Revised_baku/Untitled755_20260125101754.png" id="10_dnhof"]
+[ext_resource type="Texture2D" uid="uid://bxjh4tkbrrsca" path="res://assets/crosshair_revised/Yuna/Base/Untitled700_20260122213306.png" id="10_jbj1t"]
+[ext_resource type="Texture2D" uid="uid://7h15qh4icxa8" path="res://assets/hando/Revised_baku/Untitled755_20260125095512.png" id="11_1v6qk"]
+[ext_resource type="Texture2D" uid="uid://cxv01v4khwppx" path="res://assets/hando/Revised_baku/Untitled755_20260125095507.png" id="12_augu2"]
+[ext_resource type="Texture2D" uid="uid://d3ip8k1h16k11" path="res://assets/hando/Revised_baku/Untitled755_20260125095502.png" id="13_tm6hj"]
+[ext_resource type="Script" uid="uid://cvkf7dgtjqhem" path="res://script/yuna_mahou.gd" id="14_dnhof"]
+[ext_resource type="Texture2D" uid="uid://b8opdn5gdsi2v" path="res://assets/crosshair_revised/Yuna/Shoot/Untitled700_20260122213831.png" id="14_muem4"]
+[ext_resource type="Texture2D" uid="uid://dkubcfd0qcs1h" path="res://assets/crosshair_revised/Yuna/Shoot/Untitled700_20260122214019.png" id="15_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://dhjevns5lqib3" path="res://assets/hando/Revised_yuna/Untitled755_20260125101615.png" id="15_kf5aa"]
+[ext_resource type="Texture2D" uid="uid://dv8v8ulyidhwp" path="res://assets/crosshair_revised/Yuna/Shoot/Untitled700_20260122214119.png" id="16_0ld40"]
+[ext_resource type="Texture2D" uid="uid://c5ootot5gk1sw" path="res://assets/hando/Revised_yuna/Untitled755_20260125101601.png" id="16_t5ykj"]
+[ext_resource type="Texture2D" uid="uid://c334pmx0fd5rw" path="res://assets/hando/Revised_yuna/Untitled755_20260125101557.png" id="17_e755i"]
+[ext_resource type="Script" uid="uid://duksqsxut430w" path="res://script/mahoumeter.gd" id="17_yc10j"]
+[ext_resource type="Texture2D" uid="uid://bba112slcr6kw" path="res://assets/hando/Revised_yuna/Untitled755_20260125101554.png" id="18_ro3en"]
+[ext_resource type="Texture2D" uid="uid://dtt6fu4scae1j" path="res://assets/ui/Mahou-meter (template)/Size revised/Untitled748_20260124095928.png" id="18_yc10j"]
+[ext_resource type="Texture2D" uid="uid://dvhyjn7iqk6xw" path="res://assets/ui/Mahou-meter (template)/Size revised/Untitled748_20260124095934.png" id="19_jscy8"]
+[ext_resource type="Texture2D" uid="uid://com0djy5n7lo5" path="res://assets/ui/Mahou-meter (template)/Size revised/Untitled748_20260124095937.png" id="20_pm3ni"]
+[ext_resource type="Texture2D" uid="uid://inkaltnponon" path="res://assets/crosshair_revised/Baku/Aim/Untitled700_20260122214839.png" id="20_xrs0c"]
+[ext_resource type="Texture2D" uid="uid://ex2gkaong76j" path="res://assets/crosshair_revised/Baku/Aim/Untitled700_20260122214705.png" id="21_xljpf"]
+[ext_resource type="Texture2D" uid="uid://cnim5kwajc2ng" path="res://assets/ui/Mahou-meter (template)/Size revised/Untitled748_20260124095931.png" id="21_y6deb"]
+[ext_resource type="Texture2D" uid="uid://b6y43xiv7ttaf" path="res://assets/crosshair_revised/Baku/Weakness/Untitled700_20260122214857.png" id="22_j4bwh"]
+[ext_resource type="Texture2D" uid="uid://3i4li4mekuax" path="res://assets/ui/Mahou-meter (revised)/Untitled736_20260122193218.png" id="22_og1vs"]
+[ext_resource type="Texture2D" uid="uid://c0oqowivafsit" path="res://assets/ui/Mahou-meter (revised)/Untitled736_20260122193344.png" id="23_2wyq8"]
+[ext_resource type="Texture2D" uid="uid://xuqvfphddht3" path="res://assets/crosshair_revised/Baku/Weakness/Untitled700_20260122214844.png" id="23_ksmap"]
+[ext_resource type="Texture2D" uid="uid://nyouqdc56u8e" path="res://assets/ui/Mahou-meter (revised)/Untitled736_20260122193308.png" id="24_vxglm"]
+[ext_resource type="Texture2D" uid="uid://ctbtpx0fijwcv" path="res://assets/crosshair_revised/Yuna/Weakness/Untitled700_20260122214553.png" id="24_ygd8o"]
+[ext_resource type="Texture2D" uid="uid://3mm5mntnuq57" path="res://assets/ui/Mahou-meter (revised)/Untitled736_20260122193257.png" id="25_2f3dj"]
+[ext_resource type="Texture2D" uid="uid://chn7lh4jgdgnd" path="res://assets/crosshair_revised/Yuna/Weakness/Untitled700_20260122214258.png" id="25_2s0kr"]
+[ext_resource type="Texture2D" uid="uid://i04fippoq1pl" path="res://assets/crosshair_revised/Yuna/Aim/Untitled700_20260122214213.png" id="26_xaipn"]
+[ext_resource type="Script" uid="uid://ddrlomumxynia" path="res://script/koisuru_meter.gd" id="27_cjqg0"]
+[ext_resource type="Texture2D" uid="uid://fb71scvtv1k7" path="res://assets/crosshair_revised/Yuna/Aim/Untitled700_20260122213306.png" id="27_ndrjj"]
+[ext_resource type="Texture2D" uid="uid://cqh8m6t6hx26s" path="res://assets/ui/Koisuru-meter (bar)/Revised/Untitled752_20260124122939.png" id="27_vxglm"]
+[ext_resource type="Texture2D" uid="uid://c4mwcfqjgbjsc" path="res://assets/crosshair_revised/Baku/Base/Untitled700_20260122214705.png" id="28_ih3m7"]
+[ext_resource type="Texture2D" uid="uid://d01vkpxf63nv8" path="res://assets/ui/Koisuru-meter (bar)/Revised/Untitled752_20260124122926.png" id="28_tel4y"]
+[ext_resource type="Texture2D" uid="uid://bf7tdesqnn0be" path="res://assets/ui/Koisuru-meter (bar)/Revised/Untitled752_20260124122923.png" id="29_qkpxi"]
+[ext_resource type="Texture2D" uid="uid://d3lp7713sopuw" path="res://assets/ui/Koisuru-meter (icon)/Yuna/Untitled733_20260122204932.png" id="30_5q0nq"]
+[ext_resource type="Texture2D" uid="uid://c3480ikpp1xd6" path="res://assets/crosshair_revised/Baku/Shoot/Untitled700_20260122214713.png" id="30_11yus"]
+[ext_resource type="Texture2D" uid="uid://c672j7gc24a7e" path="res://assets/crosshair_revised/Baku/Shoot/Untitled700_20260122214720.png" id="31_b6ruc"]
+[ext_resource type="Texture2D" uid="uid://sx4ujy5h7ynm" path="res://assets/ui/Koisuru-meter (icon)/Baku/Untitled733_20260122204456.png" id="31_dgi5k"]
+[ext_resource type="Texture2D" uid="uid://d0vhkw5tqfpv1" path="res://assets/crosshair_revised/Baku/Shoot/Untitled700_20260122214834.png" id="32_155or"]
+[ext_resource type="Texture2D" uid="uid://h2wvdsrjw63r" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122205907.png" id="32_chjal"]
+[ext_resource type="Texture2D" uid="uid://dljdouri7m6ab" path="res://assets/ui/Koisuru-meter (icon)/Yuna/Untitled733_20260122205023.png" id="32_txyw0"]
+[ext_resource type="Texture2D" uid="uid://dprtweqbtj1jy" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122205858.png" id="33_cjqg0"]
+[ext_resource type="Texture2D" uid="uid://w8qn0f6p77w5" path="res://assets/ui/Koisuru-meter (icon)/Baku/Untitled733_20260122204533.png" id="34_vc5cj"]
+[ext_resource type="Texture2D" uid="uid://e3vltfl6v5u4" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122210026.png" id="34_vchkt"]
+[ext_resource type="Texture2D" uid="uid://bey5w76gmj6h6" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122210048.png" id="35_txyw0"]
+[ext_resource type="Texture2D" uid="uid://7x7ynvsohajm" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122210210.png" id="36_vc5cj"]
+[ext_resource type="Texture2D" uid="uid://cjnyn48r6uijl" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122210108.png" id="37_nvyfr"]
+[ext_resource type="Texture2D" uid="uid://b4laf1anydy2j" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122205923.png" id="38_ty1g6"]
+[ext_resource type="Texture2D" uid="uid://2wfi05uj7cxw" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122205939.png" id="39_j2jfr"]
+[ext_resource type="Texture2D" uid="uid://1tmipfhnk7p7" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122210304.png" id="40_bjg73"]
+[ext_resource type="Texture2D" uid="uid://bgqalesj4cklt" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122210354.png" id="41_bu4jf"]
+[ext_resource type="Texture2D" uid="uid://dcaruvfev8u48" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122205951.png" id="42_o7ddy"]
+[ext_resource type="Texture2D" uid="uid://daj60isntjwfk" path="res://assets/ui/Koisuru-meter (love)/Untitled726_20260122210004.png" id="43_0loja"]
+[ext_resource type="Texture2D" uid="uid://coyl0rcl550dy" path="res://assets/ui/Koisuru-meter (love)/Ult/Untitled756_20260125112241.png" id="46_1epgm"]
+[ext_resource type="Texture2D" uid="uid://dody5oty3w8x3" path="res://assets/ui/Koisuru-meter (love)/Ult/Untitled756_20260125112316.png" id="47_152kg"]
+[ext_resource type="Texture2D" uid="uid://c4vctsd1ilqge" path="res://assets/ui/Koisuru-meter (love)/Enlarge/Untitled756_20260125105503.png" id="47_od4ux"]
+[ext_resource type="Texture2D" uid="uid://ci7fdvf1lfwh0" path="res://assets/ui/Koisuru-meter (love)/Enlarge/Untitled756_20260125105501.png" id="49_xhfw6"]
+[ext_resource type="Texture2D" uid="uid://bwlke0arqwycl" path="res://assets/ui/Koisuru-meter (love)/Enlarge/Untitled756_20260125105455.png" id="51_1epgm"]
+[ext_resource type="Texture2D" uid="uid://fyrh7admlhy8" path="res://assets/ui/Koisuru-meter (love)/Enlarge/Untitled756_20260125105458.png" id="53_152kg"]
+[ext_resource type="Texture2D" uid="uid://en4b41slu6ae" path="res://assets/ui/Koisuru-meter (bar)/Revised/Untitled752_20260124122943.png" id="57_kf5aa"]
+[ext_resource type="Texture2D" uid="uid://dhcdek7r1hyh4" path="res://assets/ui/Koisuru-meter (bar)/Revised/Untitled752_20260124122932.png" id="58_t5ykj"]
+[ext_resource type="Texture2D" uid="uid://ddqkotu3ymthl" path="res://assets/ui/Koisuru-meter (bar)/Revised/Untitled752_20260124122935.png" id="59_e755i"]
+[ext_resource type="Texture2D" uid="uid://dc1o2vbuje7g8" path="res://assets/ui/Koisuru-meter (bar)/Revised/Untitled752_20260124122929.png" id="60_ro3en"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dnhof"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_dnhof")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_dnhof")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_1v6qk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_augu2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_tm6hj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_dnhof")
+}],
+"loop": false,
+"name": &"shooting",
+"speed": 9.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tm6hj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_kf5aa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_kf5aa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_t5ykj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_e755i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_ro3en")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_kf5aa")
+}],
+"loop": false,
+"name": &"shooting",
+"speed": 9.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_trceg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_xrs0c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_xljpf")
+}],
+"loop": true,
+"name": &"aim_baku",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_j4bwh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_ksmap")
+}],
+"loop": true,
+"name": &"aim_weakness_baku",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_ygd8o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_2s0kr")
+}],
+"loop": true,
+"name": &"aim_weakness_yuna",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_xaipn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_ndrjj")
+}],
+"loop": true,
+"name": &"aim_yuna",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_ih3m7")
+}],
+"loop": true,
+"name": &"default_baku",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_jbj1t")
+}],
+"loop": true,
+"name": &"default_yuna",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_11yus")
+}, {
+"duration": 0.8,
+"texture": ExtResource("31_b6ruc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_155or")
+}],
+"loop": false,
+"name": &"shooting_baku",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_muem4")
+}, {
+"duration": 0.8,
+"texture": ExtResource("15_dp3eg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_0ld40")
+}],
+"loop": false,
+"name": &"shooting_yuna",
+"speed": 7.0
+}]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2f3dj"]
+load_path = "res://.godot/imported/Untitled736_20260122175858.png-a489637bab31d787319b5d21eb65ceb9.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yq6so"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_og1vs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_2wyq8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_vxglm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_2f3dj")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_2f3dj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_vxglm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_og1vs")
+}],
+"loop": false,
+"name": &"cast",
+"speed": 10.0
+}]
+
+[sub_resource type="Curve2D" id="Curve2D_chjal"]
+bake_interval = 0.01
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 44.444458, 54.44452, -41.067963, -6.0185814, 41.067963, 6.0185814, 177.7778, 81.111206, 0, 0, 0, 0, 275.55557, 81.111206, 0, 0, 0, 0, 275.55557, 81.111206)
+}
+point_count = 4
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nvyfr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_5q0nq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_txyw0")
+}],
+"loop": true,
+"name": &"blink",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_5q0nq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_5q0nq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_txyw0")
+}],
+"loop": false,
+"name": &"fill",
+"speed": 4.0
+}]
+
+[sub_resource type="Curve2D" id="Curve2D_vchkt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 666.66675, 54.44452, 43.22757, -7.788751, -43.22757, 7.788751, 586.66675, 72.22229, 57.247322, -1.1683127, -57.247322, 1.1683127, 435.55557, 81.111206, 0, 0, 0, 0, 435.55557, 81.111206)
+}
+point_count = 4
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ty1g6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_dgi5k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_vc5cj")
+}],
+"loop": true,
+"name": &"blink",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_dgi5k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_dgi5k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_vc5cj")
+}],
+"loop": false,
+"name": &"fill",
+"speed": 4.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ids8r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("35_txyw0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_1epgm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_152kg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_chjal")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_bjg73")
+}],
+"loop": false,
+"name": &"cast_ult",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("32_chjal")
+}],
+"loop": true,
+"name": &"default_broken",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_vchkt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_od4ux")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_txyw0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_xhfw6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_vc5cj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_1epgm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_nvyfr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_152kg")
+}],
+"loop": true,
+"name": &"default_full",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("32_chjal")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_j2jfr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_bjg73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_bu4jf")
+}],
+"loop": false,
+"name": &"filling",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_cjqg0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_chjal")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_ty1g6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_j2jfr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_o7ddy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_0loja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_vchkt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_txyw0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_nvyfr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_vc5cj")
+}],
+"loop": false,
+"name": &"full",
+"speed": 8.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_od4ux"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("57_kf5aa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_t5ykj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_e755i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_ro3en")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_vxglm")
+}],
+"loop": false,
+"name": &"cast_ult",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("60_ro3en")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_kf5aa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_e755i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_t5ykj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_ro3en")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_kf5aa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_ro3en")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_ro3en")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_ro3en")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_ro3en")
+}],
+"loop": true,
+"name": &"full",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("60_ro3en")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_kf5aa")
+}],
+"loop": true,
+"name": &"full_idle",
+"speed": 3.0
+}]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_o5qli")
+enemy_scene = ExtResource("2_ya4ey")
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("3_vxglm")
+
+[node name="Sky" type="Sprite2D" parent="Background"]
+scale = Vector2(0.667, 0.667)
+texture = ExtResource("2_tbgi4")
+centered = false
+
+[node name="Back" type="Sprite2D" parent="Background"]
+z_index = 10
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("3_tefeu")
+centered = false
+
+[node name="Back2" type="Sprite2D" parent="Background"]
+z_index = 10
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("3_tefeu")
+centered = false
+
+[node name="Front" type="Sprite2D" parent="Background"]
+z_index = 20
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("4_o6xl0")
+centered = false
+
+[node name="Sea" type="Sprite2D" parent="Background"]
+z_index = 30
+position = Vector2(0, -10.999998)
+scale = Vector2(0.683, 0.683)
+texture = ExtResource("5_tipki")
+centered = false
+
+[node name="EnemyContainer" type="Node2D" parent="."]
+
+[node name="Player" type="Node2D" parent="."]
+script = ExtResource("7_eb6dy")
+
+[node name="BakuMahou" type="Node2D" parent="Player"]
+z_index = 1000
+scale = Vector2(0.5, 0.5)
+script = ExtResource("9_ids8r")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Player/BakuMahou"]
+position = Vector2(2314, 1082)
+sprite_frames = SubResource("SpriteFrames_dnhof")
+animation = &"shooting"
+frame = 4
+frame_progress = 1.0
+
+[node name="YunaMahou" type="Node2D" parent="Player"]
+z_index = 1000
+scale = Vector2(0.5, 0.5)
+script = ExtResource("14_dnhof")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/YunaMahou"]
+position = Vector2(2288, 1040)
+sprite_frames = SubResource("SpriteFrames_tm6hj")
+animation = &"shooting"
+frame = 4
+frame_progress = 1.0
+
+[node name="Crosshair" type="Node2D" parent="."]
+z_index = 1000
+scale = Vector2(0.13, 0.13)
+script = ExtResource("6_85g3d")
+
+[node name="Visual" type="Node2D" parent="Crosshair"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Crosshair/Visual"]
+sprite_frames = SubResource("SpriteFrames_trceg")
+animation = &"aim_baku"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Crosshair"]
+
+[node name="Area2D" type="Area2D" parent="Crosshair"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crosshair/Area2D"]
+
+[node name="UIMahouMeter" type="CanvasLayer" parent="."]
+scale = Vector2(0.7, 0.7)
+transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
+script = ExtResource("17_yc10j")
+
+[node name="MahouMeter" type="Control" parent="UIMahouMeter"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 20.28573
+offset_right = 1828.5713
+offset_bottom = 166.00003
+
+[node name="TextureRect" type="TextureRect" parent="UIMahouMeter/MahouMeter"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -355.0
+offset_right = 355.0
+offset_bottom = 150.0
+grow_horizontal = 2
+texture = ExtResource("18_yc10j")
+stretch_mode = 5
+
+[node name="Control" type="Control" parent="UIMahouMeter/MahouMeter/TextureRect"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SlotLeft" type="TextureRect" parent="UIMahouMeter/MahouMeter/TextureRect/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("19_jscy8")
+
+[node name="SlotMid" type="TextureRect" parent="UIMahouMeter/MahouMeter/TextureRect/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("20_pm3ni")
+
+[node name="SlotRight" type="TextureRect" parent="UIMahouMeter/MahouMeter/TextureRect/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("21_y6deb")
+
+[node name="CastAnimation" type="AnimatedSprite2D" parent="UIMahouMeter"]
+position = Vector2(914.2857, 120.28573)
+scale = Vector2(0.9, 0.9)
+sprite_frames = SubResource("SpriteFrames_yq6so")
+animation = &"cast"
+frame = 6
+frame_progress = 1.0
+
+[node name="UIKoisuruMeter" type="CanvasLayer" parent="."]
+
+[node name="KoisuruMeter" type="Control" parent="UIKoisuruMeter"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 552.0
+offset_right = 1422.2223
+offset_bottom = 737.7778
+scale = Vector2(0.9, 0.9)
+script = ExtResource("27_cjqg0")
+
+[node name="Container" type="Control" parent="UIKoisuruMeter/KoisuruMeter"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -284.44446
+offset_top = -150.22223
+offset_right = 426.6667
+offset_bottom = 17.777771
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+
+[node name="Control" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container"]
+anchors_preset = 0
+offset_right = 711.1111
+offset_bottom = 144.4444
+
+[node name="Base" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -248.88892
+offset_top = -23.777802
+offset_right = 248.88892
+offset_bottom = 47.333344
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BaseTexture" type="TextureRect" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/Base"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -445.0
+offset_top = -75.0
+offset_right = 445.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(445, 75)
+texture = ExtResource("27_vxglm")
+
+[node name="LeftFill" type="TextureRect" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/Base"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -445.0
+offset_top = -75.0
+offset_right = 445.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(445, 75)
+texture = ExtResource("28_tel4y")
+
+[node name="RightFill" type="TextureRect" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/Base"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -445.0
+offset_top = -75.0
+offset_right = 445.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(445, 75)
+texture = ExtResource("29_qkpxi")
+
+[node name="PathLeft" type="Path2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control"]
+curve = SubResource("Curve2D_chjal")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathLeft"]
+position = Vector2(44.444458, 54.44452)
+rotates = false
+
+[node name="PointerLeftContainer2" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathLeft/PathFollow2D"]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -0.444458
+offset_right = 168.88892
+offset_bottom = 168.44446
+grow_vertical = 2
+
+[node name="LeftSprite" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathLeft/PathFollow2D/PointerLeftContainer2"]
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_nvyfr")
+animation = &"fill"
+
+[node name="PathRight" type="Path2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control"]
+curve = SubResource("Curve2D_vchkt")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathRight"]
+position = Vector2(666.66675, 54.44452)
+rotates = false
+
+[node name="PointerRightContainer" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathRight/PathFollow2D"]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 542.2223
+offset_top = -0.444458
+offset_right = 711.1112
+offset_bottom = 168.44446
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="RightSprite" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathRight/PathFollow2D/PointerRightContainer"]
+position = Vector2(-542.2222, 0.44447136)
+scale = Vector2(0.12, 0.12)
+sprite_frames = SubResource("SpriteFrames_ty1g6")
+animation = &"fill"
+
+[node name="MidContainer" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.111176
+offset_top = -71.111206
+offset_right = 71.11105
+offset_bottom = 71.11105
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeartSprite" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter/Container/MidContainer"]
+position = Vector2(71.11111, 77.11119)
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_ids8r")
+animation = &"cast_ult"
+
+[node name="UltimateAnim" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter"]
+position = Vector2(711.11115, 97.77779)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_od4ux")
+animation = &"cast_ult"
+frame = 4
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="Crosshair/Visual/AnimatedSprite2D" to="Crosshair" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="UIMahouMeter/CastAnimation" to="UIMahouMeter" method="_on_cast_animation_animation_finished"]
+[connection signal="animation_finished" from="UIKoisuruMeter/KoisuruMeter/Container/Control/PathLeft/PathFollow2D/PointerLeftContainer2/LeftSprite" to="UIKoisuruMeter/KoisuruMeter" method="_on_left_sprite_animation_finished"]
+[connection signal="animation_finished" from="UIKoisuruMeter/KoisuruMeter/Container/Control/PathRight/PathFollow2D/PointerRightContainer/RightSprite" to="UIKoisuruMeter/KoisuruMeter" method="_on_right_sprite_animation_finished"]
+[connection signal="animation_finished" from="UIKoisuruMeter/KoisuruMeter/Container/MidContainer/HeartSprite" to="UIKoisuruMeter/KoisuruMeter" method="_on_heart_sprite_animation_finished"]
+[connection signal="animation_finished" from="UIKoisuruMeter/KoisuruMeter/UltimateAnim" to="UIKoisuruMeter/KoisuruMeter" method="_on_ultimate_anim_animation_finished"]
