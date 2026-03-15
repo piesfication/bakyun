@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bou2ufhnm0n85"]
+
+[ext_resource type="Texture2D" uid="uid://q2nxmmjkyjoc" path="res://assets/menu/Hp/Textbox/Untitled935_20260315150436.png" id="1_ouy5x"]
+[ext_resource type="Script" uid="uid://bf8jojhajlog1" path="res://scenes/level_chat_yuna.gd" id="1_y0srf"]
+[ext_resource type="FontFile" uid="uid://dcs4tsec8f7yd" path="res://assets/font/zrtw-hackynote-personal-use/ZRTW-HackynotePersonalUse.otf" id="2_y0srf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xy522"]
+line_spacing = -20.0
+font = ExtResource("2_y0srf")
+font_size = 45
+font_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
+outline_size = 3
+outline_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
+
+[node name="ChatYuna" type="Control"]
+custom_minimum_size = Vector2(505.447, 254.71)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 505.447
+offset_bottom = 254.71
+script = ExtResource("1_y0srf")
+
+[node name="TextBox" type="Sprite2D" parent="."]
+position = Vector2(256, 128)
+rotation = 0.25281972
+texture = ExtResource("1_ouy5x")
+region_enabled = true
+region_rect = Rect2(468.6997, 1226.973, 505.44727, 254.7096)
+
+[node name="Message" type="Label" parent="."]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 80.00001
+offset_right = 489.54285
+offset_bottom = 179.15997
+rotation = -0.025795192
+text = "EUMMM......."
+label_settings = SubResource("LabelSettings_xy522")
+vertical_alignment = 1

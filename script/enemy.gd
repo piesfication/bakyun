@@ -4,13 +4,16 @@ extends Node2D
 # VISUAL
 # ==================================================
 @onready var visual: AnimatedSprite2D = $Visual/AnimatedSprite2D
+@onready var skill_red3_effect: AnimatedSprite2D = $SkillRed3Effect
+@onready var hitbox_area: Area2D = $Hitbox
 var original_modulate: Color
 # State
 
 enum State {
 	MOVING,
 	DAMAGED,
-	ATTACK
+	ATTACK,
+	DEATH
 }
 
 var state := State.MOVING
@@ -30,14 +33,18 @@ func set_state(new_state: State):
 		State.ATTACK:
 			print("attack!")
 			pass
-
-
-# Logic weak point
+		State.DEATH:
+			visual.modulate = Color(1.0, 0.804, 0.815, 1.0)
+			visual.play("death")
 
 @export var max_hp := 3
 var hp := max_hp
+var is_dead := false
+var marked := false
+var slow_timer := 0.0
+var slow_factor := 1.0
 
-@export var weak_point: Node2D   # node anak di enemy yang menandai titik lemah
+@export var weak_point: Node2D 
 
 # Logic nyerang player
 
@@ -140,6 +147,9 @@ var drift_blend := 0.0   # 0 = approach, 1 = drift
 # ==================================================
 
 func _ready():
+	add_to_group("enemy_nodes")
+	skill_red3_effect.visible = false
+	skill_red3_effect.animation_finished.connect(_on_skill_red3_effect_finished)
 	#attack_timer = randf_range(0.0, attack_cooldown)
 	original_modulate = self.modulate 
 	set_state(State.MOVING)
@@ -168,29 +178,42 @@ func _ready():
 	flap_time = randf() * TAU
 	
 	
-func _process(delta):
-	idle_move(delta)
-	update_depth(delta)
+func _process(delta: float):
+	if is_dead:
+		return
+
+	if slow_timer > 0.0:
+		slow_timer -= delta
+		if slow_timer <= 0.0:
+			slow_factor = 1.0
+
+	var sim_delta: float = delta * slow_factor
+
+	idle_move(sim_delta)
+	update_depth(sim_delta)
 	update_scale()
 
-	update_drift_blend(delta)
-	update_movement(delta)
+	update_drift_blend(sim_delta)
+	update_movement(sim_delta)
 	
 	# Apply bird flapping animation AFTER movement
 	if flap_enabled:
-		apply_bird_flapping(delta)
+		apply_bird_flapping(sim_delta)
 	
 	update_phase_and_z()
 	
 	update_flip()
 	
 	if player_node:
-		attack_timer -= delta
+		attack_timer -= sim_delta
 		
 		if depth == 0 and attack_timer <= 0 and not is_attacking:
 			start_attack()
 	
 func start_attack():
+	if is_dead:
+		return
+
 	is_attacking = true
 	attack_timer = randf_range(min_attack_cd, max_attack_cd)
 	set_state(State.ATTACK)
@@ -203,18 +226,14 @@ var idle_time := 0.0
 func idle_move(delta):
 	idle_time += delta * idle_speed
 	
-	# Idle move lebih subtle karena flapping sudah ada
 	visual.position.y = base_y + sin(idle_time) * idle_amplitude
 
 
 func apply_bird_flapping(delta):
-	"""Animasi naik turun seperti burung mengepakkan sayap"""
 	flap_time += delta * flap_speed
-	
-	# Menggunakan sin wave untuk gerakan naik turun yang smooth
+
 	var flap_offset = sin(flap_time) * flap_amplitude
 	
-	# Apply offset ke posisi Y
 	position.y += flap_offset * delta * 10.0
 
 
@@ -236,7 +255,7 @@ func update_drift_blend(delta):
 
 
 func randomize_drift_pattern():
-	"""Randomize frekuensi dan fase untuk pattern drift yang lebih variatif"""
+	
 	drift_freq_x = randf_range(0.3, 0.8)
 	drift_freq_y = randf_range(0.25, 0.7)
 	drift_phase_x = randf() * TAU
@@ -244,7 +263,7 @@ func randomize_drift_pattern():
 
 
 func update_movement(delta):
-	# ---------- APPROACH ----------
+	
 	curve_time += delta * curve_frequency
 
 	var base_move = approach_direction * approach_move_speed * delta
@@ -371,7 +390,7 @@ func update_phase_and_z():
 	var current_scale = scale.x
 
 	if not drifting and current_scale >= drift_start_scale:
-		#modulate = Color8(0, 0, 128)
+
 		drifting = true
 		z_index = z_front
 		drift_origin = position
@@ -391,36 +410,130 @@ func update_phase_and_z():
 		var drift_dir_y := -pow(randf(), 2.5)
 		drift_dir = Vector2(drift_dir_x, drift_dir_y).normalized()
 
-#=================== HITBOX
-
 func on_hit(hit_area: Node = null):
+	if is_dead:
+		return
+
 	if hit_area == weak_point:
-		hp = 0  # langsung mati
+		instakill()
 		print("Critical Hit!")
 	else:
-		set_state(State.DAMAGED)
-		hp -= 1
+		apply_damage(1)
 		
-	
+
+func apply_damage(amount: int) -> void:
+	if is_dead or amount <= 0 or hp <= 0:
+		return
+
+	set_state(State.DAMAGED)
+	hp -= amount
+
 	if hp <= 0:
 		die()
+
+
+func instakill(delay: float = 0.0) -> void:
+	if is_dead or hp <= 0:
+		return
+
+	if delay <= 0.0:
+		hp = 0
+		die()
+		return
+
+	var timer := get_tree().create_timer(delay)
+	timer.timeout.connect(func():
+		if is_instance_valid(self) and not is_dead and hp > 0:
+			hp = 0
+			die()
+	)
+
+
+func set_marked(value: bool) -> void:
+	marked = value
+
+
+func is_marked() -> bool:
+	return marked
+
+
+func explode_mark(radius: float, damage: int) -> void:
+	if not marked:
+		return
+
+	marked = false
+	var enemies: Array = get_tree().get_nodes_in_group("enemy_nodes")
+	for enemy in enemies:
+		if enemy == null or not is_instance_valid(enemy):
+			continue
+		if enemy.global_position.distance_to(global_position) <= radius:
+			enemy.apply_damage(damage)
+
+
+func apply_slow(duration: float, factor: float) -> void:
+	slow_timer = max(slow_timer, duration)
+	slow_factor = clampf(min(slow_factor, factor), 0.15, 1.0)
+
+
+func pull_towards(target_pos: Vector2, strength: float = 0.55) -> void:
+	global_position = global_position.lerp(target_pos, clampf(strength, 0.0, 1.0))
+
+
+func play_red3_effect() -> float:
+	if skill_red3_effect == null:
+		return 0.0
+
+	skill_red3_effect.visible = true
+	skill_red3_effect.frame = 0
+	skill_red3_effect.play("red3_cast")
+
+	var frame_count := skill_red3_effect.sprite_frames.get_frame_count("red3_cast")
+	var speed := skill_red3_effect.sprite_frames.get_animation_speed("red3_cast")
+	if frame_count <= 0 or speed <= 0.0:
+		return 0.0
+
+	return frame_count / speed
+
+
+func _on_skill_red3_effect_finished() -> void:
+	skill_red3_effect.stop()
+	skill_red3_effect.visible = false
 		
 		
 func die():
-	print("Bakyun!")
-	queue_free()
+	if is_dead:
+		return
 
+	is_dead = true
+	hp = 0
+	marked = false
+	is_attacking = false
+
+	if hitbox_area:
+		hitbox_area.monitoring = false
+		hitbox_area.monitorable = false
+
+	if weak_point is Area2D:
+		var weak_area := weak_point as Area2D
+		weak_area.monitoring = false
+		weak_area.monitorable = false
+
+	print("Bakyun!")
+	set_state(State.DEATH)
+	
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if state == State.DAMAGED :
 		set_state(State.MOVING)
 	elif state == State.ATTACK :
 		is_attacking = false
-		set_state(State.MOVING)	
+		set_state(State.MOVING)
+	elif state == State.DEATH :
+		queue_free()
 	pass # Replace with function body.
 
 
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if state == State.ATTACK and visual.frame == 1:
 		print("aww!")
-		player_node.take_damage(0)
+		player_node.take_damage(1)
 	pass # Replace with function body.

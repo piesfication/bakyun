@@ -1,0 +1,127 @@
+[gd_scene load_steps=13 format=3 uid="uid://deacwdxwyeoji"]
+
+[ext_resource type="Texture2D" uid="uid://wt3luruus1ry" path="res://assets/menu/Hp/Textbox/Untitled935_20260315150347.png" id="1_32wmr"]
+[ext_resource type="Script" uid="uid://bomkcm5lwbhty" path="res://script/level_chat.gd" id="1_o1hks"]
+[ext_resource type="Texture2D" uid="uid://36a0ff0urdl6" path="res://assets/menu/Hp/Button.png" id="2_o1hks"]
+[ext_resource type="FontFile" uid="uid://dcs4tsec8f7yd" path="res://assets/font/zrtw-hackynote-personal-use/ZRTW-HackynotePersonalUse.otf" id="3_ojcag"]
+[ext_resource type="Texture2D" uid="uid://bivxqvyhmfyhm" path="res://assets/menu/Hp/Difficulty/icon_easy.png" id="4_ppnam"]
+[ext_resource type="Texture2D" uid="uid://lbghj0u7wjvl" path="res://assets/menu/Hp/Difficulty/icon_medium.png" id="5_kvptk"]
+[ext_resource type="Texture2D" uid="uid://d0g1w2pyw5n2o" path="res://assets/menu/Hp/Difficulty/icon_hard.png" id="6_4nalq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6pvuy"]
+font = ExtResource("3_ojcag")
+font_size = 51
+font_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
+outline_size = 3
+outline_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sog0l"]
+line_spacing = -20.0
+font = ExtResource("3_ojcag")
+font_size = 45
+font_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
+outline_size = 2
+outline_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
+shadow_size = 0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1hks"]
+size = Vector2(407.27878, 124.1861)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ojcag"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_o1hks")
+}],
+"loop": true,
+"name": &"click",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nqij5"]
+font = ExtResource("3_ojcag")
+font_size = 56
+outline_size = 5
+
+[node name="LevelChat" type="Control"]
+custom_minimum_size = Vector2(624.878, 554.016)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_o1hks")
+
+[node name="Chatbox" type="Sprite2D" parent="."]
+position = Vector2(312, 277)
+rotation = 0.26956907
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("1_32wmr")
+region_enabled = true
+region_rect = Rect2(498.60593, 741.6414, 624.8779, 554.01556)
+
+[node name="Difficulty" type="Sprite2D" parent="."]
+position = Vector2(272.00003, 264)
+rotation = 0.26956907
+scale = Vector2(1.1, 1.1)
+
+[node name="Easy" type="Sprite2D" parent="Difficulty"]
+texture = ExtResource("4_ppnam")
+
+[node name="Medium" type="Sprite2D" parent="Difficulty"]
+texture = ExtResource("5_kvptk")
+
+[node name="Hard" type="Sprite2D" parent="Difficulty"]
+texture = ExtResource("6_4nalq")
+
+[node name="DifficultyLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 264.00003
+offset_right = 609.10406
+offset_bottom = 331.00003
+rotation = 0.0071223974
+scale = Vector2(1.1, 1.1)
+text = "DIFFICULTY"
+label_settings = SubResource("LabelSettings_6pvuy")
+autowrap_mode = 2
+justification_flags = 162
+
+[node name="MessageLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 48.0
+offset_right = 560.8826
+offset_bottom = 181.9997
+rotation = 0.011069119
+scale = Vector2(1.1, 1.1)
+text = "AYO KITA PERGI MISI!"
+label_settings = SubResource("LabelSettings_sog0l")
+vertical_alignment = 1
+autowrap_mode = 2
+justification_flags = 162
+
+[node name="StartButton" type="Area2D" parent="."]
+position = Vector2(263.99997, 256)
+rotation = 0.26956907
+scale = Vector2(1.1, 1.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartButton"]
+position = Vector2(85.512596, 108.692345)
+rotation = -0.27898872
+scale = Vector2(1.1, 1.1)
+shape = SubResource("RectangleShape2D_o1hks")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StartButton"]
+scale = Vector2(1.1, 1.1)
+sprite_frames = SubResource("SpriteFrames_ojcag")
+animation = &"click"
+
+[node name="LetsGoLabel" type="Label" parent="StartButton"]
+offset_left = -40.000042
+offset_top = 108.00005
+offset_right = 465.10403
+offset_bottom = 199.00005
+rotation = -0.25641754
+scale = Vector2(1.1, 1.1)
+text = "LET'S GO!!!"
+label_settings = SubResource("LabelSettings_nqij5")
+autowrap_mode = 2
+justification_flags = 162

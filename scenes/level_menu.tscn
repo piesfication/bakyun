@@ -1,0 +1,110 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctue4xy3337pk"]
+
+[ext_resource type="Texture2D" uid="uid://dbgllwskxfss6" path="res://assets/menu/Island/Untitled868_20260315152225.png" id="1_7obll"]
+[ext_resource type="Script" uid="uid://byncm8d1drwvw" path="res://scenes/map_manager.gd" id="2_2go0k"]
+[ext_resource type="Texture2D" uid="uid://q4ssdfg33q7m" path="res://assets/menu/Hp/Base.png" id="2_teein"]
+[ext_resource type="Texture2D" uid="uid://dm0owvx0rv5xc" path="res://assets/menu/Hp/Screen/Untitled935_20260315110302.png" id="3_k08aj"]
+[ext_resource type="PackedScene" uid="uid://bcop4wcc8fbat" path="res://scenes/level_icon.tscn" id="3_qdp46"]
+[ext_resource type="Texture2D" uid="uid://cqqobe7wdmwqe" path="res://assets/menu/Hp/Screen/Untitled935_20260315110531.png" id="4_2go0k"]
+[ext_resource type="Script" uid="uid://dsbnw4qd4j1qe" path="res://scenes/chat_area.gd" id="5_teein"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 359.99994)
+scale = Vector2(0.667, 0.667)
+texture = ExtResource("1_7obll")
+
+[node name="Phone" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchor_right = 0.994
+anchor_bottom = 0.989
+offset_right = -560.32007
+offset_bottom = 7.919983
+mouse_filter = 2
+
+[node name="PhoneSprite" type="Node2D" parent="Phone"]
+position = Vector2(352.00003, 352)
+scale = Vector2(0.667, 0.667)
+
+[node name="Base" type="Sprite2D" parent="Phone/PhoneSprite"]
+texture = ExtResource("2_teein")
+
+[node name="Screen" type="Sprite2D" parent="Phone/PhoneSprite"]
+texture = ExtResource("3_k08aj")
+region_enabled = true
+region_rect = Rect2(0, 0, 1536, 2048)
+
+[node name="TextureRect" type="TextureRect" parent="Phone/PhoneSprite/Screen"]
+clip_contents = true
+offset_left = -767.6163
+offset_top = -1019.4903
+offset_right = 768.3837
+offset_bottom = 1028.5098
+mouse_filter = 2
+texture = ExtResource("3_k08aj")
+expand_mode = 1
+
+[node name="Header" type="Sprite2D" parent="Phone/PhoneSprite/Screen/TextureRect"]
+position = Vector2(767.6162, 1019.4903)
+rotation = -0.0021052817
+scale = Vector2(1.0000001, 1.0000001)
+texture = ExtResource("4_2go0k")
+
+[node name="ChatArea" type="Control" parent="Phone/PhoneSprite/Screen/TextureRect"]
+clip_contents = true
+anchors_preset = 0
+offset_left = 2.9985962
+offset_top = 755.62225
+offset_right = 1070.4648
+offset_bottom = 1799.1006
+rotation = -0.26563227
+mouse_filter = 2
+script = ExtResource("5_teein")
+
+[node name="MessageList" type="VBoxContainer" parent="Phone/PhoneSprite/Screen/TextureRect/ChatArea"]
+layout_mode = 0
+offset_left = 323.83813
+offset_top = 1115.4424
+offset_right = 323.83813
+offset_bottom = 1115.4424
+
+[node name="MapManager" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.994
+anchor_bottom = 0.989
+offset_left = 640.0
+offset_right = 7.6799316
+offset_bottom = 7.919983
+mouse_filter = 2
+script = ExtResource("2_2go0k")
+
+[node name="LevelIcon6" parent="MapManager" instance=ExtResource("3_qdp46")]
+position = Vector2(528, 320)
+scale = Vector2(0.43, 0.43)
+
+[node name="LevelIcon" parent="MapManager" instance=ExtResource("3_qdp46")]
+position = Vector2(472, 399.99997)
+scale = Vector2(0.43, 0.43)
+
+[node name="LevelIcon2" parent="MapManager" instance=ExtResource("3_qdp46")]
+position = Vector2(224, 168)
+scale = Vector2(0.43, 0.43)
+
+[node name="LevelIcon3" parent="MapManager" instance=ExtResource("3_qdp46")]
+position = Vector2(112, 280)
+scale = Vector2(0.43, 0.43)
+
+[node name="LevelIcon5" parent="MapManager" instance=ExtResource("3_qdp46")]
+position = Vector2(448, 208)
+scale = Vector2(0.43, 0.43)
+
+[node name="LevelIcon4" parent="MapManager" instance=ExtResource("3_qdp46")]
+position = Vector2(112, 479.99997)
+scale = Vector2(0.43, 0.43)

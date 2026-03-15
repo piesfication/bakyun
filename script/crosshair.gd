@@ -3,6 +3,29 @@ extends Node2D
 @onready var indicator = $"../UIMahouMeter"
 @onready var indicator_mahou = $"../UIKoisuruMeter/KoisuruMeter"
 
+const PIERCE_PROJECTILE_SCENE = preload("res://scenes/pierce_projectile.tscn")
+
+enum SkillShot {
+	NONE,
+	OVERDRIVE,
+	PIERCE,
+	CHAIN,
+	NOVA
+}
+
+var queued_skill: SkillShot = SkillShot.NONE
+
+const SKILL_DELAY_OVERDRIVE := 0.28
+const SKILL_PIERCE_SPLIT_RANGE := 620.0
+const SKILL_PIERCE_PROJECTILE_SPEED := 920.0
+const SKILL_PIERCE_PROJECTILE_RADIUS := 28.0
+const SKILL_CHAIN_MARK_RADIUS := 240.0
+const SKILL_CHAIN_EXPLOSION_RADIUS := 220.0
+const SKILL_NOVA_PULL_RADIUS := 280.0
+const SKILL_NOVA_SLOW_DURATION := 1.8
+const SKILL_NOVA_SLOW_FACTOR := 0.35
+const SKILL_AUTO_TARGET_RADIUS := 260.0
+
 enum CharacterMode {
 	CHAR_BAKU,
 	CHAR_YUNA
@@ -38,6 +61,8 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	current_mode = CharacterMode.CHAR_BAKU
 	state = State.IDLE
+	if indicator.has_signal("skill_casted"):
+		indicator.connect("skill_casted", Callable(self, "_on_skill_casted"))
 	update_crosshair_visual()
 	#current_mode = CharacterMode.CHAR_BAKU
 
@@ -66,7 +91,7 @@ func _input(event):
 		if event.keycode == KEY_SHIFT:
 			switch_character()
 			
-	if event is InputEventMouseButton and event.pressed:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		set_state(State.SHOOT)
 		shoot()
 		
@@ -92,27 +117,7 @@ func _on_animated_sprite_2d_animation_finished():
 func _process(delta):
 	global_position = get_global_mouse_position()
 	check_aim_target()
-	
-#=================== SHOOT
-#func shoot():
-	#var space = get_world_2d().direct_space_state
-	#var mouse_pos = get_global_mouse_position()
-#
-	#var query = PhysicsPointQueryParameters2D.new()
-	#query.position = mouse_pos
-	#query.collide_with_areas = true
-	#query.collision_mask = 1 << 1 # Layer Enemy
-#
-	#var result = space.intersect_point(query)
-#
-	#if result.size() > 0:
-		## Collider adalah Area2D hitbox
-		#var hitbox = result[0].collider
-		#var enemy = hitbox.get_parent()
-	#
-		#if enemy.has_method("on_hit"):
-			#enemy.on_hit(hitbox)
-			
+
 
 @onready var hand_baku := $"../Player/BakuMahou/AnimatedSprite2D2"
 @onready var hand_yuna := $"../Player/YunaMahou/AnimatedSprite2D"
@@ -134,7 +139,12 @@ func shoot_baku():
 	var hitbox = get_enemy_under_cursor()
 	if hitbox:
 		var enemy = hitbox.get_parent()
-		enemy.on_hit(hitbox)
+		if queued_skill == SkillShot.NONE:
+			if enemy.is_marked():
+				enemy.explode_mark(SKILL_CHAIN_EXPLOSION_RADIUS, 1)
+			enemy.on_hit(hitbox)
+		else:
+			apply_skill_shot(enemy, hitbox, get_global_mouse_position())
 		indicator.add_slot("baku")
 		indicator_mahou.add_baku()
 
@@ -145,7 +155,12 @@ func shoot_yuna():
 	var hitbox = get_enemy_under_cursor()
 	if hitbox:
 		var enemy = hitbox.get_parent()
-		enemy.on_hit(hitbox)
+		if queued_skill == SkillShot.NONE:
+			if enemy.is_marked():
+				enemy.explode_mark(SKILL_CHAIN_EXPLOSION_RADIUS, 1)
+			enemy.on_hit(hitbox)
+		else:
+			apply_skill_shot(enemy, hitbox, get_global_mouse_position())
 		indicator.add_slot("yuna")
 		indicator_mahou.add_yuna()
 
@@ -231,25 +246,6 @@ func set_aim_state(new_state: AimState):
 	# Jangan ganggu animasi nembak
 	if state != State.IDLE:
 		return
-
-	#match current_mode:
-		#CharacterMode.CHAR_BAKU:
-			#match aim_state:
-				#AimState.NONE:
-					#sprite.play("default_baku")
-				#AimState.ENEMY:
-					#sprite.play("aim_baku")
-				#AimState.WEAKNESS:
-					#sprite.play("aim_weakness_baku")
-#
-		#CharacterMode.CHAR_YUNA:
-			#match aim_state:
-				#AimState.NONE:
-					#sprite.play("default_yuna")
-				#AimState.ENEMY:
-					#sprite.play("aim_yuna")
-				#AimState.WEAKNESS:
-					#sprite.play("aim_weakness_yuna")
 					
 func set_locked_aim(new_lock: AimLock):
 	if locked_aim == AimLock.WEAKNESS and new_lock == AimLock.ENEMY:
@@ -293,4 +289,129 @@ func play_anim_safe(anim: String):
 		return
 	sprite.play(anim)
 
-	
+
+func _on_skill_casted(skill_name: String) -> void:
+	match skill_name:
+		"OVERDRIVE":
+			queued_skill = SkillShot.OVERDRIVE
+		"PIERCE":
+			queued_skill = SkillShot.PIERCE
+		"CHAIN":
+			queued_skill = SkillShot.CHAIN
+		"NOVA":
+			queued_skill = SkillShot.NOVA
+		_:
+			queued_skill = SkillShot.NONE
+
+	cast_skill_shot_now()
+
+
+func cast_skill_shot_now() -> void:
+	if queued_skill == SkillShot.NONE:
+		return
+
+	set_state(State.SHOOT)
+	match current_mode:
+		CharacterMode.CHAR_BAKU:
+			sprite.play("shooting_baku")
+			hand_baku.play("shooting")
+		CharacterMode.CHAR_YUNA:
+			sprite.play("shooting_yuna")
+			hand_yuna.play("shooting")
+
+	var hitbox = get_enemy_under_cursor()
+	var enemy: Node = null
+	if hitbox:
+		enemy = hitbox.get_parent()
+	elif queued_skill != SkillShot.PIERCE:
+		enemy = find_nearest_enemy_to_cursor(SKILL_AUTO_TARGET_RADIUS)
+
+	if enemy == null and queued_skill != SkillShot.PIERCE:
+		# Jangan konsumsi skill kalau benar-benar tidak ada target.
+		return
+
+	apply_skill_shot(enemy, hitbox, get_global_mouse_position())
+
+
+func apply_skill_shot(enemy: Node, hitbox: Node, cast_position: Vector2) -> void:
+	if enemy == null and queued_skill != SkillShot.PIERCE:
+		return
+
+	match queued_skill:
+		SkillShot.OVERDRIVE:
+			var overdrive_delay := SKILL_DELAY_OVERDRIVE
+			if enemy.has_method("play_red3_effect"):
+				overdrive_delay = enemy.play_red3_effect()
+			enemy.instakill(overdrive_delay)
+
+		SkillShot.PIERCE:
+			var projectile_origin := cast_position
+			if enemy != null:
+				enemy.apply_damage(2)
+				projectile_origin = enemy.global_position
+			spawn_pierce_projectiles(projectile_origin, enemy)
+
+		SkillShot.CHAIN:
+			apply_chain_mark(enemy)
+
+		SkillShot.NOVA:
+			enemy.apply_damage(1)
+			apply_nova_pull(enemy)
+
+	queued_skill = SkillShot.NONE
+
+
+func find_nearest_enemy_to_cursor(radius: float) -> Node:
+	var cursor_pos: Vector2 = get_global_mouse_position()
+	var best_enemy: Node = null
+	var best_dist: float = radius
+
+	var enemies: Array = get_tree().get_nodes_in_group("enemy_nodes")
+	for enemy in enemies:
+		if enemy == null or not is_instance_valid(enemy):
+			continue
+
+		var dist: float = enemy.global_position.distance_to(cursor_pos)
+		if dist <= best_dist:
+			best_dist = dist
+			best_enemy = enemy
+
+	return best_enemy
+
+
+func spawn_pierce_projectiles(origin: Vector2, source_enemy: Node = null) -> void:
+	var split_dirs: Array[Vector2] = [
+		Vector2.UP,
+		Vector2(-0.8, 0.6).normalized(),
+		Vector2(0.8, 0.6).normalized()
+	]
+
+	for dir: Vector2 in split_dirs:
+		var projectile := PIERCE_PROJECTILE_SCENE.instantiate()
+		get_tree().current_scene.add_child(projectile)
+		projectile.setup(origin, dir, source_enemy)
+		projectile.speed = SKILL_PIERCE_PROJECTILE_SPEED
+		projectile.max_distance = SKILL_PIERCE_SPLIT_RANGE
+		projectile.hit_radius = SKILL_PIERCE_PROJECTILE_RADIUS
+
+
+func apply_chain_mark(center_enemy: Node) -> void:
+	var enemies: Array = get_tree().get_nodes_in_group("enemy_nodes")
+	for enemy in enemies:
+		if enemy == null or not is_instance_valid(enemy):
+			continue
+		if enemy.global_position.distance_to(center_enemy.global_position) <= SKILL_CHAIN_MARK_RADIUS:
+			enemy.set_marked(true)
+
+
+func apply_nova_pull(center_enemy: Node) -> void:
+	var enemies: Array = get_tree().get_nodes_in_group("enemy_nodes")
+	for enemy in enemies:
+		if enemy == null or not is_instance_valid(enemy):
+			continue
+		if enemy == center_enemy:
+			continue
+
+		if enemy.global_position.distance_to(center_enemy.global_position) <= SKILL_NOVA_PULL_RADIUS:
+			enemy.pull_towards(center_enemy.global_position)
+			enemy.apply_slow(SKILL_NOVA_SLOW_DURATION, SKILL_NOVA_SLOW_FACTOR)

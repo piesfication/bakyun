@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal skill_casted(skill_name: String)
+
 @onready var slots := [
 	$MahouMeter/TextureRect/Control/SlotLeft, 
 	$MahouMeter/TextureRect/Control/SlotMid,
@@ -11,6 +13,7 @@ const COLOR_BAKU  = Color("ff536d") # merah
 const COLOR_YUNA  = Color("5d5add") # biru
 
 var slot_states := ["empty", "empty", "empty"]
+var current_cast_skill := "NONE"
 
 @onready var anim := $CastAnimation
 
@@ -91,13 +94,27 @@ func resolve_combo() -> String:
 			return "NONE"
 
 func _input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			print("cast")
-			try_cast()
+	handle_right_click_cast(event)
+
+
+func _unhandled_input(event):
+	handle_right_click_cast(event)
+
+
+func handle_right_click_cast(event) -> void:
+	if not (event is InputEventMouseButton):
+		return
+
+	if event.button_index != MOUSE_BUTTON_RIGHT or not event.pressed:
+		return
+
+	try_cast()
 	
 
 func try_cast():
+	if current_cast_skill != "NONE":
+		return
+
 	if slot_states.has("empty"):
 		return
 
@@ -108,6 +125,8 @@ func try_cast():
 	start_cast(skill)
 
 func start_cast(skill: String):
+	current_cast_skill = skill
+	emit_signal("skill_casted", current_cast_skill)
 	
 	$MahouMeter.visible = false
 	anim.visible = true
@@ -116,6 +135,7 @@ func start_cast(skill: String):
 func _on_cast_animation_animation_finished() -> void:
 	anim.visible = false
 	$MahouMeter.visible = true
+	current_cast_skill = "NONE"
 	reset_slots()
 	pass # Replace with function body.
 
