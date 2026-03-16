@@ -1,0 +1,70 @@
+[gd_scene load_steps=13 format=3 uid="uid://xagbf7jd1fhf"]
+
+[ext_resource type="Texture2D" uid="uid://dl3fjh3wlphra" path="res://assets/enemy/boss/Summon/Orb/Enlarge/Untitled944_20260316134248.png" id="1_0733c"]
+[ext_resource type="Texture2D" uid="uid://ceb3h37p74gfu" path="res://assets/enemy/boss/Summon/Orb/Enlarge/Untitled944_20260316134250.png" id="2_07117"]
+[ext_resource type="Texture2D" uid="uid://xc57qp6wgna6" path="res://assets/enemy/boss/Summon/Orb/Enlarge/Untitled944_20260316134252.png" id="3_ltwtr"]
+[ext_resource type="Texture2D" uid="uid://bcuy4gl8bbk4p" path="res://assets/enemy/boss/Summon/Orb/Enlarge/Untitled944_20260316134254.png" id="4_sg38j"]
+[ext_resource type="Texture2D" uid="uid://ixr3nkrsypv4" path="res://assets/enemy/boss/Summon/Orb/Idle/Untitled945_20260316132243.png" id="5_fxj18"]
+[ext_resource type="Texture2D" uid="uid://cuoo3s6dcdliu" path="res://assets/enemy/boss/Summon/Orb/Idle/Untitled945_20260316132246.png" id="6_tl1bp"]
+[ext_resource type="Texture2D" uid="uid://bjx7au61iqujp" path="res://assets/enemy/boss/Summon/Orb/Idle/Untitled945_20260316132248.png" id="7_qlgep"]
+[ext_resource type="Texture2D" uid="uid://crh80qy1f4si7" path="res://assets/enemy/boss/Summon/Orb/Idle/Untitled945_20260316132250.png" id="8_iscfu"]
+[ext_resource type="Texture2D" uid="uid://cnuavmqrxyexu" path="res://assets/enemy/boss/Summon/Orb/Idle/Untitled945_20260316132252.png" id="9_l8345"]
+[ext_resource type="Texture2D" uid="uid://b2c6utw6yheu2" path="res://assets/enemy/boss/Summon/Orb/Idle/Untitled945_20260316132254.png" id="10_gxay1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nvgyg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0733c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_07117")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ltwtr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_sg38j")
+}],
+"loop": false,
+"name": &"enlarge",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_fxj18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tl1bp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qlgep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_iscfu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_l8345")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_gxay1")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l855h"]
+radius = 169.70563
+
+[node name="HomingOrb" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nvgyg")
+animation = &"moving"
+frame_progress = 0.22870602
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_l855h")

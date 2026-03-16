@@ -30,7 +30,7 @@ const LEVELS = [
 	{ "title": "Do Not Google What We Saw", "difficulty": "hard", "line_baku": "Yuna. You ready. Let's go. Now.", "line_yuna": "W-why are you typing like that—" },
 	{ "title": "Named Later", "difficulty": "hard", "line_baku": "Survive this and drinks on me!!", "line_yuna": "WHY SURVIVE—" },
 	{ "title": "That's A Lot Of Wings", "difficulty": "hard", "line_baku": "Okay there's a lot. Still going!!", "line_yuna": "A LOT?? HOW MANY IS A LOT—" },
-	{ "title": "Unconfirmed. Unhinged.", "difficulty": "hard", "line_baku": "Intel's a bit unclear but—!!", "line_yuna": "A BIT??" },
+	{ "title": "Unconfirmed. Unhinged.", "difficulty": "hard", "line_baku": "Intel's a bit unclear but—!!", "line_yuna": "A BIT???......" },
 	{ "title": "Big One Today", "difficulty": "hard", "line_baku": "Big one today. You and me!!", "line_yuna": "Please define big..." },
 	{ "title": "Do Not Look Up", "difficulty": "hard", "line_baku": "Meet me there!! Don't look up!!", "line_yuna": "Why would I— oh no." },
 	{ "title": "Honestly Impressive", "difficulty": "hard", "line_baku": "This one's huge!! So cool right?!!", "line_yuna": "THAT IS NOT COOL BAKU—" },
