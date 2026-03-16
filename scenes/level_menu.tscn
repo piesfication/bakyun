@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctue4xy3337pk"]
+[gd_scene load_steps=13 format=3 uid="uid://ctue4xy3337pk"]
 
 [ext_resource type="Texture2D" uid="uid://dbgllwskxfss6" path="res://assets/menu/Island/Untitled868_20260315152225.png" id="1_7obll"]
 [ext_resource type="Script" uid="uid://byncm8d1drwvw" path="res://scenes/map_manager.gd" id="2_2go0k"]
@@ -6,7 +6,20 @@
 [ext_resource type="Texture2D" uid="uid://dm0owvx0rv5xc" path="res://assets/menu/Hp/Screen/Untitled935_20260315110302.png" id="3_k08aj"]
 [ext_resource type="PackedScene" uid="uid://bcop4wcc8fbat" path="res://scenes/level_icon.tscn" id="3_qdp46"]
 [ext_resource type="Texture2D" uid="uid://cqqobe7wdmwqe" path="res://assets/menu/Hp/Screen/Untitled935_20260315110531.png" id="4_2go0k"]
+[ext_resource type="Shader" uid="uid://5f1nr57ulaja" path="res://scenes/level_menu.gdshader" id="5_qdp46"]
 [ext_resource type="Script" uid="uid://dsbnw4qd4j1qe" path="res://scenes/chat_area.gd" id="5_teein"]
+[ext_resource type="PackedScene" uid="uid://du6hxlyu0k3oj" path="res://scenes/icon_baku.tscn" id="6_qr4ff"]
+[ext_resource type="PackedScene" uid="uid://dej8pfo1dj0am" path="res://scenes/icon_yuna.tscn" id="7_t7gr0"]
+[ext_resource type="Script" uid="uid://cwfgr4g2804ib" path="res://scenes/level_menu_float.gd" id="8_bob01"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qdp46"]
+shader = ExtResource("5_qdp46")
+shader_parameter/size = 65.0
+shader_parameter/color1 = Color(0.396, 0.78, 0.663, 1)
+shader_parameter/color2 = Color(0.28493494, 0.747735, 0.6507289, 1)
+shader_parameter/speed = 0.30000001425
+shader_parameter/direction_x = 1.0
+shader_parameter/direction_y = 1.0
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -14,14 +27,16 @@ anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
+script = ExtResource("8_bob01")
+phone_float_amplitude = 9.0
+icon_float_amplitude = 10.0
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(640, 359.99994)
-scale = Vector2(0.667, 0.667)
+scale = Vector2(0.69, 0.69)
 texture = ExtResource("1_7obll")
 
 [node name="Phone" type="Control" parent="."]
-clip_contents = true
 layout_mode = 1
 anchor_right = 0.994
 anchor_bottom = 0.989
@@ -42,6 +57,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 1536, 2048)
 
 [node name="TextureRect" type="TextureRect" parent="Phone/PhoneSprite/Screen"]
+clip_children = 1
 clip_contents = true
 offset_left = -767.6163
 offset_top = -1019.4903
@@ -51,13 +67,13 @@ mouse_filter = 2
 texture = ExtResource("3_k08aj")
 expand_mode = 1
 
-[node name="Header" type="Sprite2D" parent="Phone/PhoneSprite/Screen/TextureRect"]
-position = Vector2(767.6162, 1019.4903)
-rotation = -0.0021052817
-scale = Vector2(1.0000001, 1.0000001)
-texture = ExtResource("4_2go0k")
+[node name="Sprite2D" type="Sprite2D" parent="Phone/PhoneSprite/Screen/TextureRect"]
+material = SubResource("ShaderMaterial_qdp46")
+position = Vector2(767.6163, 1019.4903)
+texture = ExtResource("3_k08aj")
 
 [node name="ChatArea" type="Control" parent="Phone/PhoneSprite/Screen/TextureRect"]
+clip_children = 1
 clip_contents = true
 anchors_preset = 0
 offset_left = 2.9985962
@@ -67,13 +83,43 @@ offset_bottom = 1799.1006
 rotation = -0.26563227
 mouse_filter = 2
 script = ExtResource("5_teein")
+icon_baku_path = NodePath("../../../../../IconFollowControl/IconBaku")
+icon_yuna_path = NodePath("../../../../../IconFollowControl/IconYuna")
 
 [node name="MessageList" type="VBoxContainer" parent="Phone/PhoneSprite/Screen/TextureRect/ChatArea"]
+clip_children = 1
+clip_contents = true
 layout_mode = 0
 offset_left = 323.83813
 offset_top = 1115.4424
 offset_right = 323.83813
 offset_bottom = 1115.4424
+
+[node name="Header" type="Sprite2D" parent="Phone"]
+position = Vector2(351.99997, 352)
+rotation = -0.0021052815
+scale = Vector2(0.6670001, 0.6670001)
+texture = ExtResource("4_2go0k")
+
+[node name="IconFollowControl" type="Control" parent="."]
+z_index = 20
+anchors_preset = 0
+offset_left = -176.0
+offset_top = 216.0
+offset_right = 725.46454
+offset_bottom = 936.0
+rotation = -0.26529005
+mouse_filter = 2
+
+[node name="IconBaku" parent="IconFollowControl" instance=ExtResource("6_qr4ff")]
+position = Vector2(509.12195, 445.0559)
+rotation = 0.17245775
+scale = Vector2(0.5, 0.5)
+
+[node name="IconYuna" parent="IconFollowControl" instance=ExtResource("7_t7gr0")]
+position = Vector2(445.93344, 403.0179)
+rotation = 0.44870397
+scale = Vector2(0.5, 0.5)
 
 [node name="MapManager" type="Control" parent="."]
 layout_mode = 1

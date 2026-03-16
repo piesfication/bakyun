@@ -12,7 +12,7 @@
 font = ExtResource("3_ojcag")
 font_size = 51
 font_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
-outline_size = 3
+outline_size = 2
 outline_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_sog0l"]
@@ -44,9 +44,13 @@ font_size = 56
 outline_size = 5
 
 [node name="LevelChat" type="Control"]
+clip_children = 1
+clip_contents = true
 custom_minimum_size = Vector2(624.878, 554.016)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 624.878
+offset_bottom = 554.016
 script = ExtResource("1_o1hks")
 
 [node name="Chatbox" type="Sprite2D" parent="."]
@@ -58,9 +62,9 @@ region_enabled = true
 region_rect = Rect2(498.60593, 741.6414, 624.8779, 554.01556)
 
 [node name="Difficulty" type="Sprite2D" parent="."]
-position = Vector2(272.00003, 264)
+position = Vector2(201.5249, 256)
 rotation = 0.26956907
-scale = Vector2(1.1, 1.1)
+scale = Vector2(1.3, 1.3)
 
 [node name="Easy" type="Sprite2D" parent="Difficulty"]
 texture = ExtResource("4_ppnam")
@@ -73,22 +77,22 @@ texture = ExtResource("6_4nalq")
 
 [node name="DifficultyLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 104.0
-offset_top = 264.00003
-offset_right = 609.10406
-offset_bottom = 331.00003
+offset_left = 108.52492
+offset_top = 263.0
+offset_right = 613.62897
+offset_bottom = 330.0
 rotation = 0.0071223974
 scale = Vector2(1.1, 1.1)
-text = "DIFFICULTY"
+text = "Difficulty "
 label_settings = SubResource("LabelSettings_6pvuy")
 autowrap_mode = 2
 justification_flags = 162
 
 [node name="MessageLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 56.0
+offset_left = 56.999996
 offset_top = 48.0
-offset_right = 560.8826
+offset_right = 561.8826
 offset_bottom = 181.9997
 rotation = 0.011069119
 scale = Vector2(1.1, 1.1)

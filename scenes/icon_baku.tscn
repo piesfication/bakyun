@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://du6hxlyu0k3oj"]
+
+[ext_resource type="Texture2D" uid="uid://yrap8brlvm5q" path="res://assets/menu/Hp/Icon/Untitled935_20260316142431.png" id="1_e5tgy"]
+[ext_resource type="Texture2D" uid="uid://lm3ajoehlwpx" path="res://assets/menu/Hp/Icon/Untitled935_20260316142424.png" id="2_6j833"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jf4kt"]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": ExtResource("1_e5tgy")
+}, {
+"duration": 2.0,
+"texture": ExtResource("2_6j833")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Icon" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jf4kt")
+frame_progress = 0.8209351
