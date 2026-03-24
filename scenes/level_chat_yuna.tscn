@@ -9,7 +9,7 @@ line_spacing = -20.0
 font = ExtResource("2_y0srf")
 font_size = 45
 font_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
-outline_size = 2
+outline_size = 3
 outline_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
 
 [node name="ChatYuna" type="Control"]
@@ -18,25 +18,25 @@ clip_contents = true
 custom_minimum_size = Vector2(505.447, 254.71)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 608.0
+offset_right = 592.0
 offset_bottom = 254.71
 script = ExtResource("1_y0srf")
 
 [node name="TextBox" type="Sprite2D" parent="."]
-position = Vector2(299.8207, 142.09354)
-rotation = 0.2781738
-scale = Vector2(1.1819919, 1.1840352)
+position = Vector2(295.86868, 151.75618)
+rotation = 0.25281972
+scale = Vector2(1.1764101, 1.1025862)
 texture = ExtResource("1_ouy5x")
 region_enabled = true
 region_rect = Rect2(468.6997, 1226.973, 505.44727, 254.7096)
 
 [node name="Message" type="Label" parent="."]
 layout_mode = 0
-offset_left = 88.0
-offset_top = 81.0
-offset_right = 579.87067
-offset_bottom = 194.68225
-rotation = -0.0013779085
+offset_left = 87.87449
+offset_top = 89.89598
+offset_right = 560.1785
+offset_bottom = 204.49918
+rotation = 0.0046495125
 text = "EUMMM......."
 label_settings = SubResource("LabelSettings_xy522")
 vertical_alignment = 1

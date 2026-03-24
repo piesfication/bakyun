@@ -14,11 +14,15 @@ const COLOR_YUNA  = Color("5d5add") # biru
 
 var slot_states := ["empty", "empty", "empty"]
 var current_cast_skill := "NONE"
+var cast_locked: bool = false
+var _mahou_base_position: Vector2 = Vector2.ZERO
+var _mahou_bounce_tween: Tween
 
 @onready var anim := $CastAnimation
 
 func _ready():
 	anim.visible = false
+	_mahou_base_position = $MahouMeter.position
 	for i in range(3):
 		update_slot_visual(i)
 
@@ -34,10 +38,16 @@ func update_slot_visual(index):
 func play_bounce(slot: Control):
 	slot.pivot_offset = slot.size / 2
 	slot.scale = Vector2.ONE
+	if slot == $MahouMeter:
+		if _mahou_bounce_tween != null and _mahou_bounce_tween.is_valid():
+			_mahou_bounce_tween.kill()
+		slot.position = _mahou_base_position
 
 	var start_pos := slot.position
 
 	var tween := create_tween()
+	if slot == $MahouMeter:
+		_mahou_bounce_tween = tween
 	tween.set_trans(Tween.TRANS_BACK)
 	tween.set_ease(Tween.EASE_OUT)
 
@@ -102,6 +112,9 @@ func _unhandled_input(event):
 
 
 func handle_right_click_cast(event) -> void:
+	if cast_locked:
+		return
+
 	if not (event is InputEventMouseButton):
 		return
 
@@ -109,6 +122,9 @@ func handle_right_click_cast(event) -> void:
 		return
 
 	try_cast()
+
+func set_cast_locked(locked: bool) -> void:
+	cast_locked = locked
 	
 
 func try_cast():

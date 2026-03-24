@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8hp068ou66j5"]
+
+[ext_resource type="Script" uid="uid://bfhagvat67pt5" path="res://orb_spawner.gd" id="1_qv0xs"]
+[ext_resource type="PackedScene" uid="uid://xagbf7jd1fhf" path="res://scenes/homing_orb.tscn" id="2_1ogdr"]
+
+[node name="OrbSpawner" type="Node2D"]
+script = ExtResource("1_qv0xs")
+target_scene = ExtResource("2_1ogdr")
+forced_pattern = 0
+min_count = 1
+max_count = 5

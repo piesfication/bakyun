@@ -4,6 +4,7 @@ extends Area2D
 @export var max_distance: float = 620.0
 @export var hit_radius: float = 26.0
 @export var damage: int = 1
+@export var max_depth_difference: float = 0.3
 @export var projectile_scale: Vector2 = Vector2(0.65, 0.2)
 @export var projectile_color: Color = Color(1.0, 0.48, 0.55, 0.92)
 
@@ -13,6 +14,7 @@ var direction: Vector2 = Vector2.ZERO
 var traveled_distance: float = 0.0
 var ignored_enemy: Node = null
 var hit_enemies: Array[Node] = []
+var source_depth_plane: float = 0.5
 
 
 func _ready() -> void:
@@ -38,12 +40,24 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 
-func setup(start_pos: Vector2, move_direction: Vector2, source_enemy: Node = null) -> void:
+func setup(start_pos: Vector2, move_direction: Vector2, source_enemy: Node = null, source_depth: float = 0.5) -> void:
 	global_position = start_pos
 	direction = move_direction.normalized()
 	ignored_enemy = source_enemy
+	source_depth_plane = source_depth
 	traveled_distance = 0.0
 	hit_enemies.clear()
+
+
+func _extract_enemy_depth(enemy: Node) -> Variant:
+	if enemy == null or not is_instance_valid(enemy):
+		return null
+
+	for prop in enemy.get_property_list():
+		if String(prop.get("name", "")) == "depth":
+			return enemy.get("depth")
+
+	return null
 
 
 func setup_visual() -> void:
@@ -87,7 +101,10 @@ func deal_damage_on_overlap() -> void:
 		if not enemy.has_method("apply_damage"):
 			continue
 
+		var enemy_depth: Variant = _extract_enemy_depth(enemy)
+		if enemy_depth != null:
+			if absf(float(enemy_depth) - source_depth_plane) > max_depth_difference:
+				continue
+
 		hit_enemies.append(enemy)
 		enemy.apply_damage(damage)
-		queue_free()
-		return

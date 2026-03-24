@@ -5,7 +5,7 @@ extends Control
 
 var active_icons: Array = []
 var selected_icon = null
-@export var icon_spawn_stagger: float = 0.08
+@export_range(0.0, 1.0, 0.01, "suffix:s") var icon_stagger_delay: float = 0.08
 
 func _ready():
 	print(get_parent().get_children())
@@ -17,10 +17,12 @@ func _ready():
 	await _generate_level_icons()
 
 
-func _generate_level_icons():
+func _generate_level_icons() -> void:
 	# Sembunyikan semua dulu
 	for icon in icons:
 		icon.deactivate()
+
+	selected_icon = null
 	
 	# Pilih 3 random dari 6
 	var shuffled = icons.duplicate()
@@ -36,11 +38,11 @@ func _generate_level_icons():
 	
 	for i in 3:
 		var icon = active_icons[i]
+		await icon.activate(difficulties[i])
 		if not icon.icon_clicked.is_connected(_on_icon_clicked):
 			icon.icon_clicked.connect(_on_icon_clicked)
-		await icon.activate(difficulties[i])
-		if i < 2 and icon_spawn_stagger > 0.0:
-			await get_tree().create_timer(icon_spawn_stagger).timeout
+		if i < 2 and icon_stagger_delay > 0.0:
+			await get_tree().create_timer(icon_stagger_delay).timeout
 		
 func _on_icon_clicked(icon):
 	if chat_area.is_animating:

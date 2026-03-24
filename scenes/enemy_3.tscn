@@ -1,0 +1,270 @@
+[gd_scene load_steps=36 format=3 uid="uid://da1bwa3hfmvfm"]
+
+[ext_resource type="Script" uid="uid://y3d5ikqahssd" path="res://script/enemy.gd" id="1_enemy"]
+[ext_resource type="Texture2D" uid="uid://dcf2ybxfarqdr" path="res://assets/enemy/type_3/Moving/Untitled966_20260319074444.png" id="2_m0"]
+[ext_resource type="Texture2D" uid="uid://c448rnv3y0wqc" path="res://assets/enemy/type_3/Moving/Untitled966_20260319074452.png" id="3_m1"]
+[ext_resource type="Texture2D" uid="uid://efwh6rqcuqma" path="res://assets/enemy/type_3/Moving/Untitled966_20260319074456.png" id="4_m2"]
+[ext_resource type="Texture2D" uid="uid://prdnhjowc5my" path="res://assets/enemy/type_3/Damaged/Untitled966_20260319080456.png" id="5_d0"]
+[ext_resource type="Texture2D" uid="uid://dq7iak1swaiqh" path="res://assets/enemy/type_1/Death/Untitled719_20260314115141.png" id="5_r4bg0"]
+[ext_resource type="Texture2D" uid="uid://r3qrsr51ago2" path="res://assets/enemy/type_3/Damaged/Untitled966_20260319081849.png" id="7_d2"]
+[ext_resource type="Texture2D" uid="uid://cjlsdw73dwk7p" path="res://assets/enemy/type_1/Death/Untitled719_20260314115238.png" id="7_qcqit"]
+[ext_resource type="Texture2D" uid="uid://ct1g13iui0q1u" path="res://assets/enemy/type_1/Death/Untitled719_20260314115242.png" id="8_7cdxo"]
+[ext_resource type="Texture2D" uid="uid://dknwcpeo2m6y1" path="res://assets/skill/Red_3/Untitled931_20260314104627.png" id="9_r0"]
+[ext_resource type="Texture2D" uid="uid://djemec4xo38nr" path="res://assets/skill/Red_3/Untitled931_20260314104629.png" id="10_r1"]
+[ext_resource type="Texture2D" uid="uid://epxdenpdhgq3" path="res://assets/skill/Red_3/Untitled931_20260314104631.png" id="11_r2"]
+[ext_resource type="Texture2D" uid="uid://ck8hklqlb6ko" path="res://assets/skill/Red_3/Untitled931_20260314104634.png" id="12_r3"]
+[ext_resource type="Texture2D" uid="uid://dkn4ppbpo2lha" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121859.png" id="13_ehij8"]
+[ext_resource type="Texture2D" uid="uid://bfk3p3qx722na" path="res://assets/skill/Red_3/Untitled931_20260314104636.png" id="13_r4"]
+[ext_resource type="Texture2D" uid="uid://dfdwufyr4m7tq" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121818.png" id="14_dc0rd"]
+[ext_resource type="Texture2D" uid="uid://qawg4wk2rmv" path="res://assets/skill/Red_3/Untitled931_20260314104639.png" id="14_r5"]
+[ext_resource type="Texture2D" uid="uid://bwptthnl02knp" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121821.png" id="15_b3s7j"]
+[ext_resource type="Texture2D" uid="uid://bf7kjrc2v7kdm" path="res://assets/skill/Red_3/Untitled931_20260314104641.png" id="15_r6"]
+[ext_resource type="Texture2D" uid="uid://cxn5rxdwiq1fk" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121901.png" id="16_wfdle"]
+[ext_resource type="Texture2D" uid="uid://klfdemhjrebs" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121654.png" id="17_tb5qi"]
+[ext_resource type="Texture2D" uid="uid://dim006s2kgwe3" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121801.png" id="18_0preo"]
+[ext_resource type="Texture2D" uid="uid://3if6emxbt4ix" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121659.png" id="19_un3gy"]
+[ext_resource type="Texture2D" uid="uid://2dqanm37eh6w" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121702.png" id="20_4rada"]
+[ext_resource type="Texture2D" uid="uid://dlnhawwj060m2" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121706.png" id="21_unpsx"]
+[ext_resource type="Texture2D" uid="uid://mwihk37pf1up" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121709.png" id="22_wrtwv"]
+[ext_resource type="Texture2D" uid="uid://fbe1nv0ch516" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121713.png" id="23_ec2bf"]
+[ext_resource type="Texture2D" uid="uid://cy2tfkhvunv4i" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121717.png" id="24_s08jv"]
+[ext_resource type="Texture2D" uid="uid://j7cfrw3e1w7l" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121721.png" id="25_e1hl8"]
+[ext_resource type="Texture2D" uid="uid://dhfluu5op0bl5" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121753.png" id="26_0kcxr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_visual"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_d0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_d2")
+}],
+"loop": false,
+"name": &"damaged",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_r4bg0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qcqit")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7cdxo")
+}],
+"loop": false,
+"name": &"death",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_m0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_m1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_m2")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 10.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_health"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_ehij8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_dc0rd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_b3s7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_wfdle")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_tb5qi")
+}],
+"loop": true,
+"name": &"hp_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_0preo")
+}],
+"loop": true,
+"name": &"hp_10",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_un3gy")
+}],
+"loop": true,
+"name": &"hp_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_4rada")
+}],
+"loop": true,
+"name": &"hp_3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_unpsx")
+}],
+"loop": true,
+"name": &"hp_4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_wrtwv")
+}],
+"loop": true,
+"name": &"hp_5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_ec2bf")
+}],
+"loop": true,
+"name": &"hp_6",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_s08jv")
+}],
+"loop": true,
+"name": &"hp_7",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_e1hl8")
+}],
+"loop": true,
+"name": &"hp_8",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_0kcxr")
+}],
+"loop": true,
+"name": &"hp_9",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_red3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_r0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_r1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_r2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_r3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_r4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_r5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_r6")
+}],
+"loop": false,
+"name": &"red3_cast",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hitbox"]
+radius = 344.0
+height = 704.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_weak"]
+radius = 138.0
+height = 380.0
+
+[node name="Enemy3" type="Node2D" node_paths=PackedStringArray("weak_point")]
+script = ExtResource("1_enemy")
+max_hp = 10
+weak_point = NodePath("WeakPoint")
+can_attack = false
+explode_on_close = true
+approach_speed = 0.045
+min_scale = 0.07
+approach_move_speed = 250.0
+flip_when_moving_right = true
+drift_move_speed = 120.0
+flap_speed = 8
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
+z_index = 10
+sprite_frames = SubResource("SpriteFrames_visual")
+animation = &"death"
+frame = 2
+frame_progress = 1.0
+
+[node name="Health" type="AnimatedSprite2D" parent="Visual"]
+z_index = 10
+position = Vector2(-16, 16)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_health")
+animation = &"dead"
+frame = 3
+frame_progress = 1.0
+
+[node name="SkillRed3Effect" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 12
+scale = Vector2(2.4, 2.4)
+sprite_frames = SubResource("SpriteFrames_red3")
+animation = &"red3_cast"
+
+[node name="Hitbox" type="Area2D" parent="." groups=["enemy"]]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(8, 0)
+shape = SubResource("CapsuleShape2D_hitbox")
+
+[node name="WeakPoint" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeakPoint"]
+position = Vector2(8, 80)
+shape = SubResource("CapsuleShape2D_weak")
+
+[connection signal="animation_finished" from="Visual/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="Visual/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

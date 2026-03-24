@@ -4,9 +4,12 @@ extends Node2D
 # VISUAL
 # ==================================================
 @onready var visual: AnimatedSprite2D = $Visual/AnimatedSprite2D
+@onready var health_visual: AnimatedSprite2D = $Visual/Health
 @onready var skill_red3_effect: AnimatedSprite2D = $SkillRed3Effect
 @onready var hitbox_area: Area2D = $Hitbox
 var original_modulate: Color
+var _health_base_scale: Vector2 = Vector2.ONE
+var _health_squash_tween: Tween
 # State
 
 enum State {
@@ -41,8 +44,16 @@ func set_state(new_state: State):
 var hp := max_hp
 var is_dead := false
 var marked := false
+@export_range(0.1, 20.0, 0.1, "suffix:s") var mark_duration: float = 3.0
+var mark_time_left: float = 0.0
 var slow_timer := 0.0
 var slow_factor := 1.0
+var nova_pull_time_left := 0.0
+var nova_pull_target_pos: Vector2 = Vector2.ZERO
+var nova_pull_target_depth := 0.5
+var nova_pull_speed := 420.0
+var nova_pull_depth_lerp_speed := 2.8
+var nova_pull_arrive_distance := 10.0
 
 @export var weak_point: Node2D 
 
@@ -53,10 +64,14 @@ var slow_factor := 1.0
 
 @export var attack_damage: int = 1
 @export var attack_cooldown: float = 2  # tiap 1,5 detik bisa menyerang lagi
+@export var can_attack: bool = true
+@export var explode_on_close: bool = false
+@export var explode_close_damage: int = 1
 
 var player_node: Node2D
 var attack_timer: float = 0.0
 var is_attacking: bool = false
+var _close_explode_triggered: bool = false
 
 # ===========================
 var base_y : float = 0.0
@@ -90,6 +105,11 @@ var is_front: bool = false
 @export var approach_move_speed: float = 350.0
 @export var curve_amplitude: float = 40.0
 @export var curve_frequency: float = 2.0
+@export var approach_target: Vector2 = Vector2(640.0, 430.0)
+@export var approach_target_random_x: float = 90.0
+@export var approach_target_random_y: float = 18.0
+@export var approach_target_min_y: float = 395.0
+@export var flip_when_moving_right: bool = false
 
 var approach_direction: Vector2
 var curve_time: float = 0.0
@@ -123,6 +143,22 @@ var drifting: bool = false
 # Target untuk smooth movement
 var drift_target_pos: Vector2 = Vector2.ZERO
 var current_drift_direction: Vector2 = Vector2.ZERO
+var trigger_zorder_area: Area2D
+var trigger_zorder_polygon: CollisionPolygon2D
+var trigger_zorder_polygons: Array[CollisionPolygon2D] = []
+var has_entered_trigger_zorder: bool = false
+@export var background_top_z: int = 30
+@export var background_front_z: int = 20
+var target_before_drift_shape: CollisionShape2D
+var target_before_drift_polygon: CollisionPolygon2D
+var target_before_drift_anchor: Node2D
+var use_target_before_drift: bool = false
+var reached_target_before_drift: bool = false
+var _probe_shape: CircleShape2D
+var pre_drift_target_point: Vector2 = Vector2.ZERO
+var has_pre_drift_target_point: bool = false
+@export var pre_drift_steer_strength: float = 3.0
+@export var pre_drift_arrive_distance: float = 24.0
 
 # ==================================================
 # BIRD FLAPPING (IDLE ANIMATION)
@@ -148,8 +184,28 @@ var drift_blend := 0.0   # 0 = approach, 1 = drift
 
 func _ready():
 	add_to_group("enemy_nodes")
+	hp = max_hp
+	_probe_shape = CircleShape2D.new()
+	_probe_shape.radius = 1.0
 	skill_red3_effect.visible = false
 	skill_red3_effect.animation_finished.connect(_on_skill_red3_effect_finished)
+	_resolve_trigger_zorder_nodes()
+	has_entered_trigger_zorder = false
+	_resolve_target_before_drift_nodes()
+	_pick_target_before_drift_point()
+	if health_visual != null:
+		_health_base_scale = health_visual.scale
+		health_visual.visible = false
+		health_visual.stop()
+		if not health_visual.animation_finished.is_connected(_on_health_visual_animation_finished):
+			health_visual.animation_finished.connect(_on_health_visual_animation_finished)
+	if weak_point is Area2D:
+		var weak_area := weak_point as Area2D
+		weak_area.monitoring = false
+		weak_area.monitorable = false
+		weak_area.collision_layer = 0
+		weak_area.collision_mask = 0
+		weak_area.remove_from_group("weak_point")
 	#attack_timer = randf_range(0.0, attack_cooldown)
 	original_modulate = self.modulate 
 	set_state(State.MOVING)
@@ -163,10 +219,20 @@ func _ready():
 	
 	scale = Vector2.ONE * 0.15
 	
-	var left_bias: float = randf_range(0.8, 1.0)
-	var up_bias: float = randf_range(0.1, 0.1)
-	
-	approach_direction = Vector2(-left_bias, -up_bias).normalized()
+	# Use a soft approach target for pre-drift steering.
+	var base_target := approach_target
+	if use_target_before_drift and has_pre_drift_target_point:
+		base_target = pre_drift_target_point
+	elif target_before_drift_anchor != null:
+		base_target = target_before_drift_anchor.global_position
+	var target := base_target + Vector2(
+		randf_range(-approach_target_random_x, approach_target_random_x),
+		randf_range(-approach_target_random_y, approach_target_random_y)
+	)
+	target.y = maxf(target.y, approach_target_min_y)
+	approach_direction = (target - position).normalized()
+	if approach_direction == Vector2.ZERO:
+		approach_direction = Vector2(-0.9, -0.1).normalized()
 	
 	curve_time = randf() * TAU
 	drift_origin = position
@@ -182,6 +248,11 @@ func _process(delta: float):
 	if is_dead:
 		return
 
+	if marked:
+		mark_time_left = maxf(mark_time_left - delta, 0.0)
+		if mark_time_left <= 0.0:
+			marked = false
+
 	if slow_timer > 0.0:
 		slow_timer -= delta
 		if slow_timer <= 0.0:
@@ -195,29 +266,45 @@ func _process(delta: float):
 
 	update_drift_blend(sim_delta)
 	update_movement(sim_delta)
+	_apply_nova_pull(sim_delta)
+	update_scale()
 	
 	# Apply bird flapping animation AFTER movement
 	if flap_enabled:
 		apply_bird_flapping(sim_delta)
 	
 	update_phase_and_z()
+	_apply_trigger_zorder_override()
 	
 	update_flip()
 	
 	if player_node:
 		attack_timer -= sim_delta
-		
-		if depth == 0 and attack_timer <= 0 and not is_attacking:
-			start_attack()
+		if depth == 0 and not is_attacking:
+			if explode_on_close:
+				_trigger_close_explode()
+			elif can_attack and attack_timer <= 0:
+				start_attack()
 	
 func start_attack():
-	if is_dead:
+	if is_dead or not can_attack:
 		return
 
 	is_attacking = true
 	attack_timer = randf_range(min_attack_cd, max_attack_cd)
 	set_state(State.ATTACK)
 	visual.play("attack")
+
+func _trigger_close_explode() -> void:
+	if _close_explode_triggered or is_dead:
+		return
+	_close_explode_triggered = true
+
+	if player_node != null and is_instance_valid(player_node):
+		if player_node.has_method("take_damage"):
+			player_node.take_damage(max(explode_close_damage, 0))
+
+	die()
 
 @export var idle_amplitude := 8.0  # Dikurangi karena flapping sudah handle naik turun
 @export var idle_speed := 2.5
@@ -263,6 +350,12 @@ func randomize_drift_pattern():
 
 
 func update_movement(delta):
+	if use_target_before_drift and not reached_target_before_drift and has_pre_drift_target_point:
+		var desired_direction := (pre_drift_target_point - position).normalized()
+		if desired_direction != Vector2.ZERO:
+			# Smooth steering so movement feels organic instead of magnet-pulled.
+			approach_direction = approach_direction.lerp(desired_direction, minf(delta * pre_drift_steer_strength, 1.0)).normalized()
+
 	
 	curve_time += delta * curve_frequency
 
@@ -354,7 +447,10 @@ func update_flip():
 	if abs(last_velocity.x) < 1.0:
 		return
 
-	visual.flip_h = last_velocity.x < 0
+	if flip_when_moving_right:
+		visual.flip_h = last_velocity.x > 0
+	else:
+		visual.flip_h = last_velocity.x < 0
 	
 
 func update_curved_approach(delta):
@@ -388,8 +484,16 @@ func update_drift(delta):
 	
 func update_phase_and_z():
 	var current_scale = scale.x
+	if use_target_before_drift and not reached_target_before_drift:
+		reached_target_before_drift = _is_inside_target_before_drift() or (has_pre_drift_target_point and position.distance_to(pre_drift_target_point) <= pre_drift_arrive_distance)
 
-	if not drifting and current_scale >= drift_start_scale:
+	var can_start_drift := false
+	if use_target_before_drift:
+		can_start_drift = reached_target_before_drift
+	else:
+		can_start_drift = current_scale >= drift_start_scale
+
+	if not drifting and can_start_drift:
 
 		drifting = true
 		z_index = z_front
@@ -410,15 +514,267 @@ func update_phase_and_z():
 		var drift_dir_y := -pow(randf(), 2.5)
 		drift_dir = Vector2(drift_dir_x, drift_dir_y).normalized()
 
+	_update_z_from_depth()
+
+func _resolve_target_before_drift_nodes() -> void:
+	var root := get_tree().current_scene
+	if root == null:
+		return
+
+	# Accept either CollisionShape2D or CollisionPolygon2D named targetbeforedrift/TargetBeforeDrift.
+	var direct_shape := root.find_child("targetbeforedrift", true, false) as CollisionShape2D
+	if direct_shape == null:
+		direct_shape = root.find_child("TargetBeforeDrift", true, false) as CollisionShape2D
+	if direct_shape != null:
+		target_before_drift_shape = direct_shape
+		target_before_drift_anchor = direct_shape
+		use_target_before_drift = true
+		return
+
+	var direct_polygon := root.find_child("targetbeforedrift", true, false) as CollisionPolygon2D
+	if direct_polygon == null:
+		direct_polygon = root.find_child("TargetBeforeDrift", true, false) as CollisionPolygon2D
+	if direct_polygon != null:
+		target_before_drift_polygon = direct_polygon
+		target_before_drift_anchor = direct_polygon
+		use_target_before_drift = true
+		return
+
+	# Also support Area2D wrapper with collision children.
+	var area := root.find_child("targetbeforedrift", true, false) as Area2D
+	if area == null:
+		area = root.find_child("TargetBeforeDrift", true, false) as Area2D
+	if area == null:
+		return
+
+	target_before_drift_anchor = area
+	for child in area.get_children():
+		if child is CollisionShape2D and target_before_drift_shape == null:
+			target_before_drift_shape = child as CollisionShape2D
+		if child is CollisionPolygon2D and target_before_drift_polygon == null:
+			target_before_drift_polygon = child as CollisionPolygon2D
+
+	use_target_before_drift = target_before_drift_shape != null or target_before_drift_polygon != null
+
+func _pick_target_before_drift_point() -> void:
+	has_pre_drift_target_point = false
+	if not use_target_before_drift:
+		return
+
+	if target_before_drift_polygon != null and not target_before_drift_polygon.polygon.is_empty():
+		var poly := target_before_drift_polygon.polygon
+		var rect := Rect2(poly[0], Vector2.ZERO)
+		for p in poly:
+			rect = rect.expand(p)
+
+		for i in range(24):
+			var candidate_local := Vector2(
+				randf_range(rect.position.x, rect.position.x + rect.size.x),
+				randf_range(rect.position.y, rect.position.y + rect.size.y)
+			)
+			if Geometry2D.is_point_in_polygon(candidate_local, poly):
+				pre_drift_target_point = target_before_drift_polygon.to_global(candidate_local)
+				has_pre_drift_target_point = true
+				return
+
+	if target_before_drift_shape != null and target_before_drift_shape.shape != null:
+		var local_point := Vector2.ZERO
+		if target_before_drift_shape.shape is RectangleShape2D:
+			var rect_shape := target_before_drift_shape.shape as RectangleShape2D
+			local_point = Vector2(
+				randf_range(-rect_shape.size.x * 0.5, rect_shape.size.x * 0.5),
+				randf_range(-rect_shape.size.y * 0.5, rect_shape.size.y * 0.5)
+			)
+		elif target_before_drift_shape.shape is CircleShape2D:
+			var circle := target_before_drift_shape.shape as CircleShape2D
+			var angle := randf() * TAU
+			var r := sqrt(randf()) * circle.radius
+			local_point = Vector2(cos(angle), sin(angle)) * r
+		elif target_before_drift_shape.shape is CapsuleShape2D:
+			var capsule := target_before_drift_shape.shape as CapsuleShape2D
+			var half_height := capsule.height * 0.5
+			local_point = Vector2(
+				randf_range(-capsule.radius, capsule.radius),
+				randf_range(-half_height, half_height)
+			)
+
+		pre_drift_target_point = target_before_drift_shape.global_transform * local_point
+		has_pre_drift_target_point = true
+		return
+
+	if target_before_drift_anchor != null:
+		pre_drift_target_point = target_before_drift_anchor.global_position
+		has_pre_drift_target_point = true
+
+func _is_inside_target_before_drift() -> bool:
+	if target_before_drift_polygon != null:
+		var local_point := target_before_drift_polygon.to_local(global_position)
+		if Geometry2D.is_point_in_polygon(local_point, target_before_drift_polygon.polygon):
+			return true
+
+	if target_before_drift_shape == null or target_before_drift_shape.shape == null or _probe_shape == null:
+		return false
+
+	var target_xform: Transform2D = target_before_drift_shape.global_transform
+	var probe_xform := Transform2D(0.0, global_position)
+	return target_before_drift_shape.shape.collide(target_xform, _probe_shape, probe_xform)
+
+
+func _update_z_from_depth() -> void:
+	# depth: 0.0 = dekat (front), 1.0 = jauh (back)
+	# Map depth continuously into z-range so NOVA pull also updates layering.
+	var mapped_z := lerpf(float(z_front), float(z_far), clampf(depth, 0.0, 1.0))
+	z_index = int(round(mapped_z))
+
+func _resolve_trigger_zorder_nodes() -> void:
+	var root := get_tree().current_scene
+	if root == null:
+		return
+
+	trigger_zorder_polygon = null
+	trigger_zorder_polygons.clear()
+
+	trigger_zorder_area = root.find_child("triggerzorder", true, false) as Area2D
+	if trigger_zorder_area == null:
+		trigger_zorder_area = root.find_child("TriggerZOrder", true, false) as Area2D
+	if trigger_zorder_area == null:
+		return
+
+	for child in trigger_zorder_area.get_children():
+		if child is CollisionPolygon2D:
+			trigger_zorder_polygons.append(child as CollisionPolygon2D)
+
+	if not trigger_zorder_polygons.is_empty():
+		trigger_zorder_polygon = trigger_zorder_polygons[0]
+
+	var detected_background_top := _detect_trigger_background_top_z()
+	if detected_background_top > background_top_z:
+		background_top_z = detected_background_top
+
+	var detected_front_z := _detect_trigger_front_z()
+	if detected_front_z >= 0:
+		background_front_z = detected_front_z
+
+func _detect_trigger_background_top_z() -> int:
+	if trigger_zorder_area == null:
+		return background_top_z
+
+	var background_root := trigger_zorder_area.get_parent()
+	if background_root == null:
+		return background_top_z
+
+	var max_z := background_top_z
+	for child in background_root.get_children():
+		if child == trigger_zorder_area:
+			continue
+		if child is CanvasItem:
+			max_z = max(max_z, (child as CanvasItem).z_index)
+
+	return max_z
+
+func _detect_trigger_front_z() -> int:
+	if trigger_zorder_area == null:
+		return -1
+
+	var background_root := trigger_zorder_area.get_parent()
+	if background_root == null:
+		return -1
+
+	var front_node := background_root.get_node_or_null("Front") as CanvasItem
+	if front_node != null:
+		return front_node.z_index
+
+	# Fallback by name search in case Front is nested or named with different case.
+	for child in background_root.get_children():
+		if child is CanvasItem and String(child.name).to_lower() == "front":
+			return (child as CanvasItem).z_index
+
+	return -1
+
+func _is_inside_trigger_zorder() -> bool:
+	if trigger_zorder_polygons.is_empty():
+		if trigger_zorder_polygon == null:
+			return false
+		if trigger_zorder_polygon.polygon.is_empty():
+			return false
+
+		for probe in _get_trigger_probe_points():
+			var local_single := trigger_zorder_polygon.to_local(probe)
+			if Geometry2D.is_point_in_polygon(local_single, trigger_zorder_polygon.polygon):
+				return true
+		return false
+
+	for poly in trigger_zorder_polygons:
+		if poly == null or not is_instance_valid(poly):
+			continue
+		if poly.polygon.is_empty():
+			continue
+
+		for probe in _get_trigger_probe_points():
+			var local_point := poly.to_local(probe)
+			if Geometry2D.is_point_in_polygon(local_point, poly.polygon):
+				return true
+
+	return false
+
+func _get_trigger_probe_points() -> Array[Vector2]:
+	var points: Array[Vector2] = [global_position]
+	if hitbox_area == null:
+		return points
+
+	for child in hitbox_area.get_children():
+		if not (child is CollisionShape2D):
+			continue
+
+		var shape_node := child as CollisionShape2D
+		if shape_node.shape == null:
+			continue
+
+		var xf := shape_node.global_transform
+		points.append(xf.origin)
+
+		if shape_node.shape is RectangleShape2D:
+			var rect := shape_node.shape as RectangleShape2D
+			var half := rect.size * 0.5
+			points.append(xf * Vector2(half.x, 0))
+			points.append(xf * Vector2(-half.x, 0))
+			points.append(xf * Vector2(0, half.y))
+			points.append(xf * Vector2(0, -half.y))
+		elif shape_node.shape is CircleShape2D:
+			var circle := shape_node.shape as CircleShape2D
+			points.append(xf * Vector2(circle.radius, 0))
+			points.append(xf * Vector2(-circle.radius, 0))
+			points.append(xf * Vector2(0, circle.radius))
+			points.append(xf * Vector2(0, -circle.radius))
+		elif shape_node.shape is CapsuleShape2D:
+			var capsule := shape_node.shape as CapsuleShape2D
+			var half_h := capsule.height * 0.5
+			points.append(xf * Vector2(0, half_h + capsule.radius))
+			points.append(xf * Vector2(0, -(half_h + capsule.radius)))
+			points.append(xf * Vector2(capsule.radius, 0))
+			points.append(xf * Vector2(-capsule.radius, 0))
+
+	return points
+
+func _apply_trigger_zorder_override() -> void:
+	if _is_inside_trigger_zorder():
+		has_entered_trigger_zorder = true
+
+	if not has_entered_trigger_zorder:
+		var max_pre_trigger_z := background_front_z - 1
+		if z_index > max_pre_trigger_z:
+			z_index = max_pre_trigger_z
+		return
+
+	var min_front_z := background_top_z + 1
+	if z_index < min_front_z:
+		z_index = min_front_z
+
 func on_hit(hit_area: Node = null):
 	if is_dead:
 		return
 
-	if hit_area == weak_point:
-		instakill()
-		print("Critical Hit!")
-	else:
-		apply_damage(1)
+	apply_damage(1)
 		
 
 func apply_damage(amount: int) -> void:
@@ -427,6 +783,9 @@ func apply_damage(amount: int) -> void:
 
 	set_state(State.DAMAGED)
 	hp -= amount
+	_show_health_exclusive()
+	_play_health_state_animation()
+	_play_health_squeeze_stretch()
 
 	if hp <= 0:
 		die()
@@ -438,6 +797,8 @@ func instakill(delay: float = 0.0) -> void:
 
 	if delay <= 0.0:
 		hp = 0
+		_show_health_exclusive()
+		_play_health_state_animation()
 		die()
 		return
 
@@ -445,28 +806,38 @@ func instakill(delay: float = 0.0) -> void:
 	timer.timeout.connect(func():
 		if is_instance_valid(self) and not is_dead and hp > 0:
 			hp = 0
+			_show_health_exclusive()
+			_play_health_state_animation()
 			die()
 	)
 
 
 func set_marked(value: bool) -> void:
 	marked = value
+	if marked:
+		mark_time_left = maxf(mark_duration, 0.1)
+	else:
+		mark_time_left = 0.0
 
 
 func is_marked() -> bool:
-	return marked
+	return marked and mark_time_left > 0.0
 
 
-func explode_mark(radius: float, damage: int) -> void:
-	if not marked:
+func explode_mark(radius: float, damage: int, visited: Array[Node] = []) -> void:
+	if not is_marked():
+		return
+	if damage <= 0:
 		return
 
-	marked = false
+	# Linked mark hit: when a marked enemy is hit, all other marked enemies also take damage.
 	var enemies: Array = get_tree().get_nodes_in_group("enemy_nodes")
 	for enemy in enemies:
 		if enemy == null or not is_instance_valid(enemy):
 			continue
-		if enemy.global_position.distance_to(global_position) <= radius:
+		if enemy == self:
+			continue
+		if enemy.has_method("is_marked") and enemy.is_marked() and enemy.has_method("apply_damage"):
 			enemy.apply_damage(damage)
 
 
@@ -479,7 +850,37 @@ func pull_towards(target_pos: Vector2, strength: float = 0.55) -> void:
 	global_position = global_position.lerp(target_pos, clampf(strength, 0.0, 1.0))
 
 
+func apply_nova_pull_effect(target_pos: Vector2, target_depth: float, pull_speed: float, duration: float) -> void:
+	if is_dead:
+		return
+
+	nova_pull_target_pos = target_pos
+	nova_pull_target_depth = clampf(target_depth, 0.0, 1.0)
+	nova_pull_speed = maxf(pull_speed, 0.0)
+	nova_pull_time_left = maxf(duration, 0.0)
+	flap_enabled = true
+
+
+func _apply_nova_pull(delta: float) -> void:
+	if nova_pull_time_left <= 0.0:
+		return
+
+	if position.distance_to(nova_pull_target_pos) <= nova_pull_arrive_distance:
+		nova_pull_time_left = 0.0
+		return
+
+	nova_pull_time_left -= delta
+	position = position.move_toward(nova_pull_target_pos, nova_pull_speed * delta)
+	depth = move_toward(depth, nova_pull_target_depth, nova_pull_depth_lerp_speed * delta)
+	depth = clampf(depth, 0.0, 1.0)
+	# Update z-order immediately as depth changes during pull
+	_update_z_from_depth()
+
+
 func play_red3_effect() -> float:
+	if is_dead or hp <= 0:
+		return 0.0
+
 	if skill_red3_effect == null:
 		return 0.0
 
@@ -508,18 +909,95 @@ func die():
 	hp = 0
 	marked = false
 	is_attacking = false
+	_close_explode_triggered = true
 
 	if hitbox_area:
 		hitbox_area.monitoring = false
 		hitbox_area.monitorable = false
+		hitbox_area.collision_layer = 0
+		hitbox_area.collision_mask = 0
 
 	if weak_point is Area2D:
 		var weak_area := weak_point as Area2D
 		weak_area.monitoring = false
 		weak_area.monitorable = false
+		weak_area.collision_layer = 0
+		weak_area.collision_mask = 0
+
+	_show_health_exclusive()
+	_play_health_state_animation()
 
 	print("Bakyun!")
 	set_state(State.DEATH)
+
+func is_targetable() -> bool:
+	return not is_dead and hp > 0
+
+func _hide_health_visual() -> void:
+	if health_visual == null:
+		return
+	health_visual.visible = false
+	health_visual.stop()
+	health_visual.scale = _health_base_scale
+
+func _show_health_exclusive() -> void:
+	if health_visual == null:
+		return
+
+	for enemy_node in get_tree().get_nodes_in_group("enemy_nodes"):
+		if enemy_node == null or not is_instance_valid(enemy_node):
+			continue
+		if enemy_node == self:
+			continue
+		if enemy_node.has_method("_hide_health_visual"):
+			enemy_node.call("_hide_health_visual")
+
+	health_visual.visible = true
+
+func _play_health_state_animation() -> void:
+	if health_visual == null or not health_visual.visible:
+		return
+
+	if hp <= 0:
+		health_visual.play("dead")
+		return
+
+	# Prefer exact hp_N animation when available (used by tank enemies like hp_10..hp_1).
+	var exact_anim := StringName("hp_%d" % hp)
+	if health_visual.sprite_frames != null and health_visual.sprite_frames.has_animation(exact_anim):
+		health_visual.play(exact_anim)
+		return
+
+	if hp >= 3:
+		health_visual.play("hp_3")
+	elif hp == 2:
+		health_visual.play("hp_2")
+	else:
+		health_visual.play("hp_1")
+
+func _play_health_squeeze_stretch() -> void:
+	if health_visual == null or not health_visual.visible:
+		return
+
+	if _health_squash_tween != null and _health_squash_tween.is_valid():
+		_health_squash_tween.kill()
+
+	health_visual.scale = _health_base_scale
+	_health_squash_tween = create_tween()
+	_health_squash_tween.set_trans(Tween.TRANS_BACK)
+	_health_squash_tween.set_ease(Tween.EASE_OUT)
+	_health_squash_tween.tween_property(health_visual, "scale", Vector2(_health_base_scale.x * 1.18, _health_base_scale.y * 0.84), 0.08)
+	_health_squash_tween.tween_property(health_visual, "scale", Vector2(_health_base_scale.x * 0.94, _health_base_scale.y * 1.08), 0.08)
+	_health_squash_tween.tween_property(health_visual, "scale", _health_base_scale, 0.10)
+
+func _on_health_visual_animation_finished() -> void:
+	if health_visual == null:
+		return
+	if String(health_visual.animation) != "dead":
+		return
+
+	# Hide health UI right after dead animation completes.
+	_hide_health_visual()
 	
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if state == State.DAMAGED :
@@ -528,12 +1006,17 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		is_attacking = false
 		set_state(State.MOVING)
 	elif state == State.DEATH :
+		remove_from_group("enemy_nodes")
 		queue_free()
 	pass # Replace with function body.
 
 
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if state == State.ATTACK and visual.frame == 1:
+		if not can_attack:
+			return
+		if player_node == null or not is_instance_valid(player_node):
+			return
 		print("aww!")
-		player_node.take_damage(1)
+		player_node.take_damage(attack_damage)
 	pass # Replace with function body.

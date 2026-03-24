@@ -1,6 +1,8 @@
 extends Node2D
 
 @export var player_path: NodePath = NodePath("../../../Player")
+@export var damage_flash_color: Color = Color(1.0, 0.7, 0.7, 1.0)
+@export var damage_flash_duration: float = 0.08
 
 @onready var anim_card: AnimatedSprite2D = $AnimCard
 
@@ -8,6 +10,7 @@ var player: Node
 var current_character := "baku"
 var base_scale := Vector2.ONE
 var switch_tween: Tween
+var damage_flash_tween: Tween
 
 
 func _ready() -> void:
@@ -28,21 +31,31 @@ func _ready() -> void:
 	if player.has_method("get_current_character_name"):
 		current_character = String(player.call("get_current_character_name"))
 
-	var hp_now := int(player.get("current_hp"))
+	var hp_now := _get_display_hp_tier(int(player.get("current_hp")))
 	play_idle_for_hp(hp_now)
 
 
 func _on_character_switched(character_name: String) -> void:
 	current_character = character_name.to_lower()
 	play_switch_squash_stretch()
-	var hp_now := int(player.get("current_hp"))
+	var hp_now := _get_display_hp_tier(int(player.get("current_hp")))
 	play_idle_for_hp(hp_now)
 
 
 func _on_player_hp_changed(old_hp: int, new_hp: int) -> void:
-	var transition_anim := get_transition_animation(old_hp, new_hp)
+	var old_tier := _get_display_hp_tier(old_hp)
+	var new_tier := _get_display_hp_tier(new_hp)
+
+	# Damaged HUD hanya untuk event HP turun.
+	if new_hp >= old_hp:
+		play_idle_for_hp(new_tier)
+		return
+
+	_play_damage_flash()
+
+	var transition_anim := get_transition_animation(old_tier, new_tier)
 	if transition_anim.is_empty():
-		play_idle_for_hp(new_hp)
+		play_idle_for_hp(new_tier)
 		return
 
 	if anim_card.sprite_frames.has_animation(transition_anim):
@@ -53,7 +66,7 @@ func _on_player_hp_changed(old_hp: int, new_hp: int) -> void:
 
 
 func _on_anim_card_animation_finished() -> void:
-	var hp_now := int(player.get("current_hp"))
+	var hp_now := _get_display_hp_tier(int(player.get("current_hp")))
 	play_idle_for_hp(hp_now)
 
 
@@ -75,6 +88,19 @@ func get_transition_animation(old_hp: int, new_hp: int) -> String:
 		return "%s_1_to_0" % current_character
 	return ""
 
+func _get_display_hp_tier(raw_hp: int) -> int:
+	if player == null:
+		return clampi(raw_hp, 0, 3)
+
+	var max_hp := int(player.get("max_hp"))
+	if max_hp <= 3:
+		return clampi(raw_hp, 0, 3)
+	if raw_hp <= 0:
+		return 0
+
+	# Petakan HP aktual ke 3 tier HUD: 3, 2, 1, 0.
+	return clampi(int(ceili((float(raw_hp) / float(max_hp)) * 3.0)), 1, 3)
+
 
 func play_switch_squash_stretch() -> void:
 	if switch_tween and switch_tween.is_running():
@@ -92,3 +118,15 @@ func play_switch_squash_stretch() -> void:
 	switch_tween.tween_property(anim_card, "scale", squash, 0.08)
 	switch_tween.tween_property(anim_card, "scale", stretch, 0.09)
 	switch_tween.tween_property(anim_card, "scale", base_scale, 0.1)
+
+func _play_damage_flash() -> void:
+	if anim_card == null:
+		return
+	if damage_flash_tween and damage_flash_tween.is_running():
+		damage_flash_tween.kill()
+
+	anim_card.modulate = damage_flash_color
+	damage_flash_tween = create_tween()
+	damage_flash_tween.set_trans(Tween.TRANS_SINE)
+	damage_flash_tween.set_ease(Tween.EASE_OUT)
+	damage_flash_tween.tween_property(anim_card, "modulate", Color.WHITE, damage_flash_duration)

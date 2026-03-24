@@ -1,0 +1,87 @@
+[gd_scene load_steps=15 format=3 uid="uid://b0oqkr3pkn6g0"]
+
+[ext_resource type="Texture2D" uid="uid://by0lld1v0fk73" path="res://assets/enemy/boss/Weakness/New/Untitled950_20260317152455.png" id="1_rdgqk"]
+[ext_resource type="Texture2D" uid="uid://cvmjlcocec5vh" path="res://assets/enemy/boss/Weakness/New/Untitled950_20260317152522.png" id="2_nkt10"]
+[ext_resource type="Texture2D" uid="uid://13448jh5gg3j" path="res://assets/enemy/boss/Weakness/New/Untitled950_20260317152524.png" id="3_fysop"]
+[ext_resource type="Texture2D" uid="uid://bsxbii3hri6r6" path="res://assets/enemy/boss/Weakness/New/Untitled950_20260317152537.png" id="4_fabt8"]
+[ext_resource type="Texture2D" uid="uid://cu1t8txwe4qpa" path="res://assets/enemy/boss/Weakness/New/Untitled950_20260317151354.png" id="5_ppciy"]
+[ext_resource type="Texture2D" uid="uid://ei85007vudap" path="res://assets/enemy/boss/Weakness/New/Untitled950_20260317151421.png" id="6_q3mi7"]
+[ext_resource type="Texture2D" uid="uid://h77b234qxe77" path="res://assets/enemy/boss/Weakness/New/Untitled950_20260317151430.png" id="7_xs4ou"]
+[ext_resource type="Texture2D" uid="uid://pu21j6nr4ax1" path="res://assets/enemy/boss/Weakness/New/Untitled950_20260317151504.png" id="8_f4xwb"]
+[ext_resource type="Texture2D" uid="uid://bvq6vk6pe617u" path="res://assets/enemy/boss/Weakness/New/Untitled953_20260317154210.png" id="9_0vyx7"]
+[ext_resource type="Texture2D" uid="uid://b8a47bkx6u3a2" path="res://assets/enemy/boss/Weakness/New/Untitled953_20260317154212.png" id="10_vhgij"]
+[ext_resource type="Texture2D" uid="uid://15qkv4k8pla" path="res://assets/enemy/boss/Weakness/New/Untitled952_20260317154048.png" id="11_ij0f4"]
+[ext_resource type="Texture2D" uid="uid://br6hx32j6aodp" path="res://assets/enemy/boss/Weakness/New/Untitled952_20260317154052.png" id="12_8a04d"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7gnu5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_rdgqk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_nkt10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_fysop")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fabt8")
+}],
+"loop": false,
+"name": &"explode_blue",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ppciy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_q3mi7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_xs4ou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_f4xwb")
+}],
+"loop": false,
+"name": &"explode_red",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_0vyx7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vhgij")
+}],
+"loop": true,
+"name": &"weak_blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_ij0f4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8a04d")
+}],
+"loop": true,
+"name": &"weak_red",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xaoiu"]
+radius = 120.26637
+
+[node name="WeaknessPoint" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7gnu5")
+animation = &"weak_blue"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xaoiu")

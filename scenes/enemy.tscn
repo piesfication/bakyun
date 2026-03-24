@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dct0qkwu3vopj"]
+[gd_scene load_steps=35 format=3 uid="uid://dct0qkwu3vopj"]
 
 [ext_resource type="Script" uid="uid://y3d5ikqahssd" path="res://script/enemy.gd" id="1_5uy6h"]
 [ext_resource type="Texture2D" uid="uid://bgb4uqsi5qyvy" path="res://assets/enemy/type_1/moving/Untitled691_20260115182347.png" id="2_c4w8v"]
@@ -19,6 +19,16 @@
 [ext_resource type="Texture2D" uid="uid://qawg4wk2rmv" path="res://assets/skill/Red_3/Untitled931_20260314104639.png" id="10_red3f"]
 [ext_resource type="Texture2D" uid="uid://ct1g13iui0q1u" path="res://assets/enemy/type_1/Death/Untitled719_20260314115242.png" id="11_2mchx"]
 [ext_resource type="Texture2D" uid="uid://bf7kjrc2v7kdm" path="res://assets/skill/Red_3/Untitled931_20260314104641.png" id="11_red3g"]
+[ext_resource type="Texture2D" uid="uid://dvut77o5tvpuy" path="res://assets/enemy/type_1/Hp/Untitled975_20260319195745.png" id="13_i4rgx"]
+[ext_resource type="Texture2D" uid="uid://du5chynx23keb" path="res://assets/enemy/type_1/Hp/Untitled975_20260319195747.png" id="14_2mchx"]
+[ext_resource type="Texture2D" uid="uid://ck0mvmi4wki20" path="res://assets/enemy/type_1/Hp/Untitled975_20260319195757.png" id="15_t3vcr"]
+[ext_resource type="Texture2D" uid="uid://duu78cwcax401" path="res://assets/enemy/type_1/Hp/Untitled975_20260319234343.png" id="16_qaulx"]
+[ext_resource type="Texture2D" uid="uid://c66hqej0cs6d2" path="res://assets/enemy/type_1/Hp/Untitled975_20260319234325.png" id="17_1f82d"]
+[ext_resource type="Texture2D" uid="uid://cb83tfcf5tkdt" path="res://assets/enemy/type_1/Hp/Untitled975_20260319195742.png" id="18_lioqc"]
+[ext_resource type="Texture2D" uid="uid://cokueaear552g" path="res://assets/enemy/boss/Weakness/Blue/Untitled947_20260317130929.png" id="26_1f82d"]
+[ext_resource type="Texture2D" uid="uid://ul5apwp0jtou" path="res://assets/enemy/boss/Weakness/Blue/Untitled947_20260317130931.png" id="27_lioqc"]
+[ext_resource type="Texture2D" uid="uid://drjgfos71tdmp" path="res://assets/enemy/boss/Weakness/Blue/Untitled947_20260317130935.png" id="28_0lg75"]
+[ext_resource type="Texture2D" uid="uid://b4l3ms58fif4i" path="res://assets/enemy/boss/Weakness/Blue/Untitled947_20260317130937.png" id="29_lsnsy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_md484"]
 animations = [{
@@ -76,6 +86,47 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_0lg75"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_2mchx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_i4rgx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_t3vcr")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_qaulx")
+}],
+"loop": true,
+"name": &"hp_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_1f82d")
+}],
+"loop": true,
+"name": &"hp_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_lioqc")
+}],
+"loop": true,
+"name": &"hp_3",
+"speed": 5.0
+}]
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_red3"]
 animations = [{
 "frames": [{
@@ -105,20 +156,38 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_thsr5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_1f82d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_lioqc")
+}],
+"loop": true,
+"name": &"marked",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_0lg75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_lsnsy")
+}],
+"loop": false,
+"name": &"shooted",
+"speed": 7.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5uy6h"]
-size = Vector2(1013.3333, 500)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_c4w8v"]
-radius = 193.44824
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5uy6h"]
-radius = 119.88051
-height = 346.41452
+size = Vector2(906.6666, 480)
 
 [node name="Enemy" type="Node2D" node_paths=PackedStringArray("weak_point")]
 scale = Vector2(0.15, 0.15)
 script = ExtResource("1_5uy6h")
-weak_point = NodePath("WeakPoint")
+weak_point = NodePath("")
 approach_speed = 0.2
 
 [node name="Visual" type="Node2D" parent="."]
@@ -126,7 +195,15 @@ approach_speed = 0.2
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
 z_index = 10
 sprite_frames = SubResource("SpriteFrames_md484")
-animation = &"death"
+animation = &"moving"
+frame_progress = 0.4184042
+
+[node name="Health" type="AnimatedSprite2D" parent="Visual"]
+z_index = 10
+position = Vector2(-13.333351, 6.66667)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_0lg75")
+animation = &"dead"
 frame = 2
 frame_progress = 1.0
 
@@ -139,6 +216,16 @@ animation = &"red3_cast"
 frame = 6
 frame_progress = 1.0
 
+[node name="SkillRed1Blue2Effect" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 12
+position = Vector2(-13.333336, 126.666626)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_thsr5")
+animation = &"marked"
+frame = 1
+frame_progress = 0.9253056
+
 [node name="DriftTimer" type="Timer" parent="."]
 
 [node name="Hitbox" type="Area2D" parent="." groups=["enemy"]]
@@ -146,22 +233,8 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(26.666647, 123.33332)
+position = Vector2(-26.666681, 80.00001)
 shape = SubResource("RectangleShape2D_5uy6h")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-13.333333, 126.666664)
-shape = SubResource("CircleShape2D_c4w8v")
-
-[node name="WeakPoint" type="Area2D" parent="." groups=["weak_point"]]
-collision_layer = 2
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WeakPoint"]
-position = Vector2(-6.6666684, 173.33336)
-rotation = -1.5865043
-shape = SubResource("CapsuleShape2D_5uy6h")
-debug_color = Color(0.977469, 0, 0.40755582, 0.41960785)
 
 [connection signal="animation_changed" from="Visual/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
 [connection signal="animation_finished" from="Visual/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

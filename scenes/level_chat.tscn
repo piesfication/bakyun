@@ -33,7 +33,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_o1hks")
 }],
-"loop": true,
+"loop": false,
 "name": &"click",
 "speed": 5.0
 }]
@@ -51,6 +51,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 624.878
 offset_bottom = 554.016
+mouse_filter = 1
 script = ExtResource("1_o1hks")
 
 [node name="Chatbox" type="Sprite2D" parent="."]
@@ -92,7 +93,7 @@ justification_flags = 162
 layout_mode = 0
 offset_left = 56.999996
 offset_top = 48.0
-offset_right = 561.8826
+offset_right = 548.4408
 offset_bottom = 181.9997
 rotation = 0.011069119
 scale = Vector2(1.1, 1.1)
@@ -106,11 +107,12 @@ justification_flags = 162
 position = Vector2(263.99997, 256)
 rotation = 0.26956907
 scale = Vector2(1.1, 1.1)
+input_pickable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartButton"]
 position = Vector2(85.512596, 108.692345)
-rotation = -0.27898872
-scale = Vector2(1.1, 1.1)
+rotation = 0.0
+scale = Vector2(1.0, 1.0)
 shape = SubResource("RectangleShape2D_o1hks")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StartButton"]
@@ -129,3 +131,15 @@ text = "LET'S GO!!!"
 label_settings = SubResource("LabelSettings_nqij5")
 autowrap_mode = 2
 justification_flags = 162
+
+[node name="StartClickZone" type="Button" parent="."]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 285.0
+offset_right = 566.0
+offset_bottom = 452.0
+focus_mode = 0
+flat = true
+text = ""
+
+

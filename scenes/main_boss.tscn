@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://o4vxjklhbsaj"]
+
+[ext_resource type="PackedScene" uid="uid://d1u6i3t35llsd" path="res://scenes/main.tscn" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://6a1bnv075qqc" path="res://scenes/enemy_boss.tscn" id="2_boss"]
+[ext_resource type="Script" uid="uid://bd86t0e02nu7n" path="res://script/main_boss_level.gd" id="3_script"]
+
+[node name="Main" instance=ExtResource("1_main")]
+script = ExtResource("3_script")
+boss_spawn_position = Vector2(800, 512)
+enemy_scene = ExtResource("2_boss")
+max_enemies = 1
+spawn_interval = 9999.0
+
+[node name="Background" parent="." index="0"]
+position = Vector2(-18.000002, -9)
+
+[node name="EnemyContainer" parent="." index="1"]
+position = Vector2(-8, -8)
+
+[node name="Crosshair" parent="." index="3"]
+position = Vector2(-232, 296)
+
+[node name="DamageHud" parent="." index="4"]
+position = Vector2(641.00006, 366.00003)
+scale = Vector2(0.70937514, 0.7333333)
