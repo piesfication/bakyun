@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ctue4xy3337pk"]
+[gd_scene load_steps=21 format=3 uid="uid://ctue4xy3337pk"]
 
 [ext_resource type="Texture2D" uid="uid://dbgllwskxfss6" path="res://assets/menu/Island/Untitled868_20260315152225.png" id="1_7obll"]
 [ext_resource type="Script" uid="uid://byncm8d1drwvw" path="res://scenes/map_manager.gd" id="2_2go0k"]
@@ -12,6 +12,11 @@
 [ext_resource type="Shader" uid="uid://5f1nr57ulaja" path="res://scenes/level_menu.gdshader" id="8_q0t2x"]
 [ext_resource type="Script" uid="uid://cwfgr4g2804ib" path="res://scenes/level_menu_float.gd" id="9_f1oat"]
 [ext_resource type="PackedScene" uid="uid://ipsj4qvblc3m" path="res://scenes/level_confirmation.tscn" id="10_xk4l2"]
+[ext_resource type="Script" uid="uid://dtppdsewryec4" path="res://script/back_click.gd" id="11_ojubo"]
+[ext_resource type="FontFile" uid="uid://dcs4tsec8f7yd" path="res://assets/font/zrtw-hackynote-personal-use/ZRTW-HackynotePersonalUse.otf" id="11_qc6d6"]
+[ext_resource type="Script" uid="uid://dgxvxmitrd13o" path="res://script/parallax_background.gd" id="13_tkofx"]
+[ext_resource type="Texture2D" uid="uid://71fsdc8fl4jf" path="res://assets/title/Untitled977_20260324075141.png" id="14_qc6d6"]
+[ext_resource type="Script" uid="uid://b57hbvyj18rxn" path="res://script/parallax_background_2.gd" id="15_ojubo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6flmm"]
 shader = ExtResource("8_q0t2x")
@@ -22,6 +27,15 @@ shader_parameter/speed = 0.4
 shader_parameter/direction_x = 1.0
 shader_parameter/direction_y = 1.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_ojubo"]
+font = ExtResource("11_qc6d6")
+font_size = 30
+font_color = Color(1, 0.56078434, 0.5568628, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nmg3d"]
+radius = 56.09485
+height = 137.96802
+
 [node name="Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -29,6 +43,7 @@ offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 script = ExtResource("9_f1oat")
+phone_node_path = NodePath("CanvasLayer/Phone")
 background_float_amplitude = 5.0
 phone_float_speed = 2.0
 background_float_speed = 1.0
@@ -36,32 +51,34 @@ background_phase_offset = 0.3
 background_scale_padding = 0.0
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(640, 359.99994)
+position = Vector2(640, 349.6)
 scale = Vector2(0.69, 0.69)
 texture = ExtResource("1_7obll")
 
-[node name="Phone" type="Control" parent="."]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Phone" type="Control" parent="CanvasLayer"]
+layout_mode = 3
 anchor_right = 0.994
 anchor_bottom = 0.989
 offset_right = -560.32007
 offset_bottom = 7.919983
 mouse_filter = 1
 
-[node name="PhoneSprite" type="Node2D" parent="Phone"]
+[node name="PhoneSprite" type="Node2D" parent="CanvasLayer/Phone"]
 position = Vector2(352.00003, 352)
 scale = Vector2(0.667, 0.667)
 
-[node name="Base" type="Sprite2D" parent="Phone/PhoneSprite"]
+[node name="Base" type="Sprite2D" parent="CanvasLayer/Phone/PhoneSprite"]
 texture = ExtResource("2_teein")
 
-[node name="Screen" type="Sprite2D" parent="Phone/PhoneSprite"]
+[node name="Screen" type="Sprite2D" parent="CanvasLayer/Phone/PhoneSprite"]
 material = SubResource("ShaderMaterial_6flmm")
 texture = ExtResource("3_k08aj")
 region_enabled = true
 region_rect = Rect2(0, 0, 1536, 2048)
 
-[node name="TextureRect" type="TextureRect" parent="Phone/PhoneSprite/Screen"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Phone/PhoneSprite/Screen"]
 clip_children = 1
 clip_contents = true
 offset_left = -767.6163
@@ -71,7 +88,7 @@ offset_bottom = 1028.5098
 texture = ExtResource("3_k08aj")
 expand_mode = 1
 
-[node name="ChatArea" type="Control" parent="Phone/PhoneSprite/Screen/TextureRect"]
+[node name="ChatArea" type="Control" parent="CanvasLayer/Phone/PhoneSprite/Screen/TextureRect"]
 clip_children = 1
 clip_contents = true
 anchors_preset = 0
@@ -84,34 +101,85 @@ script = ExtResource("5_teein")
 icon_baku_path = NodePath("../../../../IconBaku")
 icon_yuna_path = NodePath("../../../../IconYuna")
 
-[node name="MessageList" type="VBoxContainer" parent="Phone/PhoneSprite/Screen/TextureRect/ChatArea"]
+[node name="MessageList" type="VBoxContainer" parent="CanvasLayer/Phone/PhoneSprite/Screen/TextureRect/ChatArea"]
 layout_mode = 0
 offset_left = 323.83813
 offset_top = 1115.4424
 offset_right = 323.83813
 offset_bottom = 1115.4424
 
-[node name="Header" type="Sprite2D" parent="Phone/PhoneSprite/Screen"]
+[node name="Header" type="Sprite2D" parent="CanvasLayer/Phone/PhoneSprite/Screen"]
 position = Vector2(-0.00012207031, 0)
 rotation = -0.0021052652
 texture = ExtResource("4_2go0k")
 
-[node name="IconBaku" parent="Phone" instance=ExtResource("6_qr4ff")]
+[node name="IconBaku" parent="CanvasLayer/Phone" instance=ExtResource("6_qr4ff")]
 position = Vector2(430, 498)
 scale = Vector2(0.5, 0.5)
 
-[node name="IconYuna" parent="Phone" instance=ExtResource("7_t7gr0")]
+[node name="IconYuna" parent="CanvasLayer/Phone" instance=ExtResource("7_t7gr0")]
 position = Vector2(360, 480)
 rotation = 0.2443461
 scale = Vector2(0.5, 0.5)
+
+[node name="Back" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.81875
+anchor_top = 0.055555556
+anchor_right = 0.81875
+anchor_bottom = 0.055555556
+offset_left = 96.0
+offset_top = 612.0
+offset_right = 495.0
+offset_bottom = 658.0
+text = "Back "
+label_settings = SubResource("LabelSettings_ojubo")
+metadata/_edit_use_anchors_ = true
+
+[node name="BackClick" type="Area2D" parent="CanvasLayer/Back"]
+script = ExtResource("11_ojubo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Back/BackClick"]
+position = Vector2(27, 20)
+rotation = -1.549207
+shape = SubResource("CapsuleShape2D_nmg3d")
+
+[node name="Overlay" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.70000005)
+
+[node name="LevelConfirmationContainer" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LevelConfirmation" parent="CanvasLayer/LevelConfirmationContainer" instance=ExtResource("10_xk4l2")]
+visible = false
+position = Vector2(640, 384.00003)
+scale = Vector2(0.65, 0.65)
 
 [node name="MapManager" type="Control" parent="."]
 layout_mode = 1
 anchor_right = 0.994
 anchor_bottom = 0.989
 offset_left = 640.0
+offset_top = -10.399933
 offset_right = 7.6799316
-offset_bottom = 7.919983
+offset_bottom = -2.4799194
 mouse_filter = 2
 script = ExtResource("2_2go0k")
 
@@ -139,31 +207,32 @@ scale = Vector2(0.43, 0.43)
 position = Vector2(112, 479.99997)
 scale = Vector2(0.43, 0.43)
 
-[node name="Overlay" type="ColorRect" parent="."]
-visible = false
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 0
-color = Color(0, 0, 0, 0.5)
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = 0
+script = ExtResource("13_tkofx")
+scroll_speed = 40
 
-[node name="LevelConfirmationContainer" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -640.0
-offset_top = -360.0
-offset_right = 640.0
-offset_bottom = 360.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 50
+position = Vector2(0, 52)
+motion_mirroring = Vector2(1286.4, 0)
 
-[node name="LevelConfirmation" parent="LevelConfirmationContainer" instance=ExtResource("10_xk4l2")]
-visible = false
-position = Vector2(640, 384.00003)
-scale = Vector2(0.65, 0.65)
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(640, 332)
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("14_qc6d6")
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+layer = 0
+script = ExtResource("15_ojubo")
+scroll_speed = 40
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
+position = Vector2(-16, -56)
+motion_mirroring = Vector2(1286.4, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer"]
+position = Vector2(640, 352)
+rotation = -3.1415925
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("14_qc6d6")

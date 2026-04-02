@@ -11,6 +11,8 @@ var level_confirmation_container: Control
 var level_confirmation: Node2D
 var level_confirmation_base_scale: Vector2
 var level_confirmation_base_pos: Vector2
+var current_confirmation_level_data: Dictionary = {}
+var level_start_in_progress: bool = false
 
 const LevelCard = preload("res://scenes/level_chat.tscn")
 const NpcBubble = preload("res://scenes/level_chat_yuna.tscn")
@@ -78,9 +80,12 @@ func _ready():
 			if level_confirmation:
 				level_confirmation_base_scale = level_confirmation.scale
 				level_confirmation_base_pos = level_confirmation.position
-			# Connect overlay click to close confirmation
-			if overlay and not overlay.gui_input.is_connected(Callable(self, "_on_overlay_gui_input")):
-				overlay.gui_input.connect(Callable(self, "_on_overlay_gui_input"))
+				var confirm_button := level_confirmation.get_node_or_null("Button") as BaseButton
+				if confirm_button and not confirm_button.pressed.is_connected(Callable(self, "_on_level_confirmation_button_pressed")):
+					confirm_button.pressed.connect(Callable(self, "_on_level_confirmation_button_pressed"))
+				var cancel_button := level_confirmation.get_node_or_null("Button2") as BaseButton
+				if cancel_button and not cancel_button.pressed.is_connected(Callable(self, "_on_level_confirmation_button2_pressed")):
+					cancel_button.pressed.connect(Callable(self, "_on_level_confirmation_button2_pressed"))
 			break
 		parent = parent.get_parent()
 
@@ -371,6 +376,7 @@ func _on_level_confirmation_requested(level_data: Dictionary) -> void:
 	level_confirmation.modulate.a = 0.0
 	
 	_setup_level_confirmation(level_data)
+	current_confirmation_level_data = level_data.duplicate(true)
 
 	# Fade overlay in with a softer ramp.
 	var overlay_tween = create_tween()
@@ -398,12 +404,51 @@ func _setup_level_confirmation(level_data: Dictionary) -> void:
 	if level_title_label:
 		var title_text := String(level_data.get("title", level_data.get("level_name", "Level Title Here")))
 		level_title_label.text = "\" %s \"" % title_text
+
+	# Set confirmation text based on difficulty
+	var confirmation_text_label := level_confirmation.get_node_or_null("Sprite2D/confirmationText") as Label
+	if confirmation_text_label:
+		confirmation_text_label.text = _pick_confirmation_text(difficulty)
 	
 	# Set difficulty icons
 	_setup_difficulty_icons(difficulty)
 	
 	# Setup enemy list
 	_setup_enemy_list(difficulty)
+
+func _pick_confirmation_text(difficulty: String) -> String:
+	var easy_texts: Array[String] = [
+		"Just a light stroll through what's left. Ready?",
+		"Nothing too scary this time. Wanna go?",
+		"A calm path ahead... shall we?",
+		"Let's take it easy. Ready to begin?",
+		"Still plenty to see. Want to explore?"
+	]
+	var medium_texts: Array[String] = [
+		"Things might get a little rough. Still going?",
+		"The road's not as kind now. Continue?",
+		"A bit tougher ahead. You in?",
+		"Let's see how far we can go.",
+		"It won't be as easy this time. Ready?"
+	]
+	var hard_texts: Array[String] = [
+		"This path won't be easy. You sure?",
+		"You might regret this... still going?",
+		"It's getting rough out there.",
+		"No promises this time. Continue?",
+		"You've come this far... keep going?"
+	]
+
+	var pool: Array[String] = easy_texts
+	match difficulty.to_lower():
+		"easy":
+			pool = easy_texts
+		"medium":
+			pool = medium_texts
+		"hard":
+			pool = hard_texts
+
+	return pool[randi() % pool.size()]
 
 func _setup_difficulty_icons(difficulty: String) -> void:
 	var difficulty_node = level_confirmation.get_node("Sprite2D/Difficulty")
@@ -451,10 +496,35 @@ func _setup_enemy_list(difficulty: String) -> void:
 			if hard_node:
 				hard_node.visible = true
 
-func _on_overlay_gui_input(event: InputEvent) -> void:
-	# Only close if left mouse button is clicked
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		_close_level_confirmation()
+func _on_level_confirmation_button_pressed() -> void:
+	if level_start_in_progress:
+		return
+
+	level_start_in_progress = true
+	var target_scene := _get_level_scene_from_confirmation_data()
+	if target_scene.is_empty():
+		level_start_in_progress = false
+		return
+
+	LoadingManager.set_target_scene(target_scene)
+	await Transition.fade_out()
+	get_tree().change_scene_to_file("res://scenes/loading_screen.tscn")
+	await Transition.fade_in()
+
+func _get_level_scene_from_confirmation_data() -> String:
+	var difficulty := String(current_confirmation_level_data.get("difficulty", "easy")).to_lower()
+	match difficulty:
+		"easy":
+			return "res://scenes/main.tscn"
+		"medium":
+			return "res://scenes/main_easy.tscn"
+		"hard":
+			return "res://scenes/main_hard.tscn"
+		_:
+			return "res://scenes/main.tscn"
+
+func _on_level_confirmation_button2_pressed() -> void:
+	_close_level_confirmation()
 
 func _close_level_confirmation() -> void:
 	if overlay == null or level_confirmation_container == null or level_confirmation == null:

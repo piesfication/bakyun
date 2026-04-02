@@ -1,8 +1,55 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbbto12dwewrj"]
+[gd_scene load_steps=10 format=3 uid="uid://bbbto12dwewrj"]
 
 [ext_resource type="Script" uid="uid://dff4dr1n010w3" path="res://script/pierce_projectile.gd" id="1_pierce"]
+[ext_resource type="Texture2D" uid="uid://bcjliqc1s11ba" path="res://assets/skill/Red_2_Blue_1/Untitled993_20260324183238.png" id="2_3doht"]
+[ext_resource type="Texture2D" uid="uid://7kiqcx1to02g" path="res://assets/skill/Red_2_Blue_1/Untitled993_20260324183240.png" id="3_2yver"]
+[ext_resource type="Texture2D" uid="uid://bxx8ta27ppkrg" path="res://assets/skill/Red_2_Blue_1/Untitled993_20260324183242.png" id="4_ubsfs"]
+[ext_resource type="Texture2D" uid="uid://wa4g82c1nrx" path="res://assets/skill/Red_2_Blue_1/Untitled993_20260324183244.png" id="5_ts8qm"]
+[ext_resource type="Texture2D" uid="uid://dncjo1krvq5yg" path="res://assets/skill/Red_2_Blue_1/Untitled993_20260324183246.png" id="6_db1kw"]
+[ext_resource type="Texture2D" uid="uid://dfwwse7o8jm5a" path="res://assets/skill/Red_2_Blue_1/Untitled993_20260324183248.png" id="7_j6dc2"]
+[ext_resource type="Texture2D" uid="uid://lfsu4j40fc3n" path="res://assets/skill/Red_2_Blue_1/Untitled993_20260324183250.png" id="8_6mqor"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qsedi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3doht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2yver")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ubsfs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ts8qm")
+}],
+"loop": false,
+"name": &"launch",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_db1kw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_j6dc2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6mqor")
+}],
+"loop": true,
+"name": &"travel",
+"speed": 10.0
+}]
 
 [node name="PierceProjectile" type="Area2D"]
 script = ExtResource("1_pierce")
 
-[node name="Visual" type="Sprite2D" parent="."]
+[node name="Visual" type="AnimatedSprite2D" parent="."]
+rotation = 3.1415927
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_qsedi")
+animation = &"launch"
+frame = 3
+frame_progress = 1.0

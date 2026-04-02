@@ -2,8 +2,9 @@ extends Node2D
 
 signal hp_changed(old_hp: int, new_hp: int)
 signal character_switched(character_name: String)
+signal died
 
-@export var max_hp := 30
+@export var max_hp := 3
 var current_hp := max_hp
 var invulnerable: bool = false
 
@@ -11,6 +12,7 @@ var invulnerable: bool = false
 @onready var yuna := $YunaMahou
 
 var current_weapon: Node2D
+var input_locked: bool = false
 
 @export var damage_shake_duration: float = 0.24
 @export var damage_shake_strength: float = 26.0
@@ -58,10 +60,14 @@ func _process(delta: float) -> void:
 
 
 func _input(event):
+	if input_locked:
+		return
 	if event.is_action_pressed("switch"):
 		switch_weapon()
 
 func switch_weapon():
+	if input_locked:
+		return
 	current_weapon.visible = false
 
 	if current_weapon == baku:
@@ -102,7 +108,11 @@ func take_damage(amount: int):
 
 func die():
 	print("GAME OVER")
-	get_tree().paused = true
+	emit_signal("died")
+
+
+func set_input_locked(locked: bool) -> void:
+	input_locked = locked
 
 func set_invulnerable(enabled: bool) -> void:
 	invulnerable = enabled

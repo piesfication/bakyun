@@ -16,9 +16,9 @@ const LEVELS = [
 	# MEDIUM
 	{ "title": "Shibuya Incident", "difficulty": "medium", "line_baku": "Okay so I found one. We going?!!", "line_yuna": "Found or caused—" },
 	{ "title": "Wing Thing", "difficulty": "medium", "line_baku": "Winged ones!! Let's go check!!", "line_yuna": "Check or fight??" },
-	{ "title": "A Totally Reasonable Situation", "difficulty": "medium", "line_baku": "Reasonable mission!! You in?!!", "line_yuna": "Define reasonable..." },
+	{ "title": "Reasonable Situation", "difficulty": "medium", "line_baku": "Reasonable mission!! You in?!!", "line_yuna": "Define reasonable..." },
 	{ "title": "Chapter ???", "difficulty": "medium", "line_baku": "Fingers ready?? Let's go!!", "line_yuna": "W-wait I'm still eating—" },
-	{ "title": "Untitled Anomaly Zone", "difficulty": "medium", "line_baku": "New zone!! Coming?!!", "line_yuna": "Since when is it new—" },
+	{ "title": "Untitled", "difficulty": "medium", "line_baku": "New zone!! Coming?!!", "line_yuna": "Since when is it new—" },
 	{ "title": "Getting Interesting", "difficulty": "medium", "line_baku": "This one looks interesting!!", "line_yuna": "Interesting is dangerous..." },
 	{ "title": "More Than Expected", "difficulty": "medium", "line_baku": "More than usual but we got it!!", "line_yuna": "More than usual...??" },
 	{ "title": "Classified (By Me)", "difficulty": "medium", "line_baku": "I scouted it already!! Trust me!!", "line_yuna": "That's what worries me..." },

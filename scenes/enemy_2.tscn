@@ -1,18 +1,26 @@
-[gd_scene load_steps=30 format=3 uid="uid://cbf4f6104em5y"]
+[gd_scene load_steps=51 format=3 uid="uid://cbf4f6104em5y"]
 
 [ext_resource type="Script" uid="uid://y3d5ikqahssd" path="res://script/enemy.gd" id="1_enemy"]
 [ext_resource type="Texture2D" uid="uid://cwnuno0gcdx3u" path="res://assets/enemy/type_2/Attack/Untitled691_20260319091647.png" id="2_a0"]
+[ext_resource type="Texture2D" uid="uid://d1vwixba1j331" path="res://assets/skill/Blue_3/Revised/Untitled998_20260325130126.png" id="2_aagj6"]
+[ext_resource type="Texture2D" uid="uid://4i2abekcrfdv" path="res://assets/skill/Blue_3/Revised/Untitled998_20260325130128.png" id="3_5v02v"]
 [ext_resource type="Texture2D" uid="uid://bnrjx6rhoibr1" path="res://assets/enemy/type_2/Attack/Untitled971_20260319104832.png" id="3_a1"]
 [ext_resource type="Texture2D" uid="uid://ut2f04ps8gxv" path="res://assets/enemy/type_2/Attack/Untitled971_20260319110621.png" id="4_a2"]
+[ext_resource type="Texture2D" uid="uid://slno2rnp7dl8" path="res://assets/skill/Blue_3/Revised/Untitled998_20260325130130.png" id="4_upjqh"]
 [ext_resource type="Texture2D" uid="uid://n7y3a554bdrn" path="res://assets/enemy/type_2/Attack/Untitled971_20260319110626.png" id="5_a3"]
+[ext_resource type="Texture2D" uid="uid://cyiibus4kyo4h" path="res://assets/skill/Blue_3/Revised/Untitled998_20260325133334.png" id="5_tlnsu"]
+[ext_resource type="Texture2D" uid="uid://drerp4nwbhg6r" path="res://assets/skill/Blue_3/Revised/Untitled998_20260325130134.png" id="6_6b383"]
 [ext_resource type="Texture2D" uid="uid://cq1yqp1rrg07t" path="res://assets/enemy/type_2/Attack/Untitled971_20260319102840.png" id="6_a4"]
+[ext_resource type="Texture2D" uid="uid://dpf80r5tg5yuj" path="res://assets/skill/Blue_3/Revised/Untitled998_20260325130135.png" id="7_3jaho"]
 [ext_resource type="Texture2D" uid="uid://brgonmqigtasj" path="res://assets/enemy/type_2/Damaged/Untitled691_20260319084440.png" id="7_d0"]
 [ext_resource type="Texture2D" uid="uid://d1r5mn4osbogv" path="res://assets/enemy/type_2/Damaged/Untitled691_20260319084443.png" id="8_d1"]
+[ext_resource type="Texture2D" uid="uid://cps8usgh0p4vf" path="res://assets/skill/Blue_3/Revised/Untitled998_20260325130137.png" id="8_tn8ov"]
+[ext_resource type="Texture2D" uid="uid://chpskhm5v5psv" path="res://assets/enemy/type_1/Death/Untitled719_20260314115137.png" id="9_52uuk"]
 [ext_resource type="Texture2D" uid="uid://d2j87ixd636u0" path="res://assets/enemy/type_2/Moving/Untitled691_20260115182410.png" id="9_m0"]
 [ext_resource type="Texture2D" uid="uid://cqv3fiae36nxn" path="res://assets/enemy/type_2/Moving/Untitled691_20260115182421.png" id="10_m1"]
 [ext_resource type="Texture2D" uid="uid://djs7bf2knq74t" path="res://assets/enemy/type_2/Moving/Untitled691_20260115182425.png" id="11_m2"]
-[ext_resource type="Texture2D" uid="uid://dq7iak1swaiqh" path="res://assets/enemy/type_1/Death/Untitled719_20260314115141.png" id="12_772e2"]
 [ext_resource type="Texture2D" uid="uid://cbn1wqlar0ljl" path="res://assets/enemy/type_2/Moving/Untitled691_20260115182428.png" id="12_m3"]
+[ext_resource type="Texture2D" uid="uid://cx6bv1sdl3tbq" path="res://assets/enemy/type_1/Death/Untitled719_20260314115245.png" id="12_qypmd"]
 [ext_resource type="Texture2D" uid="uid://cjlsdw73dwk7p" path="res://assets/enemy/type_1/Death/Untitled719_20260314115238.png" id="13_0atp2"]
 [ext_resource type="Texture2D" uid="uid://dknwcpeo2m6y1" path="res://assets/skill/Red_3/Untitled931_20260314104627.png" id="13_r0"]
 [ext_resource type="Texture2D" uid="uid://ct1g13iui0q1u" path="res://assets/enemy/type_1/Death/Untitled719_20260314115242.png" id="14_a86bm"]
@@ -25,6 +33,45 @@
 [ext_resource type="Texture2D" uid="uid://ck0mvmi4wki20" path="res://assets/enemy/type_1/Hp/Untitled975_20260319195757.png" id="18_0atp2"]
 [ext_resource type="Texture2D" uid="uid://qawg4wk2rmv" path="res://assets/skill/Red_3/Untitled931_20260314104639.png" id="18_r5"]
 [ext_resource type="Texture2D" uid="uid://bf7kjrc2v7kdm" path="res://assets/skill/Red_3/Untitled931_20260314104641.png" id="19_r6"]
+[ext_resource type="Texture2D" uid="uid://jef4xsmow1tx" path="res://assets/enemy/boss/Summon/ColoredOrb/Blue/Explode/Untitled945_20260317083154.png" id="27_di7ta"]
+[ext_resource type="Texture2D" uid="uid://bqopx8oqt0k2n" path="res://assets/enemy/boss/Summon/ColoredOrb/Blue/Explode/Untitled945_20260317083104.png" id="28_bp1hr"]
+[ext_resource type="Texture2D" uid="uid://dfa1nbafou3tv" path="res://assets/enemy/boss/Summon/ColoredOrb/Blue/Explode/Untitled945_20260317083110.png" id="29_pacgd"]
+[ext_resource type="Texture2D" uid="uid://d087ipxpdd3dq" path="res://assets/enemy/boss/Summon/ColoredOrb/Blue/Explode/Untitled945_20260317082851.png" id="30_gudce"]
+[ext_resource type="Texture2D" uid="uid://coaf2unwj4v4q" path="res://assets/enemy/boss/Summon/ColoredOrb/Blue/Explode/Untitled945_20260317082916.png" id="31_1r7lx"]
+[ext_resource type="Texture2D" uid="uid://d04aae3lppq0p" path="res://assets/enemy/boss/Summon/ColoredOrb/Red/Explode/Untitled945_20260317083140.png" id="32_aagj6"]
+[ext_resource type="Texture2D" uid="uid://k1muu3xpeh1l" path="res://assets/enemy/boss/Summon/ColoredOrb/Red/Explode/Untitled945_20260317083101.png" id="33_5v02v"]
+[ext_resource type="Texture2D" uid="uid://cx0t08c6drfa2" path="res://assets/enemy/boss/Summon/ColoredOrb/Red/Explode/Untitled945_20260317083106.png" id="34_upjqh"]
+[ext_resource type="Texture2D" uid="uid://cpse3jepynn34" path="res://assets/enemy/boss/Summon/ColoredOrb/Red/Explode/Untitled945_20260317082900.png" id="35_tlnsu"]
+[ext_resource type="Texture2D" uid="uid://dgk2k70nu2ua5" path="res://assets/enemy/boss/Summon/ColoredOrb/Red/Explode/Untitled945_20260317082930.png" id="36_6b383"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fy7br"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_aagj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5v02v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_upjqh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tlnsu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6b383")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3jaho")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tn8ov")
+}],
+"loop": false,
+"name": &"blue3_cast",
+"speed": 13.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_visual"]
 animations = [{
@@ -61,17 +108,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("12_772e2")
+"texture": ExtResource("9_52uuk")
 }, {
 "duration": 1.0,
 "texture": ExtResource("13_0atp2")
 }, {
 "duration": 1.0,
 "texture": ExtResource("14_a86bm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_qypmd")
 }],
 "loop": false,
 "name": &"death",
-"speed": 6.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -137,8 +187,56 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
-size = Vector2(816, 544)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r53gs"]
+radius = 208.0
+height = 448.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_772e2"]
+radius = 152.0
+height = 352.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3jaho"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_di7ta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_bp1hr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_pacgd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_gudce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_1r7lx")
+}],
+"loop": false,
+"name": &"hit_blue",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("32_aagj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_5v02v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_upjqh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_tlnsu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_6b383")
+}],
+"loop": false,
+"name": &"hit_red",
+"speed": 10.0
+}]
 
 [node name="Enemy2" type="Node2D"]
 script = ExtResource("1_enemy")
@@ -149,16 +247,26 @@ flip_when_moving_right = true
 drift_move_speed = 320.0
 flap_speed = 16
 
+[node name="SkillBlue3Effect" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 12
+position = Vector2(16, 32)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_fy7br")
+animation = &"blue3_cast"
+frame = 6
+frame_progress = 1.0
+
 [node name="Visual" type="Node2D" parent="."]
 scale = Vector2(1.15, 1.15)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
-z_index = 10
 sprite_frames = SubResource("SpriteFrames_visual")
-animation = &"moving"
+animation = &"death"
+frame = 3
+frame_progress = 1.0
 
 [node name="Health" type="AnimatedSprite2D" parent="Visual"]
-z_index = 10
 position = Vector2(-8, -8)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_health")
@@ -168,7 +276,6 @@ frame_progress = 1.0
 
 [node name="SkillRed3Effect" type="AnimatedSprite2D" parent="."]
 visible = false
-z_index = 12
 scale = Vector2(2.4, 2.4)
 sprite_frames = SubResource("SpriteFrames_red3")
 animation = &"red3_cast"
@@ -178,8 +285,26 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-24, 32)
-shape = SubResource("RectangleShape2D_hitbox")
+position = Vector2(-8, 128)
+shape = SubResource("CapsuleShape2D_r53gs")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(224, 48)
+rotation = 1.538147
+shape = SubResource("CapsuleShape2D_772e2")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-248, 8)
+rotation = -1.5628763
+shape = SubResource("CapsuleShape2D_772e2")
+
+[node name="HitVisual" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 12
+position = Vector2(-8, 128)
+scale = Vector2(2.3, 2.3)
+sprite_frames = SubResource("SpriteFrames_3jaho")
+animation = &"hit_blue"
 
 [connection signal="animation_finished" from="Visual/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="Visual/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

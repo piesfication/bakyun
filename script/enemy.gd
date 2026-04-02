@@ -6,10 +6,14 @@ extends Node2D
 @onready var visual: AnimatedSprite2D = $Visual/AnimatedSprite2D
 @onready var health_visual: AnimatedSprite2D = $Visual/Health
 @onready var skill_red3_effect: AnimatedSprite2D = $SkillRed3Effect
+@onready var skill_blue3_effect: AnimatedSprite2D = $SkillBlue3Effect
+@onready var hitvis := $HitVisual
 @onready var hitbox_area: Area2D = $Hitbox
 var original_modulate: Color
 var _health_base_scale: Vector2 = Vector2.ONE
 var _health_squash_tween: Tween
+
+var _pending_nova_pull = null
 # State
 
 enum State {
@@ -28,16 +32,19 @@ func set_state(new_state: State):
 
 	match state:
 		State.MOVING:
-			visual.modulate = original_modulate
+			if nova_pull_time_left <= 0.0:
+				visual.modulate = original_modulate
 			visual.play("moving")
 		State.DAMAGED:
-			visual.modulate = Color(1.0, 0.804, 0.815, 1.0)
+			if nova_pull_time_left <= 0.0:
+				visual.modulate = Color(1.0, 0.804, 0.815, 1.0)
 			visual.play("damaged")
 		State.ATTACK:
 			print("attack!")
 			pass
 		State.DEATH:
-			visual.modulate = Color(1.0, 0.804, 0.815, 1.0)
+			if nova_pull_time_left <= 0.0:
+				visual.modulate = Color(1.0, 0.804, 0.815, 1.0)
 			visual.play("death")
 
 @export var max_hp := 3
@@ -98,6 +105,12 @@ var depth: float = 1.0   # 1 = jauh, 0 = dekat
 @export var z_far: int = 0
 @export var z_front: int = 40
 var is_front: bool = false
+
+# Static spawn counter for z_index stacking
+static var _spawn_counter: int = 0
+static var _global_scale_z_sync_pending: bool = false
+static var _global_scale_z_sync_frame: int = -1
+var _my_spawn_order: int = 0
 
 # ==================================================
 # APPROACH (CURVED KIRI-ATAS)
@@ -209,16 +222,37 @@ func _ready():
 	#attack_timer = randf_range(0.0, attack_cooldown)
 	original_modulate = self.modulate 
 	set_state(State.MOVING)
-	
+
 	player_node = get_tree().get_root().get_node("Main/Player")
-	
+
 	base_y = visual.position.y
 
 	visual.play("moving")
-	z_index = z_far
-	
+
+
+	# --- Z ORDER LOGIC: stack by spawn order for non-boss ---
+	var is_boss := false
+	if "boss" in String(self.name).to_lower():
+		is_boss = true
+
+	# Hanya set z_index jika belum di-set oleh spawner (z_index == 0)
+	if z_index == 0:
+		if not is_boss:
+			_my_spawn_order = _spawn_counter
+			_spawn_counter += 1
+			# Enemy yang spawn duluan (order kecil) dapat z_index lebih tinggi (lebih depan)
+			# Tapi tetap selalu di bawah Front (z_index=20) dan Sea (z_index=30)
+			var base_z = background_front_z - 10 # e.g. 10 if front is 20
+			z_index = base_z + 1000 - _my_spawn_order
+			# Clamp agar tidak pernah >= background_front_z
+			var min_z = base_z + 1 # di depan Back/Back2
+			var max_z = background_front_z - 1 # di belakang Front
+			z_index = clamp(z_index, min_z, max_z)
+		else:
+			z_index = z_front
+
 	scale = Vector2.ONE * 0.15
-	
+
 	# Use a soft approach target for pre-drift steering.
 	var base_target := approach_target
 	if use_target_before_drift and has_pre_drift_target_point:
@@ -233,10 +267,10 @@ func _ready():
 	approach_direction = (target - position).normalized()
 	if approach_direction == Vector2.ZERO:
 		approach_direction = Vector2(-0.9, -0.1).normalized()
-	
+
 	curve_time = randf() * TAU
 	drift_origin = position
-	
+
 	# Randomize drift pattern awal
 	randomize_drift_pattern()
 	
@@ -275,6 +309,7 @@ func _process(delta: float):
 	
 	update_phase_and_z()
 	_apply_trigger_zorder_override()
+	_request_global_scale_z_sync()
 	
 	update_flip()
 	
@@ -380,7 +415,6 @@ func update_movement(delta):
 			randomize_drift_pattern()
 	
 	drift_time += delta * drift_speed
-
 	var depth_factor = 1.0 - depth
 
 	# Pattern lebih random dengan frekuensi dan fase yang berbeda
@@ -770,6 +804,78 @@ func _apply_trigger_zorder_override() -> void:
 	if z_index < min_front_z:
 		z_index = min_front_z
 
+func _request_global_scale_z_sync() -> void:
+	if _global_scale_z_sync_pending:
+		return
+	_global_scale_z_sync_pending = true
+	call_deferred("_run_global_scale_z_sync")
+
+func _run_global_scale_z_sync() -> void:
+	_global_scale_z_sync_pending = false
+
+	var tree := get_tree()
+	if tree == null:
+		return
+
+	var frame_now: int = Engine.get_process_frames()
+	if _global_scale_z_sync_frame == frame_now:
+		return
+	_global_scale_z_sync_frame = frame_now
+
+	var raw_nodes: Array = tree.get_nodes_in_group("enemy_nodes")
+	var pre_trigger_enemies: Array[Node2D] = []
+	var trigger_enemies: Array[Node2D] = []
+
+	for node in raw_nodes:
+		if node == null or not is_instance_valid(node):
+			continue
+		if not (node is Node2D):
+			continue
+		if not node.has_method("_apply_trigger_zorder_override"):
+			continue
+
+		var enemy_node := node as Node2D
+		var entered_trigger := bool(enemy_node.get("has_entered_trigger_zorder"))
+		if entered_trigger:
+			trigger_enemies.append(enemy_node)
+		else:
+			pre_trigger_enemies.append(enemy_node)
+
+	if pre_trigger_enemies.size() > 0:
+		_apply_scale_z_band(pre_trigger_enemies, background_front_z - 10, background_front_z - 1)
+
+	if trigger_enemies.size() > 0:
+		_apply_scale_z_band(trigger_enemies, background_top_z + 1, background_top_z + 120)
+
+func _apply_scale_z_band(enemies: Array[Node2D], min_z: int, max_z: int) -> void:
+	if enemies.is_empty():
+		return
+
+	if enemies.size() == 1:
+		enemies[0].z_index = clampi(max_z, min_z, max_z)
+		return
+
+	enemies.sort_custom(func(a: Node2D, b: Node2D) -> bool:
+		var a_scale: float = absf(a.scale.x) + absf(a.scale.y)
+		var b_scale: float = absf(b.scale.x) + absf(b.scale.y)
+		if is_equal_approx(a_scale, b_scale):
+			return a.get_instance_id() < b.get_instance_id()
+		return a_scale < b_scale
+	)
+
+	var rank_count: int = enemies.size() - 1
+	var z_span: int = max_z - min_z
+	for i in range(enemies.size()):
+		var target_z: int
+		if z_span >= rank_count and rank_count > 0:
+			target_z = min_z + i
+		elif rank_count > 0:
+			target_z = int(round(lerpf(float(min_z), float(max_z), float(i) / float(rank_count))))
+		else:
+			target_z = min_z
+
+		enemies[i].z_index = clampi(target_z, min_z, max_z)
+
 func on_hit(hit_area: Node = null):
 	if is_dead:
 		return
@@ -862,6 +968,12 @@ func apply_nova_pull_effect(target_pos: Vector2, target_depth: float, pull_speed
 
 
 func _apply_nova_pull(delta: float) -> void:
+	
+	if nova_pull_time_left > 0.0:
+		visual.modulate = Color(0.622, 0.644, 1.0, 1.0) 
+	else:
+		visual.modulate = original_modulate
+		
 	if nova_pull_time_left <= 0.0:
 		return
 
@@ -876,11 +988,53 @@ func _apply_nova_pull(delta: float) -> void:
 	# Update z-order immediately as depth changes during pull
 	_update_z_from_depth()
 
+func play_bluehit_effect() -> float:
+	
+	if is_dead or hp <= 0:
+		return 0.0
+	
+	hitvis.visible = true
+	hitvis.play("hit_blue")
+	
+	return 0.0
+	
+func play_redhit_effect() -> float:
+	
+	if is_dead or hp <= 0:
+		return 0.0
+	
+	hitvis.visible = true
+	hitvis.play("hit_red")
+	
+	return 0.0
+	
+func _on_hit_visual_animation_finished() -> void:
+	hitvis.stop()
+	hitvis.visible = false
 
+func play_blue3_effect() -> float:
+	if is_dead or hp <= 0:
+		return 0.0
+		
+	if skill_blue3_effect == null:
+		return 0.0
+		
+	skill_blue3_effect.visible = true
+	skill_blue3_effect.play("blue3_cast")
+	
+	return 0.0
+
+func _on_skill_blue_3_effect_animation_finished() -> void:
+	skill_blue3_effect.stop()
+	skill_blue3_effect.visible = false
+	hitvis.visible = false
+  
+	pass # Replace with function body.
+	
 func play_red3_effect() -> float:
 	if is_dead or hp <= 0:
 		return 0.0
-
+		
 	if skill_red3_effect == null:
 		return 0.0
 
@@ -894,7 +1048,6 @@ func play_red3_effect() -> float:
 		return 0.0
 
 	return frame_count / speed
-
 
 func _on_skill_red3_effect_finished() -> void:
 	skill_red3_effect.stop()

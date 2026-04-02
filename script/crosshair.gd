@@ -17,13 +17,13 @@ enum SkillShot {
 var queued_skill: SkillShot = SkillShot.NONE
 
 const SKILL_DELAY_OVERDRIVE := 0.28
-const SKILL_PIERCE_SPLIT_RANGE := 620.0
-const SKILL_PIERCE_PROJECTILE_SPEED := 380.0
+const SKILL_PIERCE_SPLIT_RANGE := 1500.0
+const SKILL_PIERCE_PROJECTILE_SPEED := 750.0
 const SKILL_PIERCE_PROJECTILE_RADIUS := 62.0
 const SKILL_CHAIN_MARK_RADIUS := 240.0
 const SKILL_CHAIN_EXPLOSION_RADIUS := 220.0
-const SKILL_CHAIN_PROJECTILE_SPEED := 560.0
-const SKILL_CHAIN_PROJECTILE_SCALE := Vector2(1.2, 0.36)
+const SKILL_CHAIN_PROJECTILE_SPEED := 900.0
+const SKILL_CHAIN_PROJECTILE_SCALE := Vector2(1, 1) * 0.1
 const SKILL_CHAIN_TARGET_SEARCH_RADIUS := 760.0
 const SKILL_CHAIN_MAX_DEPTH_DIFFERENCE := 0.35
 const SKILL_NOVA_PULL_RADIUS := 430.0
@@ -219,8 +219,10 @@ func shoot_baku():
 					enemy.on_hit(hitbox)
 		else:
 			apply_skill_shot(enemy, hitbox, get_global_mouse_position())
-		indicator.add_slot("baku")
-		indicator_mahou.add_baku()
+		
+		if not _is_boss_enemy(enemy, hitbox):
+			indicator.add_slot("baku")
+			indicator_mahou.add_baku()
 
 func shoot_yuna():
 	sprite.play("shooting_yuna")
@@ -245,9 +247,23 @@ func shoot_yuna():
 					enemy.on_hit(hitbox)
 		else:
 			apply_skill_shot(enemy, hitbox, get_global_mouse_position())
-		indicator.add_slot("yuna")
-		indicator_mahou.add_yuna()
+			
+		if not _is_boss_enemy(enemy, hitbox):
+			indicator.add_slot("yuna")
+			indicator_mahou.add_yuna()
 
+func _is_boss_enemy(enemy: Node, hitbox: Node = null) -> bool:
+	# cek dari weak_point naik ke boss
+	if hitbox != null and hitbox.is_in_group("weak_point"):
+		return true
+	# cek langsung dari enemy
+	if enemy != null and enemy.is_in_group("boss"):
+		return true
+	# cek via method khas boss
+	if enemy != null and enemy.has_method("force_weakened_state"):
+		return true
+	return false
+	
 func get_enemy_under_cursor():
 	var space = get_world_2d().direct_space_state
 	var query = PhysicsPointQueryParameters2D.new()
@@ -528,29 +544,45 @@ func apply_skill_shot(enemy: Node, hitbox: Node, cast_position: Vector2) -> void
 			var overdrive_delay := SKILL_DELAY_OVERDRIVE
 			if enemy.has_method("play_red3_effect"):
 				overdrive_delay = enemy.play_red3_effect()
+			if enemy.has_method("play_redhit_effect"):
+					enemy.play_redhit_effect()
 			enemy.instakill(overdrive_delay)
 
 		SkillShot.PIERCE:
 			var projectile_origin := cast_position
 			if enemy != null:
-				enemy.apply_damage(2)
+				if enemy.has_method("play_redhit_effect"):
+					enemy.play_redhit_effect()
+				if enemy.has_method("apply_damage"):
+					enemy.apply_damage(2)
 				projectile_origin = enemy.global_position
 			spawn_pierce_projectiles(projectile_origin, enemy)
 
 		SkillShot.CHAIN:
+			if enemy.has_method("play_bluehit_effect"):
+					enemy.play_bluehit_effect()
 			apply_chain_mark(enemy)
 
 		SkillShot.NOVA:
 			var center_pos := cast_position
 			var target_depth := 0.5
+			
+			if enemy.get("visual") != null:
+				enemy.visual.modulate = Color(0.622, 0.644, 1.0, 1.0)
+			
+			if enemy.has_method("play_blue3_effect"):
+					enemy.play_blue3_effect()
+					 
+					
 			if enemy != null:
 				enemy.apply_damage(1)
 				center_pos = enemy.global_position
 				target_depth = _extract_enemy_depth_or_default(enemy, 0.5)
+				
+			
 			apply_nova_pull(center_pos, enemy, target_depth)
 
 	queued_skill = SkillShot.NONE
-
 
 func find_nearest_enemy_to_cursor(radius: float) -> Node:
 	return find_nearest_enemy_to_position(get_global_mouse_position(), radius)
@@ -626,19 +658,29 @@ func apply_chain_mark(center_enemy: Node) -> void:
 
 	_run_chain_mark_sequence(center_enemy)
 
+const SKILL_CHAIN_MAX_BOUNCES: int = 5
 
 func _run_chain_mark_sequence(start_enemy: Node) -> void:
 	var visited: Array[Node] = []
 	var current: Node = start_enemy
+	var bounce_count: int = 0 
+	
+	if start_enemy.has_method("apply_damage"):
+		if start_enemy.has_method("play_bluehit_effect"):
+			start_enemy.play_bluehit_effect()
+			start_enemy.apply_damage(1)
 
+	var damage: int = 2
+	
 	while current != null and is_instance_valid(current):
 		if visited.has(current):
 			break
+			
+		if bounce_count >= SKILL_CHAIN_MAX_BOUNCES:  # ← cek batas
+			break
 
 		visited.append(current)
-		if current.has_method("set_marked"):
-			current.set_marked(true)
-
+		
 		var current_depth := _extract_enemy_depth_or_default(current, 0.5)
 		var next_enemy := find_nearest_enemy_to_position(
 			(current as Node2D).global_position,
@@ -650,11 +692,23 @@ func _run_chain_mark_sequence(start_enemy: Node) -> void:
 		if next_enemy == null or not is_instance_valid(next_enemy):
 			break
 
-		await _play_chain_projectile((current as Node2D).global_position, (next_enemy as Node2D).global_position)
+		await _play_chain_projectile((current as Node2D).global_position, (next_enemy as Node2D).global_position, next_enemy )
+		
+		if next_enemy.has_method("apply_damage"):
+			next_enemy.apply_damage(damage)
+
+		damage += 1
+		
+		if next_enemy.has_method("play_bluehit_effect"):
+			next_enemy.play_bluehit_effect()
+
+		bounce_count += 1  # ← tambah setiap lompat
 		current = next_enemy
 
+const ENEMY_MAX_SCALE: float = 0.3      # scale maksimal enemy
+const PROJECTILE_MAX_SCALE: float = 0.5  # scale maksimal projectile chain
 
-func _play_chain_projectile(start_pos: Vector2, end_pos: Vector2) -> void:
+func _play_chain_projectile(start_pos: Vector2, end_pos: Vector2, target_enemy: Node = null) -> void:
 	var root := get_tree().current_scene
 	if root == null:
 		return
@@ -674,22 +728,51 @@ func _play_chain_projectile(start_pos: Vector2, end_pos: Vector2) -> void:
 			projectile.set("speed", SKILL_CHAIN_PROJECTILE_SPEED)
 		elif prop_name == "projectile_scale":
 			projectile.set("projectile_scale", SKILL_CHAIN_PROJECTILE_SCALE)
+			
+	if target_enemy != null and is_instance_valid(target_enemy) and projectile.has_method("set_interpolation_targets"):
+		const ENEMY_MIN_SCALE: float = 0.06
+		const ENEMY_MAX_SCALE: float = 0.3
+		const PROJECTILE_MAX_SCALE: float = 0.4
+
+		const PROJECTILE_MIN_SCALE: float = PROJECTILE_MAX_SCALE * (ENEMY_MIN_SCALE / ENEMY_MAX_SCALE)
+		
+		var enemy_scale := (target_enemy as Node2D).scale.x
+		
+		var ratio := clampf((enemy_scale - ENEMY_MIN_SCALE) / (ENEMY_MAX_SCALE - ENEMY_MIN_SCALE), 0.0, 1.0)
+		var scale_factor := lerpf(PROJECTILE_MIN_SCALE, PROJECTILE_MAX_SCALE, ratio)
+		var target_proj_scale := SKILL_CHAIN_PROJECTILE_SCALE * (scale_factor / SKILL_CHAIN_PROJECTILE_SCALE.x)
+				
+		var target_z := (target_enemy as Node2D).z_index -1
+		projectile.set_interpolation_targets(target_proj_scale, target_z)
 
 	if projectile.has_method("play_between"):
-		await projectile.play_between(start_pos, end_pos)
+		await projectile.play_between(start_pos, target_enemy as Node2D)
 
 
 func apply_nova_pull(center_pos: Vector2, center_enemy: Node, target_depth: float) -> void:
+	
+	# Apply nova pull ke center_enemy juga
+	var target_scale = center_enemy.scale if center_enemy != null and is_instance_valid(center_enemy) else Vector2.ONE
+	if center_enemy != null and is_instance_valid(center_enemy):
+		if center_enemy.has_method("apply_nova_pull_effect"):
+			center_enemy.apply_nova_pull_effect(center_pos, target_depth, SKILL_NOVA_PULL_SPEED, SKILL_NOVA_PULL_DURATION)
 	var enemies: Array = get_tree().get_nodes_in_group("enemy_nodes")
 	for enemy in enemies:
 		if enemy == null or not is_instance_valid(enemy):
 			continue
 		if enemy == center_enemy:
 			continue
+			
+		if enemy.is_in_group("boss"):
+			continue
 
 		if enemy.global_position.distance_to(center_pos) <= SKILL_NOVA_PULL_RADIUS:
 			if enemy.has_method("apply_nova_pull_effect"):
 				enemy.apply_nova_pull_effect(center_pos, target_depth, SKILL_NOVA_PULL_SPEED, SKILL_NOVA_PULL_DURATION)
+				enemy.scale = target_scale
 			elif enemy.has_method("pull_towards"):
+				if enemy.is_in_group("boss"):
+					continue
 				enemy.pull_towards(center_pos)
 			enemy.apply_slow(SKILL_NOVA_SLOW_DURATION, SKILL_NOVA_SLOW_FACTOR)
+		

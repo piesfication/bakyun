@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://6a1bnv075qqc"]
+[gd_scene load_steps=74 format=3 uid="uid://6a1bnv075qqc"]
 
 [ext_resource type="Texture2D" uid="uid://btjygbtf3aj75" path="res://assets/enemy/boss/Attack/Untitled934_20260316133508.png" id="1_3kk42"]
 [ext_resource type="Texture2D" uid="uid://l1kar6x52ne" path="res://assets/enemy/boss/Attack/Untitled934_20260316133603.png" id="2_fgy5c"]
@@ -38,6 +38,32 @@
 [ext_resource type="Texture2D" uid="uid://vtbkt1b2lq4g" path="res://assets/enemy/boss/Summon/Vortex/Mid/Untitled942_20260316115217.png" id="35_dkrra"]
 [ext_resource type="Texture2D" uid="uid://bmhyncma8cw26" path="res://assets/enemy/boss/Summon/Vortex/Mid/Untitled942_20260316115509.png" id="36_o0ak2"]
 [ext_resource type="Script" uid="uid://cktk3e25sqkrs" path="res://script/enemy_boss.gd" id="37_bossc"]
+[ext_resource type="Texture2D" uid="uid://klfdemhjrebs" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121654.png" id="39_ncxhi"]
+[ext_resource type="Texture2D" uid="uid://dim006s2kgwe3" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121801.png" id="40_vompo"]
+[ext_resource type="Texture2D" uid="uid://3if6emxbt4ix" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121659.png" id="41_fqt7g"]
+[ext_resource type="Texture2D" uid="uid://2dqanm37eh6w" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121702.png" id="42_nbw5e"]
+[ext_resource type="Texture2D" uid="uid://dlnhawwj060m2" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121706.png" id="43_b0fgj"]
+[ext_resource type="Texture2D" uid="uid://mwihk37pf1up" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121709.png" id="44_7l3g1"]
+[ext_resource type="Texture2D" uid="uid://fbe1nv0ch516" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121713.png" id="45_g2ujx"]
+[ext_resource type="Texture2D" uid="uid://cy2tfkhvunv4i" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121717.png" id="46_vm2od"]
+[ext_resource type="Texture2D" uid="uid://j7cfrw3e1w7l" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121721.png" id="47_dkrra"]
+[ext_resource type="Texture2D" uid="uid://dhfluu5op0bl5" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121753.png" id="48_o0ak2"]
+[ext_resource type="Texture2D" uid="uid://dfdwufyr4m7tq" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121818.png" id="49_j5ys4"]
+[ext_resource type="Texture2D" uid="uid://bwptthnl02knp" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121821.png" id="50_8omko"]
+[ext_resource type="Texture2D" uid="uid://dqoj5bo2hbn1o" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121826.png" id="51_x13js"]
+[ext_resource type="Texture2D" uid="uid://clfuoi0mfu434" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121831.png" id="52_w3lkq"]
+[ext_resource type="Texture2D" uid="uid://bjin0lh3seqmn" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121856.png" id="53_tokdj"]
+[ext_resource type="Texture2D" uid="uid://dkn4ppbpo2lha" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121859.png" id="54_3ek2g"]
+[ext_resource type="Texture2D" uid="uid://cxn5rxdwiq1fk" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121901.png" id="55_2o8ht"]
+[ext_resource type="Texture2D" uid="uid://etdm4hmw0k22" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121913.png" id="56_h7ie3"]
+[ext_resource type="Texture2D" uid="uid://bof6h8y3jtp4u" path="res://assets/enemy/boss/Shield/Untitled974_20260319125758.png" id="57_be72q"]
+[ext_resource type="Texture2D" uid="uid://ckhht0pf2urvh" path="res://assets/enemy/boss/Shield/Untitled974_20260319125800.png" id="58_mw2bq"]
+[ext_resource type="Texture2D" uid="uid://c6rvgly8lu6oa" path="res://assets/enemy/boss/Shield/Untitled974_20260319125803.png" id="59_jbapy"]
+[ext_resource type="Texture2D" uid="uid://c08afxegitkn2" path="res://assets/enemy/boss/Shield/Untitled974_20260319125933.png" id="60_rkcqk"]
+[ext_resource type="Texture2D" uid="uid://llw1d4kwqubg" path="res://assets/enemy/boss/Shield/Untitled974_20260319125936.png" id="61_q6as8"]
+[ext_resource type="Texture2D" uid="uid://dw13xhn0ad34d" path="res://assets/enemy/boss/Shield/Untitled974_20260319125938.png" id="62_qf2p8"]
+[ext_resource type="Texture2D" uid="uid://bgpbbiq54ttvc" path="res://assets/enemy/boss/Hp/WeaknessDuration/Trimmed/Untitled972_20260319121848.png" id="63_fqt7g"]
+[ext_resource type="Texture2D" uid="uid://b7ryo7ggu6y1p" path="res://assets/enemy/boss/Hp/WeaknessDuration/Trimmed/Untitled972_20260319121841.png" id="64_nbw5e"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j5ys4"]
 animations = [{
@@ -54,9 +80,9 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("4_gnxem")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -232,11 +258,173 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_6mgss"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("57_be72q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_mw2bq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_jbapy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_rkcqk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_q6as8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_qf2p8")
+}],
+"loop": false,
+"name": &"shield",
+"speed": 12.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1bod0"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("39_ncxhi")
+}],
+"loop": true,
+"name": &"hp_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_vompo")
+}],
+"loop": true,
+"name": &"hp_10",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_fqt7g")
+}],
+"loop": true,
+"name": &"hp_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_nbw5e")
+}],
+"loop": true,
+"name": &"hp_3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("43_b0fgj")
+}],
+"loop": true,
+"name": &"hp_4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("44_7l3g1")
+}],
+"loop": true,
+"name": &"hp_5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("45_g2ujx")
+}],
+"loop": true,
+"name": &"hp_6",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("46_vm2od")
+}],
+"loop": true,
+"name": &"hp_7",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("47_dkrra")
+}],
+"loop": true,
+"name": &"hp_8",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("48_o0ak2")
+}],
+"loop": true,
+"name": &"hp_9",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("49_j5ys4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_8omko")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_x13js")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_8omko")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_w3lkq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_tokdj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_3ek2g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_2o8ht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_h7ie3")
+}],
+"loop": false,
+"name": &"second_phase",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("49_j5ys4")
+}],
+"loop": false,
+"name": &"weakened",
+"speed": 10.0
+}]
+
 [node name="EnemyBoss" type="Node2D"]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.23, 0.23)
 script = ExtResource("37_bossc")
 vortex_red_modulate = Color(1.4687854, 0.5407801, 1.011807, 1)
 vortex_blue_modulate = Color(0.6886543, 0.86504287, 2.3464565, 1)
+move_speed_layer2_min = 120.0
+move_speed_layer2_max = 180.0
+move_speed_layer1_min = 190.0
+move_speed_layer1_max = 290.0
+summon_orb_count_min = 6
+summon_orb_count_max = 10
+weakness_duration_layer2 = 2.0
+weakness_approach_scale = 1.2
 flap_amplitude = 50.0
 flap_frequency = 1.2
 
@@ -276,8 +464,6 @@ position = Vector2(416, 288)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_j5ys4")
 animation = &"idle"
-frame = 1
-frame_progress = 0.38795674
 
 [node name="BotAnim" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_8omko")
@@ -295,13 +481,14 @@ frame_progress = 0.07159586
 [node name="TopAnim" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_w3lkq")
 animation = &"idle"
+frame_progress = 0.37889734
 
 [node name="VortexTop" type="AnimatedSprite2D" parent="AnimatedSprite2D/TopAnim"]
 modulate = Color(0.6886543, 0.86504287, 2.3464565, 1)
 position = Vector2(80, -416)
 sprite_frames = SubResource("SpriteFrames_tokdj")
-frame = 5
-frame_progress = 1.0
+frame = 2
+frame_progress = 0.13831031
 
 [node name="OrbContainer" type="Node2D" parent="AnimatedSprite2D/TopAnim/VortexTop"]
 position = Vector2(8, 8)
@@ -320,3 +507,44 @@ frame_progress = 1.0
 
 [node name="OrbContainer" type="Node2D" parent="AnimatedSprite2D/MidAnim/VortexMid"]
 position = Vector2(-13.333333, -6.6666665)
+
+[node name="Shield" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(32, 0)
+scale = Vector2(2.2, 2.2)
+sprite_frames = SubResource("SpriteFrames_6mgss")
+animation = &"shield"
+frame = 5
+frame_progress = 1.0
+
+[node name="WeakContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -768.0
+offset_right = 832.0
+offset_bottom = 896.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Health" type="AnimatedSprite2D" parent="WeakContainer"]
+visible = false
+position = Vector2(800, 0)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_1bod0")
+animation = &"weakened"
+autoplay = "hp_10"
+
+[node name="WeaknessBar" type="TextureProgressBar" parent="WeakContainer"]
+visible = false
+layout_mode = 0
+offset_left = 152.0
+offset_top = 496.0
+offset_right = 476.0
+offset_bottom = 582.0
+scale = Vector2(4, 4)
+texture_under = ExtResource("63_fqt7g")
+texture_progress = ExtResource("64_nbw5e")

@@ -1,6 +1,6 @@
 extends Control
 
-@onready var chat_area =$"../Phone/PhoneSprite/Screen/TextureRect/ChatArea"
+@onready var chat_area =$"../CanvasLayer/Phone/PhoneSprite/Screen/TextureRect/ChatArea"
 @onready var icons = get_children()  # ambil semua LevelIcon
 
 var active_icons: Array = []

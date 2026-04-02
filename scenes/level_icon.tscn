@@ -98,7 +98,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"popup",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -127,6 +127,7 @@ radius = 87.98583
 height = 255.6716
 
 [node name="LevelIcon" type="Node2D"]
+scale = Vector2(1.2, 1.2)
 script = ExtResource("1_d4foq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

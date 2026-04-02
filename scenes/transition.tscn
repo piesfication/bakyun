@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://c82t0cc5e2juu"]
+
+[ext_resource type="Script" uid="uid://bcqxk5iq40nw6" path="res://script/transition.gd" id="1_rerct"]
+[ext_resource type="Shader" uid="uid://b562l5uth6nxd" path="res://scenes/crt.gdshader" id="2_f0i4t"]
+[ext_resource type="Texture2D" uid="uid://dr4wkxeks014u" path="res://assets/titleunified/Untitled1008_20260331191458.png" id="2_xmi56"]
+[ext_resource type="Texture2D" uid="uid://cwa4c1qhkqyng" path="res://assets/titleunified/Untitled1008_20260331191700.png" id="3_hi828"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_px735"]
+shader = ExtResource("2_f0i4t")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.0
+shader_parameter/resolution = Vector2(1280, 720)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 2.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.010000000475
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 4.0
+shader_parameter/static_noise_intensity = 0.10000000475
+shader_parameter/aberration = 0.01000004797499998
+shader_parameter/brightness = 1.0
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[node name="Transition" type="CanvasLayer"]
+layer = 25
+script = ExtResource("1_rerct")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 4
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+z_index = 300
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Sprite2DBaku" type="Sprite2D" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+z_index = 301
+position = Vector2(640, 360)
+texture = ExtResource("2_xmi56")
+
+[node name="Sprite2DYuna" type="Sprite2D" parent="CanvasLayer"]
+z_index = 301
+position = Vector2(640, 360)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_hi828")
+
+[node name="CanvasLayer4" type="CanvasLayer" parent="."]
+layer = 25
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer4"]
+material = SubResource("ShaderMaterial_px735")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

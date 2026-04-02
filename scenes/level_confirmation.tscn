@@ -1,34 +1,27 @@
-[gd_scene load_steps=14 format=3 uid="uid://ipsj4qvblc3m"]
+[gd_scene load_steps=8 format=3 uid="uid://ipsj4qvblc3m"]
 
-[ext_resource type="Texture2D" uid="uid://bixi2slo6egpx" path="res://assets/ui/LevelConfirmation/Untitled977_20260323094903.png" id="1_saavb"]
+[ext_resource type="Texture2D" uid="uid://dkb64snydt0mc" path="res://assets/confirmation/Untitled1003_20260329195145.png" id="1_saavb"]
 [ext_resource type="FontFile" uid="uid://dcs4tsec8f7yd" path="res://assets/font/zrtw-hackynote-personal-use/ZRTW-HackynotePersonalUse.otf" id="2_vw2r4"]
-[ext_resource type="Texture2D" uid="uid://se3et3mbgmga" path="res://assets/enemy/type_1/moving/Untitled691_20260115182352.png" id="3_sto1r"]
-[ext_resource type="Texture2D" uid="uid://d2j87ixd636u0" path="res://assets/enemy/type_2/Moving/Untitled691_20260115182410.png" id="4_h6e7d"]
-[ext_resource type="Texture2D" uid="uid://dcf2ybxfarqdr" path="res://assets/enemy/type_3/Moving/Untitled966_20260319074444.png" id="5_kgg0q"]
-[ext_resource type="Texture2D" uid="uid://esdgh3qc2t6a" path="res://assets/ui/LevelConfirmation/Untitled934_20260316111535.png" id="6_f02mh"]
-[ext_resource type="Texture2D" uid="uid://ifxuvockr410" path="res://assets/ui/LevelConfirmation/Untitled977_20260323094529.png" id="7_qb112"]
-[ext_resource type="Texture2D" uid="uid://bgunksubajlyj" path="res://assets/ui/LevelConfirmation/Untitled977_20260323094617.png" id="8_g40bn"]
-[ext_resource type="Texture2D" uid="uid://bgiwlfk2kxcf4" path="res://assets/ui/LevelConfirmation/Untitled977_20260323094623.png" id="9_xdvci"]
-[ext_resource type="Texture2D" uid="uid://s3jg80jbhmen" path="res://assets/ui/LevelConfirmation/Untitled977_20260323094058.png" id="10_rbsle"]
+[ext_resource type="Texture2D" uid="uid://beglu13v23p4i" path="res://assets/confirmation/Untitled1003_20260329195224.png" id="10_vw2r4"]
+[ext_resource type="Texture2D" uid="uid://b73hxgb6b2wro" path="res://assets/confirmation/Untitled1003_20260329195230.png" id="11_sto1r"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fm5ub"]
 font = ExtResource("2_vw2r4")
-font_size = 66
-font_color = Color(0.5330042, 0.558266, 0.4259087, 1)
+font_size = 75
+font_color = Color(0.5803922, 0.75686276, 0.64705884, 1)
 outline_size = 2
-outline_color = Color(0.5647059, 0.5882353, 0.46666667, 1)
+outline_color = Color(0.5803922, 0.75686276, 0.64705884, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_3xjpt"]
+[sub_resource type="LabelSettings" id="LabelSettings_pvesw"]
+line_spacing = -16.0
 font = ExtResource("2_vw2r4")
-font_size = 55
-font_color = Color(0.53333336, 0.5568628, 0.42745098, 1)
-outline_size = 2
-outline_color = Color(0.53333336, 0.5568628, 0.42745098, 1)
+font_size = 52
+font_color = Color(0.5803922, 0.75686276, 0.64705884, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_1y4m6"]
+[sub_resource type="LabelSettings" id="LabelSettings_h6e7d"]
 font = ExtResource("2_vw2r4")
-font_size = 60
-outline_size = 4
+font_size = 52
+outline_size = 3
 
 [node name="LevelConfirmation" type="Node2D"]
 
@@ -36,135 +29,57 @@ outline_size = 4
 texture = ExtResource("1_saavb")
 
 [node name="Level Title" type="Label" parent="Sprite2D"]
-offset_left = -408.0
-offset_top = -311.0
-offset_right = 448.0
-offset_bottom = -221.0
+offset_left = -440.0
+offset_top = -200.0
+offset_right = 440.0
+offset_bottom = -98.0
 text = "\" Level Title Here \""
 label_settings = SubResource("LabelSettings_fm5ub")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="Sprite2D"]
-offset_left = -352.0
-offset_top = 77.0
-offset_right = -146.0
-offset_bottom = 148.0
-text = "Difficulty"
-label_settings = SubResource("LabelSettings_3xjpt")
+[node name="confirmationText" type="Label" parent="Sprite2D"]
+offset_left = -280.0
+offset_top = -90.0
+offset_right = 288.0
+offset_bottom = 41.0
+text = "Just a light stroll through what’s left. Ready?”"
+label_settings = SubResource("LabelSettings_pvesw")
 horizontal_alignment = 1
+autowrap_mode = 2
 
-[node name="Label" type="Label" parent="Sprite2D"]
-offset_left = -352.0
-offset_top = -185.0
-offset_right = -152.0
-offset_bottom = -114.0
-text = "Anomalies"
-label_settings = SubResource("LabelSettings_3xjpt")
-horizontal_alignment = 1
+[node name="Button" type="TextureButton" parent="."]
+offset_left = -308.0
+offset_top = 64.0
+offset_right = -31.0
+offset_bottom = 200.0
+texture_normal = ExtResource("10_vw2r4")
 
-[node name="EnemyList" type="Node2D" parent="Sprite2D"]
-position = Vector2(-183.99998, -15.999999)
-scale = Vector2(0.2, 0.2)
-
-[node name="Easy1" type="Node2D" parent="Sprite2D/EnemyList"]
-visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="Sprite2D/EnemyList/Easy1"]
-position = Vector2(-280, -88)
-texture = ExtResource("3_sto1r")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D/EnemyList/Easy1"]
-position = Vector2(605, 9.999992)
-texture = ExtResource("4_h6e7d")
-
-[node name="Easy2" type="Node2D" parent="Sprite2D/EnemyList"]
-visible = false
-
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D/EnemyList/Easy2"]
-position = Vector2(-280.00012, -90)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("3_sto1r")
-
-[node name="Sprite2D" type="Sprite2D" parent="Sprite2D/EnemyList/Easy2"]
-position = Vector2(605, -30)
-texture = ExtResource("5_kgg0q")
-
-[node name="Easy3" type="Node2D" parent="Sprite2D/EnemyList"]
-visible = false
-
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D/EnemyList/Easy3"]
-position = Vector2(-280.00012, -3.8146973e-06)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("4_h6e7d")
-
-[node name="Sprite2D" type="Sprite2D" parent="Sprite2D/EnemyList/Easy3"]
-position = Vector2(604.99976, -30)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("5_kgg0q")
-
-[node name="Medium" type="Node2D" parent="Sprite2D/EnemyList"]
-visible = false
-
-[node name="Sprite2D3" type="Sprite2D" parent="Sprite2D/EnemyList/Medium"]
-position = Vector2(-280.00006, -80)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("3_sto1r")
-
-[node name="Sprite2D" type="Sprite2D" parent="Sprite2D/EnemyList/Medium"]
-position = Vector2(1355, -30)
-scale = Vector2(0.99999976, 0.99999976)
-texture = ExtResource("5_kgg0q")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D/EnemyList/Medium"]
-position = Vector2(605, 9.999992)
-scale = Vector2(0.99999976, 0.99999976)
-texture = ExtResource("4_h6e7d")
-
-[node name="Hard" type="Node2D" parent="Sprite2D/EnemyList"]
-
-[node name="Sprite2D3" type="Sprite2D" parent="Sprite2D/EnemyList/Hard"]
-position = Vector2(-280.00037, -80.000244)
-scale = Vector2(0.9999995, 0.9999995)
-texture = ExtResource("3_sto1r")
-
-[node name="Sprite2D" type="Sprite2D" parent="Sprite2D/EnemyList/Hard"]
-position = Vector2(1379.9995, -30.000244)
-scale = Vector2(0.9999994, 0.9999994)
-texture = ExtResource("5_kgg0q")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D/EnemyList/Hard"]
-position = Vector2(624.99927, 9.999756)
-scale = Vector2(0.9999994, 0.9999994)
-texture = ExtResource("4_h6e7d")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Sprite2D/EnemyList/Hard"]
-position = Vector2(2175, -7.6293945e-06)
-scale = Vector2(0.65625, 0.65625)
-texture = ExtResource("6_f02mh")
-
-[node name="Difficulty" type="Node2D" parent="Sprite2D"]
-position = Vector2(-10, 4)
-
-[node name="Hard" type="Sprite2D" parent="Sprite2D/Difficulty"]
-texture = ExtResource("7_qb112")
-
-[node name="Medium" type="Sprite2D" parent="Sprite2D/Difficulty"]
-texture = ExtResource("8_g40bn")
-
-[node name="Easy" type="Sprite2D" parent="Sprite2D/Difficulty"]
-texture = ExtResource("9_xdvci")
-
-[node name="Start" type="Node2D" parent="."]
-
-[node name="StartButton" type="Sprite2D" parent="Start"]
-texture = ExtResource("10_rbsle")
-
-[node name="Label" type="Label" parent="Start"]
-offset_left = -199.0
-offset_top = 217.0
-offset_right = 161.0
-offset_bottom = 296.0
+[node name="Label2" type="Label" parent="Button"]
+layout_mode = 0
+offset_left = 33.5
+offset_top = -13.0
+offset_right = 242.5
+offset_bottom = 145.0
 text = "WE BALL!"
-label_settings = SubResource("LabelSettings_1y4m6")
+label_settings = SubResource("LabelSettings_h6e7d")
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="TextureButton" parent="."]
+offset_left = 30.0
+offset_top = 64.0
+offset_right = 307.0
+offset_bottom = 200.0
+texture_normal = ExtResource("11_sto1r")
+
+[node name="Label2" type="Label" parent="Button2"]
+layout_mode = 0
+offset_left = 34.5
+offset_top = -11.0
+offset_right = 243.5
+offset_bottom = 147.0
+text = "Nevermind"
+label_settings = SubResource("LabelSettings_h6e7d")
+horizontal_alignment = 1
+vertical_alignment = 1

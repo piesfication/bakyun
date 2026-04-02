@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 SessionState="*res://script/session_state.gd"
 LevelData="*res://data/LevelData.gd"
+LoadingDialogue="*res://script/loading_dialogue.gd"
+LoadingManager="*res://script/loading_manager.gd"
+Transition="*res://scenes/transition.tscn"
+MusicManager="*res://scenes/music_manager.tscn"
 
 [display]
 

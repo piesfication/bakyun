@@ -20,6 +20,7 @@ var _map_manager_base_position: Vector2
 var _background_base_scale: Vector2
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	_phone_node = get_node_or_null(phone_node_path) as Control
 	_background_node = get_node_or_null(background_node_path) as Node2D
 	_map_manager_node = get_node_or_null(map_manager_node_path) as Control

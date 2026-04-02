@@ -1,9 +1,60 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=10 format=3 uid="uid://dm8cjcag321c5"]
 
-[ext_resource type="Script" path="res://script/chain_projectile.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://ctc03f8ooe1sm" path="res://script/chain_projectile.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://xewpmujcm0c8" path="res://assets/skill/Red_1_Blue_2/Untitled997_20260325074343.png" id="2_voqin"]
+[ext_resource type="Texture2D" uid="uid://c3b4y7lqro1oq" path="res://assets/skill/Red_1_Blue_2/Untitled997_20260325074344.png" id="3_67lir"]
+[ext_resource type="Texture2D" uid="uid://dw8u23vxnknip" path="res://assets/skill/Red_1_Blue_2/Untitled997_20260325074346.png" id="4_ynalb"]
+[ext_resource type="Texture2D" uid="uid://beoxwc0py8vfj" path="res://assets/skill/Red_1_Blue_2/Untitled997_20260325074526.png" id="5_ovogv"]
+[ext_resource type="Texture2D" uid="uid://cgxef4310qlut" path="res://assets/skill/Red_1_Blue_2/Untitled997_20260325074350.png" id="7_1y512"]
+[ext_resource type="Texture2D" uid="uid://bsv1e6ndbdn1c" path="res://assets/skill/Red_1_Blue_2/Untitled997_20260325074354.png" id="8_78uqx"]
+[ext_resource type="Texture2D" uid="uid://6nw6i0flo68e" path="res://assets/skill/Red_1_Blue_2/Untitled997_20260325074352.png" id="9_yrfkb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_47xal"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_voqin")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_67lir")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ynalb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ovogv")
+}],
+"loop": false,
+"name": &"launch",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ovogv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1y512")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ynalb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_78uqx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_yrfkb")
+}],
+"loop": true,
+"name": &"travel",
+"speed": 20.0
+}]
 
 [node name="ChainProjectile" type="Node2D"]
 z_index = 1150
 script = ExtResource("1_script")
+projectile_scale = Vector2(0.2, 0.3)
 
-[node name="Visual" type="Sprite2D" parent="."]
+[node name="Visual" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_47xal")
+animation = &"travel"
+frame_progress = 0.5650135

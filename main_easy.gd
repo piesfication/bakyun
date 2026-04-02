@@ -1,7 +1,5 @@
 extends "res://main.gd"
 
-@export var enemy_2_scene: PackedScene = preload("res://scenes/enemy_2.tscn")
-@export var enemy_3_scene: PackedScene = preload("res://scenes/enemy_3.tscn")
 @export_range(0.01, 2.0, 0.01, "suffix:s") var burst_spawn_interval: float = 0.14
 @export_range(0.05, 3.0, 0.01, "suffix:s") var phase_gap_interval: float = 0.5
 @export_range(0.1, 20.0, 0.1, "suffix:s") var batch_spawn_cooldown: float = 5.5

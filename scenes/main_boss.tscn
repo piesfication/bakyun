@@ -11,15 +11,15 @@ enemy_scene = ExtResource("2_boss")
 max_enemies = 1
 spawn_interval = 9999.0
 
-[node name="Background" parent="." index="0"]
+[node name="Background" parent="." index="2"]
 position = Vector2(-18.000002, -9)
 
-[node name="EnemyContainer" parent="." index="1"]
+[node name="EnemyContainer" parent="." index="3"]
 position = Vector2(-8, -8)
 
-[node name="Crosshair" parent="." index="3"]
+[node name="Crosshair" parent="." index="5"]
 position = Vector2(-232, 296)
 
-[node name="DamageHud" parent="." index="4"]
+[node name="DamageHud" parent="." index="6"]
 position = Vector2(641.00006, 366.00003)
 scale = Vector2(0.70937514, 0.7333333)

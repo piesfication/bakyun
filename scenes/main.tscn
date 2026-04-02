@@ -1,4 +1,4 @@
-[gd_scene load_steps=175 format=3 uid="uid://d1u6i3t35llsd"]
+[gd_scene load_steps=176 format=3 uid="uid://d1u6i3t35llsd"]
 
 [ext_resource type="Script" uid="uid://c8cdaugw4lwkp" path="res://main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://i5asanwmdtcp" path="res://assets/level/sea/Untitled694_20260115180850.png" id="2_tbgi4"]
@@ -960,11 +960,14 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Main" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_sd6wn"]
+radius = 24.0
+
+[node name="Main2" type="Node2D"]
 script = ExtResource("1_o5qli")
 enemy_scene = ExtResource("2_ya4ey")
 bird_strike_chance = 0.2
-bird_strike_shoot_lock_duration = 3.0
+bird_strike_shoot_lock_duration = 2.0
 
 [node name="BirdStrike" type="AnimatedSprite2D" parent="."]
 z_index = 500
@@ -1025,7 +1028,7 @@ centered = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Background/TriggerZOrder"]
 position = Vector2(0, 2.9126215)
-polygon = PackedVector2Array(638.83496, 548.5437, 646.6019, 520.38837, 638.83496, 504.8544, 662.1359, 470.8738, 669.90295, 450.48547, 568.93207, 466.01944, 553.3981, 520.38837, 561.16504, 528.15533)
+polygon = PackedVector2Array(592.23303, 533.00977, 592.23303, 525.24274, 600, 501.94177, 615.534, 463.1068, 615.534, 455.33984, 568.93207, 466.01944, 553.3981, 520.38837, 561.16504, 528.15533)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Background/TriggerZOrder"]
 polygon = PackedVector2Array(506.79614, 380.58255, 429.12625, 186.40778, 879.6117, 178.64078, 856.31067, 310.67963, 716.5049, 380.58255, 708.73785, 388.34955, 576.69904, 419.4175, 561.16504, 372.81555)
@@ -1079,6 +1082,20 @@ animation = &"aim_baku"
 [node name="Area2D" type="Area2D" parent="Crosshair"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Crosshair/Area2D"]
+
+[node name="LevelEndOverlay" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="ColorRect" type="ColorRect" parent="LevelEndOverlay"]
+visible = false
+modulate = Color(0, 0, 0, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
 [node name="DamageHud" type="Sprite2D" parent="."]
 z_index = 31
@@ -1331,7 +1348,7 @@ offset_right = 1280.0
 offset_bottom = 728.0
 
 [node name="Card" type="Node2D" parent="CardUI/CardControl"]
-position = Vector2(155, 547)
+position = Vector2(160, 536)
 script = ExtResource("14_cardg")
 
 [node name="AnimCard" type="AnimatedSprite2D" parent="CardUI/CardControl/Card"]
@@ -1347,6 +1364,12 @@ scale = Vector2(0.67, 0.67)
 sprite_frames = SubResource("SpriteFrames_eo1ke")
 frame = 10
 frame_progress = 1.0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="TargetBeforeDrift" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(584, 504)
+shape = SubResource("CircleShape2D_sd6wn")
 
 [connection signal="animation_finished" from="Crosshair/Visual/AnimatedSprite2D" to="Crosshair" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="UIMahouMeter/CastAnimation" to="UIMahouMeter" method="_on_cast_animation_animation_finished"]

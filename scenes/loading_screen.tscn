@@ -1,0 +1,204 @@
+[gd_scene load_steps=22 format=3 uid="uid://cyomo4h80aa"]
+
+[ext_resource type="Shader" uid="uid://5f1nr57ulaja" path="res://scenes/level_menu.gdshader" id="1_djmwj"]
+[ext_resource type="Texture2D" uid="uid://i5asanwmdtcp" path="res://assets/level/sea/Untitled694_20260115180850.png" id="1_ep5rh"]
+[ext_resource type="Script" uid="uid://cn2on0a5118dn" path="res://script/loading_screen.gd" id="1_if62a"]
+[ext_resource type="Script" uid="uid://dgxvxmitrd13o" path="res://script/parallax_background.gd" id="3_qygbf"]
+[ext_resource type="Texture2D" uid="uid://71fsdc8fl4jf" path="res://assets/title/Untitled977_20260324075141.png" id="4_pu4a1"]
+[ext_resource type="Script" uid="uid://b57hbvyj18rxn" path="res://script/parallax_background_2.gd" id="5_if62a"]
+[ext_resource type="Texture2D" uid="uid://cngpwco11b4bf" path="res://assets/illust/FlyingWithMagicBroom/Outline/Untitled981_20260323104839.png" id="6_pu4a1"]
+[ext_resource type="Texture2D" uid="uid://cj3vpa7yvb814" path="res://assets/illust/FlyingWithMagicBroom/Outline/Untitled985_20260324191740.png" id="8_if62a"]
+[ext_resource type="Texture2D" uid="uid://sx4ujy5h7ynm" path="res://assets/ui/Koisuru-meter (icon)/Baku/Untitled733_20260122204456.png" id="9_5slh2"]
+[ext_resource type="FontFile" uid="uid://dcs4tsec8f7yd" path="res://assets/font/zrtw-hackynote-personal-use/ZRTW-HackynotePersonalUse.otf" id="9_f7y4a"]
+[ext_resource type="Texture2D" uid="uid://w8qn0f6p77w5" path="res://assets/ui/Koisuru-meter (icon)/Baku/Untitled733_20260122204533.png" id="10_pvqkx"]
+[ext_resource type="Texture2D" uid="uid://d3lp7713sopuw" path="res://assets/ui/Koisuru-meter (icon)/Yuna/Untitled733_20260122204932.png" id="11_e7oyx"]
+[ext_resource type="Texture2D" uid="uid://dljdouri7m6ab" path="res://assets/ui/Koisuru-meter (icon)/Yuna/Untitled733_20260122205023.png" id="12_bqhjm"]
+[ext_resource type="Shader" uid="uid://b562l5uth6nxd" path="res://scenes/crt.gdshader" id="14_pvqkx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f7y4a"]
+shader = ExtResource("1_djmwj")
+shader_parameter/size = 125.0
+shader_parameter/color1 = Color(0.396, 0.78, 0.663, 1)
+shader_parameter/color2 = Color(0.286, 0.69, 0.565, 1)
+shader_parameter/speed = 0.4
+shader_parameter/direction_x = 1.0
+shader_parameter/direction_y = 1.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f7y4a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_pu4a1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_if62a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eb3t5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_e7oyx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_bqhjm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hdkap"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_5slh2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_pvqkx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f7y4a"]
+line_spacing = -15.0
+font = ExtResource("9_f7y4a")
+font_size = 50
+outline_size = 20
+outline_color = Color(0.28627452, 0.6901961, 0.5647059, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gcv3i"]
+line_spacing = -15.0
+font = ExtResource("9_f7y4a")
+font_size = 50
+outline_size = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7oyx"]
+shader = ExtResource("14_pvqkx")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.0
+shader_parameter/resolution = Vector2(1280, 720)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 2.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.010000000475
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 4.0
+shader_parameter/static_noise_intensity = 0.10000000475
+shader_parameter/aberration = 0.01000004797499998
+shader_parameter/brightness = 1.0
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[node name="LoadingScreen" type="Node2D"]
+script = ExtResource("1_if62a")
+
+[node name="Sky" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_f7y4a")
+scale = Vector2(0.667, 0.667)
+texture = ExtResource("1_ep5rh")
+centered = false
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = 0
+script = ExtResource("3_qygbf")
+scroll_speed = 40
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 50
+motion_mirroring = Vector2(1286.4, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(640, 368)
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("4_pu4a1")
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+layer = 0
+script = ExtResource("5_if62a")
+scroll_speed = 40
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
+motion_mirroring = Vector2(1286.4, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer"]
+position = Vector2(640, 352)
+rotation = -3.1415925
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("4_pu4a1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer"]
+position = Vector2(792, 504.00003)
+rotation = -0.024726994
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_f7y4a")
+autoplay = "default"
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer"]
+position = Vector2(-8, -120)
+scale = Vector2(0.9, 0.9)
+
+[node name="YunaIcon" type="AnimatedSprite2D" parent="CanvasLayer/Node2D"]
+position = Vector2(185.35521, 586.6667)
+rotation = -0.34781837
+scale = Vector2(0.17502381, 0.1750238)
+sprite_frames = SubResource("SpriteFrames_eb3t5")
+autoplay = "default"
+frame_progress = 0.9251838
+
+[node name="BakuIcon" type="AnimatedSprite2D" parent="CanvasLayer/Node2D"]
+position = Vector2(192.00002, 577.7779)
+rotation = 0.23418754
+scale = Vector2(0.17084074, 0.17165571)
+sprite_frames = SubResource("SpriteFrames_hdkap")
+autoplay = "default"
+frame_progress = 0.5998864
+
+[node name="Text" type="Node2D" parent="."]
+position = Vector2(144, 80.000015)
+
+[node name="OuterBorder" type="Label" parent="Text"]
+offset_left = 128.0
+offset_top = 264.0
+offset_right = 472.0
+offset_bottom = 475.0
+text = "\"As long as we’re together, we’ll make it!\"
+"
+label_settings = SubResource("LabelSettings_f7y4a")
+autowrap_mode = 2
+
+[node name="Label" type="Label" parent="Text"]
+offset_left = 128.0
+offset_top = 264.0
+offset_right = 472.0
+offset_bottom = 475.0
+text = "\"As long as we’re together, we’ll make it!\"
+"
+label_settings = SubResource("LabelSettings_gcv3i")
+autowrap_mode = 2
+
+[node name="CanvasLayer4" type="CanvasLayer" parent="."]
+layer = 4
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer4"]
+material = SubResource("ShaderMaterial_e7oyx")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true

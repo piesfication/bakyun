@@ -967,7 +967,8 @@ radius = 32.0
 script = ExtResource("1_o5qli")
 enemy_scene = ExtResource("2_ya4ey")
 bird_strike_chance = 0.2
-bird_strike_shoot_lock_duration = 3.0
+bird_strike_shoot_lock_duration = 2.0
+level_duration_seconds = 240.0
 
 [node name="BirdStrike" type="AnimatedSprite2D" parent="."]
 z_index = 500
@@ -1028,7 +1029,7 @@ centered = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Background/TriggerZOrder"]
 position = Vector2(0, 2.9126215)
-polygon = PackedVector2Array(615.534, 540.77673, 615.534, 540.77673, 631.068, 509.70877, 646.6019, 470.8738, 654.36896, 447.57285, 568.93207, 466.01944, 545.6311, 525.24274, 561.16504, 528.15533)
+polygon = PackedVector2Array(600, 540.77673, 600, 533.00977, 607.76697, 509.70877, 615.534, 486.40778, 623.30096, 455.33984, 568.93207, 466.01944, 545.6311, 525.24274, 561.16504, 528.15533)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Background/TriggerZOrder"]
 polygon = PackedVector2Array(506.79614, 380.58255, 429.12625, 186.40778, 879.6117, 178.64078, 856.31067, 310.67963, 716.5049, 380.58255, 708.73785, 388.34955, 576.69904, 419.4175, 561.16504, 372.81555)
@@ -1070,6 +1071,20 @@ z_index = 1000
 position = Vector2(-144, 48)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("6_85g3d")
+
+[node name="LevelEndOverlay" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="ColorRect" type="ColorRect" parent="LevelEndOverlay"]
+visible = false
+modulate = Color(0, 0, 0, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Visual" type="Node2D" parent="Crosshair"]
 
@@ -1334,7 +1349,7 @@ offset_right = 1280.0
 offset_bottom = 728.0
 
 [node name="Card" type="Node2D" parent="CardUI/CardControl"]
-position = Vector2(155, 547)
+position = Vector2(160, 536)
 script = ExtResource("14_cardg")
 
 [node name="AnimCard" type="AnimatedSprite2D" parent="CardUI/CardControl/Card"]
@@ -1354,7 +1369,7 @@ frame_progress = 1.0
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="TargetBeforeDrift" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(600, 512)
+position = Vector2(592, 512)
 shape = SubResource("CircleShape2D_sd6wn")
 
 [connection signal="animation_finished" from="Crosshair/Visual/AnimatedSprite2D" to="Crosshair" method="_on_animated_sprite_2d_animation_finished"]
