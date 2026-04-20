@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://o4vxjklhbsaj"]
+[gd_scene load_steps=8 format=3 uid="uid://o4vxjklhbsaj"]
 
 [ext_resource type="PackedScene" uid="uid://d1u6i3t35llsd" path="res://scenes/main.tscn" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://6a1bnv075qqc" path="res://scenes/enemy_boss.tscn" id="2_boss"]
 [ext_resource type="Script" uid="uid://bd86t0e02nu7n" path="res://script/main_boss_level.gd" id="3_script"]
+[ext_resource type="Texture2D" uid="uid://dlcf2nmcjtpvj" path="res://assets/level/rain/Untitled698_20260407183657.png" id="4_kxj6t"]
+[ext_resource type="Texture2D" uid="uid://bimeyer1kxnm8" path="res://assets/level/rain/Untitled698_20260407183643.png" id="5_jlh21"]
+[ext_resource type="Texture2D" uid="uid://bv8igeel6h5of" path="res://assets/level/rain/Untitled698_20260407183650.png" id="6_jjwca"]
+[ext_resource type="Texture2D" uid="uid://d3cu3rs4yd53l" path="res://assets/level/rain/Untitled698_20260407183634.png" id="7_i2qsl"]
 
 [node name="Main" instance=ExtResource("1_main")]
 script = ExtResource("3_script")
@@ -14,12 +18,27 @@ spawn_interval = 9999.0
 [node name="Background" parent="." index="2"]
 position = Vector2(-18.000002, -9)
 
+[node name="Sky" parent="Background" index="0"]
+texture = ExtResource("4_kxj6t")
+
+[node name="Back" parent="Background" index="1"]
+visible = false
+
+[node name="Back2" parent="Background" index="2"]
+texture = ExtResource("5_jlh21")
+
+[node name="Front" parent="Background" index="3"]
+texture = ExtResource("6_jjwca")
+
+[node name="Sea" parent="Background" index="4"]
+texture = ExtResource("7_i2qsl")
+
 [node name="EnemyContainer" parent="." index="3"]
 position = Vector2(-8, -8)
 
 [node name="Crosshair" parent="." index="5"]
 position = Vector2(-232, 296)
 
-[node name="DamageHud" parent="." index="6"]
+[node name="DamageHud" parent="." index="7"]
 position = Vector2(641.00006, 366.00003)
 scale = Vector2(0.70937514, 0.7333333)

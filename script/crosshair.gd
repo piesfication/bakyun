@@ -59,6 +59,7 @@ enum AimLock {
 
 var locked_aim := AimLock.NONE
 var shoot_enabled: bool = true
+var switch_locked: bool = false
 @export_range(0.02, 0.3, 0.01, "suffix:s") var shoot_lock_flicker_interval: float = 0.08
 var force_hidden: bool = false
 
@@ -101,7 +102,7 @@ func set_state(new_state: State):
 func _input(event):
 	
 	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_SHIFT:
+		if event.keycode == KEY_SHIFT and not switch_locked:
 			switch_character()
 			
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -129,11 +130,24 @@ func set_force_hidden(hidden_state: bool) -> void:
 		visible = _shoot_lock_flicker_visible
 		
 func switch_character():
+	if switch_locked:
+		return
 	if current_mode == CharacterMode.CHAR_BAKU:
 		current_mode = CharacterMode.CHAR_YUNA
 	else:
 		current_mode = CharacterMode.CHAR_BAKU
 
+	update_crosshair_visual()
+
+func set_switch_locked(locked: bool) -> void:
+	switch_locked = locked
+
+func set_character_mode(character_name: String) -> void:
+	var normalized := character_name.to_lower()
+	if normalized == "yuna":
+		current_mode = CharacterMode.CHAR_YUNA
+	else:
+		current_mode = CharacterMode.CHAR_BAKU
 	update_crosshair_visual()
 	
 func update_crosshair_visual():
@@ -220,9 +234,15 @@ func shoot_baku():
 		else:
 			apply_skill_shot(enemy, hitbox, get_global_mouse_position())
 		
+		# Update combo counter on hit
+		_notify_combo_counter_hit("baku")
+		
 		if not _is_boss_enemy(enemy, hitbox):
 			indicator.add_slot("baku")
 			indicator_mahou.add_baku()
+	else:
+		# Notify combo counter on miss
+		_notify_combo_counter_miss()
 
 func shoot_yuna():
 	sprite.play("shooting_yuna")
@@ -247,10 +267,16 @@ func shoot_yuna():
 					enemy.on_hit(hitbox)
 		else:
 			apply_skill_shot(enemy, hitbox, get_global_mouse_position())
-			
+		
+		# Update combo counter on hit
+		_notify_combo_counter_hit("yuna")
+		
 		if not _is_boss_enemy(enemy, hitbox):
 			indicator.add_slot("yuna")
 			indicator_mahou.add_yuna()
+	else:
+		# Notify combo counter on miss
+		_notify_combo_counter_miss()
 
 func _is_boss_enemy(enemy: Node, hitbox: Node = null) -> bool:
 	# cek dari weak_point naik ke boss
@@ -536,53 +562,78 @@ func cast_skill_shot_now() -> void:
 
 
 func apply_skill_shot(enemy: Node, hitbox: Node, cast_position: Vector2) -> void:
-	if enemy == null and queued_skill != SkillShot.PIERCE and queued_skill != SkillShot.NOVA:
+	var target_enemy := _resolve_skill_target(enemy, hitbox)
+
+	if target_enemy == null and queued_skill != SkillShot.PIERCE and queued_skill != SkillShot.NOVA:
 		return
 
 	match queued_skill:
 		SkillShot.OVERDRIVE:
 			var overdrive_delay := SKILL_DELAY_OVERDRIVE
-			if enemy.has_method("play_red3_effect"):
-				overdrive_delay = enemy.play_red3_effect()
-			if enemy.has_method("play_redhit_effect"):
-					enemy.play_redhit_effect()
-			enemy.instakill(overdrive_delay)
+			if target_enemy != null and target_enemy.has_method("play_red3_effect"):
+				overdrive_delay = target_enemy.play_red3_effect()
+			if target_enemy != null and target_enemy.has_method("play_redhit_effect"):
+					target_enemy.play_redhit_effect()
+			if target_enemy != null and target_enemy.has_method("instakill"):
+				target_enemy.instakill(overdrive_delay)
 
 		SkillShot.PIERCE:
 			var projectile_origin := cast_position
-			if enemy != null:
-				if enemy.has_method("play_redhit_effect"):
-					enemy.play_redhit_effect()
-				if enemy.has_method("apply_damage"):
-					enemy.apply_damage(2)
-				projectile_origin = enemy.global_position
-			spawn_pierce_projectiles(projectile_origin, enemy)
+			if target_enemy != null:
+				if target_enemy.has_method("play_redhit_effect"):
+					target_enemy.play_redhit_effect()
+				_apply_skill_hit_or_damage(target_enemy, hitbox, 2)
+				projectile_origin = target_enemy.global_position
+			spawn_pierce_projectiles(projectile_origin, target_enemy)
 
 		SkillShot.CHAIN:
-			if enemy.has_method("play_bluehit_effect"):
-					enemy.play_bluehit_effect()
-			apply_chain_mark(enemy)
+			if target_enemy != null and target_enemy.has_method("play_bluehit_effect"):
+					target_enemy.play_bluehit_effect()
+			apply_chain_mark(target_enemy)
 
 		SkillShot.NOVA:
 			var center_pos := cast_position
 			var target_depth := 0.5
 			
-			if enemy.get("visual") != null:
-				enemy.visual.modulate = Color(0.622, 0.644, 1.0, 1.0)
+			if target_enemy != null and target_enemy.get("visual") != null:
+				target_enemy.visual.modulate = Color(0.622, 0.644, 1.0, 1.0)
 			
-			if enemy.has_method("play_blue3_effect"):
-					enemy.play_blue3_effect()
+			if target_enemy != null and target_enemy.has_method("play_blue3_effect"):
+					target_enemy.play_blue3_effect()
 					 
 					
-			if enemy != null:
-				enemy.apply_damage(1)
-				center_pos = enemy.global_position
-				target_depth = _extract_enemy_depth_or_default(enemy, 0.5)
+			if target_enemy != null:
+				_apply_skill_hit_or_damage(target_enemy, hitbox, 1)
+				center_pos = target_enemy.global_position
+				target_depth = _extract_enemy_depth_or_default(target_enemy, 0.5)
 				
 			
-			apply_nova_pull(center_pos, enemy, target_depth)
+			apply_nova_pull(center_pos, target_enemy, target_depth)
 
 	queued_skill = SkillShot.NONE
+
+func _apply_skill_hit_or_damage(enemy: Node, hitbox: Node, damage: int) -> void:
+	if enemy == null or not is_instance_valid(enemy) or damage <= 0:
+		return
+
+	# Untuk boss, pakai on_hit(hitbox) agar perilaku shield/weakness tetap konsisten.
+	if _is_boss_enemy(enemy, hitbox):
+		if enemy.has_method("on_hit"):
+			enemy.on_hit(hitbox)
+			return
+
+	if enemy.has_method("apply_damage"):
+		enemy.apply_damage(damage)
+
+func _resolve_skill_target(enemy: Node, hitbox: Node) -> Node:
+	if hitbox != null and is_instance_valid(hitbox) and hitbox.is_in_group("weak_point"):
+		var weak_point := hitbox.get_parent()
+		var weak_set := weak_point.get_parent() if weak_point != null else null
+		var boss := weak_set.get_parent() if weak_set != null else null
+		if boss != null and is_instance_valid(boss):
+			return boss
+
+	return enemy
 
 func find_nearest_enemy_to_cursor(radius: float) -> Node:
 	return find_nearest_enemy_to_position(get_global_mouse_position(), radius)
@@ -775,4 +826,17 @@ func apply_nova_pull(center_pos: Vector2, center_enemy: Node, target_depth: floa
 					continue
 				enemy.pull_towards(center_pos)
 			enemy.apply_slow(SKILL_NOVA_SLOW_DURATION, SKILL_NOVA_SLOW_FACTOR)
-		
+
+func _notify_combo_counter_hit(character: String) -> void:
+	"""Notify main level controller about a successful hit"""
+	var level_controller = get_tree().current_scene
+	if level_controller != null and is_instance_valid(level_controller):
+		if level_controller.has_method("on_player_hit"):
+			level_controller.on_player_hit(character)
+
+func _notify_combo_counter_miss() -> void:
+	"""Notify main level controller about a missed shot"""
+	var level_controller = get_tree().current_scene
+	if level_controller != null and is_instance_valid(level_controller):
+		if level_controller.has_method("on_player_miss"):
+			level_controller.on_player_miss()

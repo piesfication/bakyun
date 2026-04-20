@@ -1,0 +1,389 @@
+[gd_scene load_steps=17 format=3 uid="uid://bsqkynsckpvq8"]
+
+[ext_resource type="Script" uid="uid://bl43m5qw8pso3" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/vn_textbox_layer.gd" id="1_bpydr"]
+[ext_resource type="Script" uid="uid://bfc03rn8slceu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/animations.gd" id="2_xy7a2"]
+[ext_resource type="StyleBox" uid="uid://c0yuwbxlibevg" path="res://style/new_style_box_texture.tres" id="3_0ewhi"]
+[ext_resource type="Script" uid="uid://drhfq6rmdeuri" path="res://addons/dialogic/Modules/Text/node_dialog_text.gd" id="3_4634k"]
+[ext_resource type="Script" uid="uid://dpv2dfiv5dhmr" path="res://addons/dialogic/Modules/Text/node_type_sound.gd" id="4_ma5mw"]
+[ext_resource type="Script" uid="uid://bklme8oymw6h7" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/autoadvance_indicator.gd" id="6_07xym"]
+[ext_resource type="Script" uid="uid://bak74s0kcr0ao" path="res://addons/dialogic/Modules/Text/node_name_label.gd" id="7_bi7sh"]
+[ext_resource type="StyleBox" uid="uid://m7gyepkysu83" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/vn_textbox_name_label_panel.tres" id="9_yg8ig"]
+[ext_resource type="FontFile" uid="uid://bjisq025387gx" path="res://assets/font/zrtw-hackynote-personal-use/ZRTW-HackynotePersonalUse.ttf" id="10_tu4av"]
+
+[sub_resource type="Animation" id="Animation_au0a2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/AnimationParent:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/AnimationParent:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Anchor/AnimationParent:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Anchor/AnimationParent:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Anchor/AnimationParent/Sizer/DialogTextPanel:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_6kbwc"]
+resource_name = "new_text"
+length = 0.4
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/AnimationParent/Sizer/DialogTextPanel:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(3, 3, 3, 3, 3),
+"points": PackedFloat32Array(0, -0.025, 0, 0.025, 0, 0.005, -0.025, 0, 0.025, 0, -0.005, -0.025, 0, 0.025, 0, 0.005, -0.025, 0, 0.025, 0, 0, -0.025, 0, 0.025, 0),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4)
+}
+
+[sub_resource type="Animation" id="Animation_g6k55"]
+resource_name = "textbox_fade_up"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/AnimationParent:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 50), Vector2(0, 19.6793), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/AnimationParent:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Anchor/AnimationParent:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Anchor/AnimationParent:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_htbgc"]
+resource_name = "textbox_pop"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/AnimationParent:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/AnimationParent:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.0899883, 0.0258223, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Anchor/AnimationParent:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.793957, 0.778082), Vector2(0.937299, 1.14248), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Anchor/AnimationParent:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c14kh"]
+_data = {
+&"RESET": SubResource("Animation_au0a2"),
+&"new_text": SubResource("Animation_6kbwc"),
+&"textbox_fade_up": SubResource("Animation_g6k55"),
+&"textbox_pop": SubResource("Animation_htbgc")
+}
+
+[sub_resource type="FontVariation" id="FontVariation_v8y64"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xasce"]
+font = ExtResource("10_tu4av")
+font_size = 35
+font_color = Color(0.46666667, 0.49803922, 0.3372549, 1)
+outline_size = 1
+outline_color = Color(0.61960787, 0.64705884, 0.49019608, 1)
+
+[node name="VN_TextboxLayer" type="Control"]
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -19.0
+offset_right = -15.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_bpydr")
+text_use_global_size = false
+text_size = 25
+text_use_global_color = false
+text_use_global_font = false
+box_panel = "res://style/VisualNovelTextbox/vn_textbox_default_panel.tres"
+box_color_use_global = false
+box_size = Vector2(550, 250)
+box_margin_bottom = 0
+name_label_use_global_color = false
+name_label_use_character_color = false
+name_label_custom_color = Color(0.6156863, 0.6431373, 0.4862745, 1)
+name_label_use_global_font = false
+name_label_use_global_font_size = false
+name_label_box_panel = "res://style/VisualNovelTextbox/vn_textbox_name_label_panel.tres"
+name_label_box_use_global_color = false
+name_label_box_modulate = Color(0, 0, 0, 1)
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_c14kh")
+}
+autoplay = "RESET"
+script = ExtResource("2_xy7a2")
+
+[node name="Anchor" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -50.0
+offset_right = -6.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="AnimationParent" type="Control" parent="Anchor"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Sizer" type="Control" parent="Anchor/AnimationParent"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -309.0
+offset_top = -259.0
+offset_right = 239.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.1, 1.1)
+mouse_filter = 2
+
+[node name="DialogTextPanel" type="PanelContainer" parent="Anchor/AnimationParent/Sizer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(550, 270)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("3_0ewhi")
+metadata/_edit_layout_mode = 1
+
+[node name="AutoAdvanceProgressbar" type="ProgressBar" parent="Anchor/AnimationParent/Sizer/DialogTextPanel"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.188235)
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+value = 0.5
+show_percentage = false
+script = ExtResource("6_07xym")
+
+[node name="NameLabelHolder" type="Control" parent="Anchor/AnimationParent/Sizer/DialogTextPanel"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NameLabelPanel" type="PanelContainer" parent="Anchor/AnimationParent/Sizer/DialogTextPanel/NameLabelHolder"]
+unique_name_in_owner = true
+self_modulate = Color(0.00784314, 0.00784314, 0.00784314, 0.843137)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5891148
+anchor_top = -0.0072057606
+anchor_right = 0.87145686
+anchor_bottom = 0.23353498
+offset_left = 17.986816
+offset_top = 15.974367
+offset_right = 15.986816
+offset_bottom = 11.974369
+rotation = 0.14909856
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("9_yg8ig")
+metadata/_edit_layout_mode = 1
+metadata/_edit_use_custom_anchors = true
+metadata/_edit_group_ = true
+
+[node name="DialogicNode_DialogText" type="RichTextLabel" parent="Anchor/AnimationParent/Sizer" node_paths=PackedStringArray("textbox_root")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 62.72728
+offset_top = 95.45453
+offset_right = 487.7273
+offset_bottom = 232.45197
+rotation = -0.008666299
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.46666667, 0.49803922, 0.3372549, 1)
+theme_override_colors/font_outline_color = Color(0.46666667, 0.49803922, 0.3372549, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("10_tu4av")
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 35
+theme_override_font_sizes/bold_italics_font_size = 15
+theme_override_font_sizes/italics_font_size = 15
+bbcode_enabled = true
+text = "Lorem Ipsum Dolor Sit Amet"
+visible_characters_behavior = 1
+script = ExtResource("3_4634k")
+alignment = 2
+textbox_root = NodePath("../DialogTextPanel")
+
+[node name="DialogicNode_TypeSounds" type="AudioStreamPlayer" parent="Anchor/AnimationParent/Sizer/DialogicNode_DialogText"]
+unique_name_in_owner = true
+script = ExtResource("4_ma5mw")
+play_every_character = 0
+
+[node name="DialogicNode_NameLabel" type="Label" parent="Anchor/AnimationParent/Sizer" node_paths=PackedStringArray("name_label_root")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 351.0554
+offset_top = 8.818176
+offset_right = 427.0554
+offset_bottom = 59.818207
+rotation = 0.1502944
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_v8y64")
+theme_override_font_sizes/font_size = 15
+text = "Baku"
+label_settings = SubResource("LabelSettings_xasce")
+script = ExtResource("7_bi7sh")
+name_label_root = NodePath("../DialogTextPanel/NameLabelHolder/NameLabelPanel")

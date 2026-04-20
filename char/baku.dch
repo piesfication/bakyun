@@ -1,0 +1,40 @@
+{
+"@path": "res://addons/dialogic/Resources/character.gd",
+"@subpath": NodePath(""),
+&"_translation_id": "",
+&"color": Color(1, 1, 1, 1),
+&"custom_info": {
+"prefix": "",
+"sound_mood_default": "",
+"sound_moods": {},
+"style": "style_1",
+"suffix": ""
+},
+&"default_portrait": "Outlined",
+&"description": "",
+&"display_name": "Baku",
+&"mirror": false,
+&"nicknames": ["Red Witch"],
+&"offset": Vector2(55, 350),
+&"portraits": {
+"DarkenedOutlined": {
+"export_overrides": {
+"image": "\"res://assets/story/Dialogue/Potrait/Untitled1013_20260404091116.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 0.98,
+"scene": ""
+},
+"Outlined": {
+"export_overrides": {
+"image": "\"res://assets/story/Dialogue/Potrait/Untitled1013_20260404085334.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": ""
+}
+},
+&"scale": 1.3
+}

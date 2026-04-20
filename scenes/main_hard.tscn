@@ -1,4 +1,4 @@
-[gd_scene load_steps=176 format=3 uid="uid://d02efykwojcm5"]
+[gd_scene load_steps=179 format=3 uid="uid://d02efykwojcm5"]
 
 [ext_resource type="Script" uid="uid://yo261lliy8q7" path="res://main_hard.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://i5asanwmdtcp" path="res://assets/level/sea/Untitled694_20260115180850.png" id="2_tbgi4"]
@@ -74,6 +74,7 @@
 [ext_resource type="Texture2D" uid="uid://dody5oty3w8x3" path="res://assets/ui/Koisuru-meter (love)/Ult/Untitled756_20260125112316.png" id="47_152kg"]
 [ext_resource type="Texture2D" uid="uid://c4vctsd1ilqge" path="res://assets/ui/Koisuru-meter (love)/Enlarge/Untitled756_20260125105503.png" id="47_od4ux"]
 [ext_resource type="Texture2D" uid="uid://cs4p26dfkraxq" path="res://assets/ui/Koisuru Progress/Untitled984_20260322180830.png" id="48_pes4l"]
+[ext_resource type="FontFile" uid="uid://dnctcpxhoq0fq" path="res://assets/font/Wild-Words-Font-2/CC Wild Words Bold Italic.ttf" id="48_siafa"]
 [ext_resource type="Texture2D" uid="uid://b2ruhqd4ipqsb" path="res://assets/ui/Koisuru Progress/Untitled752_20260124122926 1 (1).png" id="49_s5e0g"]
 [ext_resource type="Texture2D" uid="uid://ci7fdvf1lfwh0" path="res://assets/ui/Koisuru-meter (love)/Enlarge/Untitled756_20260125105501.png" id="49_xhfw6"]
 [ext_resource type="Texture2D" uid="uid://ci8p4framallt" path="res://assets/ui/Koisuru Progress/Untitled984_20260322180816.png" id="50_uya8e"]
@@ -379,6 +380,18 @@ animations = [{
 "name": &"shooting_yuna",
 "speed": 7.0
 }]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rd5wh"]
+font = ExtResource("48_siafa")
+font_size = 60
+outline_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_watnt"]
+font = ExtResource("48_siafa")
+font_size = 60
+font_color = Color(1, 0.3254902, 0.42745098, 1)
+outline_size = 3
+outline_color = Color(1, 0.3254902, 0.42745098, 1)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2f3dj"]
 load_path = "res://.godot/imported/Untitled736_20260122175858.png-a489637bab31d787319b5d21eb65ceb9.ctex"
@@ -1075,8 +1088,42 @@ position = Vector2(-144, 48)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("6_85g3d")
 
+[node name="Visual" type="Node2D" parent="Crosshair"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Crosshair/Visual"]
+sprite_frames = SubResource("SpriteFrames_trceg")
+animation = &"default_yuna"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Crosshair"]
+
+[node name="Area2D" type="Area2D" parent="Crosshair"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crosshair/Area2D"]
+
 [node name="LevelEndOverlay" type="CanvasLayer" parent="."]
 layer = 20
+
+[node name="ComboCounter" type="Node2D" parent="LevelEndOverlay"]
+position = Vector2(80.00001, 312.00003)
+scale = Vector2(0.65, 0.65)
+
+[node name="Label2" type="Label" parent="LevelEndOverlay/ComboCounter"]
+offset_left = -33.0
+offset_top = 134.00006
+offset_right = 88.259705
+offset_bottom = 215.00006
+rotation = -0.18280539
+text = "1 HIT!"
+label_settings = SubResource("LabelSettings_rd5wh")
+
+[node name="Label" type="Label" parent="LevelEndOverlay/ComboCounter"]
+offset_left = -34.5
+offset_top = 132.24994
+offset_right = 162.5
+offset_bottom = 209.24994
+rotation = -0.18280539
+text = "1 HIT!"
+label_settings = SubResource("LabelSettings_watnt")
 
 [node name="ColorRect" type="ColorRect" parent="LevelEndOverlay"]
 visible = false
@@ -1088,18 +1135,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
-
-[node name="Visual" type="Node2D" parent="Crosshair"]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Crosshair/Visual"]
-sprite_frames = SubResource("SpriteFrames_trceg")
-animation = &"aim_baku"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Crosshair"]
-
-[node name="Area2D" type="Area2D" parent="Crosshair"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Crosshair/Area2D"]
 
 [node name="DamageHud" type="Sprite2D" parent="."]
 z_index = 31

@@ -14,6 +14,7 @@ signal level_finished
 @onready var koisuru_meter_node: Node = $UIKoisuruMeter/KoisuruMeter
 @onready var ultimate_anim_node: AnimatedSprite2D = $UltimateAnim
 @onready var level_end_overlay: ColorRect = $LevelEndOverlay/ColorRect
+@onready var combo_counter_node: Node = $LevelEndOverlay/ComboCounter
 
 @export var max_enemies: int = 20        # Maksimal enemy yang bisa ada sekaligus
 @export var spawn_interval: float = 2.0  # Detik per spawn
@@ -116,6 +117,16 @@ func _setup_main_runtime_systems() -> void:
 	if level_end_overlay != null:
 		level_end_overlay.visible = false
 		level_end_overlay.color = Color(0, 0, 0, 0)
+
+	if combo_counter_node != null and is_instance_valid(combo_counter_node):
+		# Assign script if not already assigned
+		if combo_counter_node.get_script() == null:
+			var combo_script = load("res://script/combo_counter.gd")
+			if combo_script != null:
+				combo_counter_node.set_script(combo_script)
+		# Initialize combo counter
+		if combo_counter_node.has_method("reset"):
+			combo_counter_node.reset()
 
 func spawn_enemy():
 	_spawn_enemy_instance(_pick_random_enemy_scene())
@@ -225,6 +236,9 @@ func _begin_level_end_sequence(is_loss: bool) -> void:
 	bird_strike_effect_started = false
 	bird_strike_lock_timer = 0.0
 	spawn_allowed = false
+	
+	# Fade out combo counter
+	combo_counter_fade_out()
 
 	_set_bird_strike_allowed(false, true, true)
 	_set_crosshair_shoot_enabled(false)
@@ -296,6 +310,24 @@ func spawn_batch_enemies():
 		
 func _on_enemy_removed():
 	current_enemy_count = max(current_enemy_count - 1, 0)
+
+func on_player_hit(character: String = "baku") -> void:
+	"""Called when player successfully hits a target"""
+	if combo_counter_node != null and is_instance_valid(combo_counter_node):
+		if combo_counter_node.has_method("on_hit"):
+			combo_counter_node.on_hit(character)
+
+func on_player_miss() -> void:
+	"""Called when player shoots but misses"""
+	if combo_counter_node != null and is_instance_valid(combo_counter_node):
+		if combo_counter_node.has_method("on_miss"):
+			combo_counter_node.on_miss()
+
+func combo_counter_fade_out() -> void:
+	"""Called when combo counter should fade out due to UI events (like ultimate)"""
+	if combo_counter_node != null and is_instance_valid(combo_counter_node):
+		if combo_counter_node.has_method("fade_out"):
+			combo_counter_node.fade_out()
 
 func _try_trigger_bird_strike_event() -> void:
 	if ultimate_in_progress:
@@ -583,6 +615,10 @@ func _set_ultimate_ui_pulled_out(pulled: bool, skip_damage_hud: bool = false, in
 	var root := get_tree().current_scene
 	if root == null:
 		return
+
+	# Fade out combo counter when pulling UI
+	if pulled:
+		combo_counter_fade_out()
 
 	var viewport_rect := get_viewport_rect()
 	var pull_dist := maxf(ultimate_ui_pull_distance, viewport_rect.size.y + 220.0)

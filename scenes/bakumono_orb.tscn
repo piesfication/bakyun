@@ -1,0 +1,158 @@
+[gd_scene load_steps=26 format=3 uid="uid://r42xbgds8flm"]
+
+[ext_resource type="Script" uid="uid://d4wd6f3mxl2p" path="res://script/bakumono_orb.gd" id="1_pxeby"]
+[ext_resource type="Texture2D" uid="uid://did42jo4f44r2" path="res://assets/enemy/Orb/Blue/Spawn/Untitled1022_20260409104004.png" id="2_mn63c"]
+[ext_resource type="Texture2D" uid="uid://c4fynm16fxw1w" path="res://assets/enemy/Orb/Blue/Spawn/Untitled1022_20260409104006.png" id="3_6aowm"]
+[ext_resource type="Texture2D" uid="uid://bhpqv4qqud1c3" path="res://assets/enemy/Orb/Blue/Spawn/Untitled1022_20260409103636.png" id="4_xggw5"]
+[ext_resource type="Texture2D" uid="uid://d36o5605tn40w" path="res://assets/enemy/boss/Summon/ColoredOrb/Blue/Explode/Untitled945_20260317082735.png" id="5_7ycmx"]
+[ext_resource type="Texture2D" uid="uid://d2vaco6aksnhq" path="res://assets/enemy/Orb/Blue/Spawn/Untitled1022_20260409103851.png" id="6_smgj4"]
+[ext_resource type="Texture2D" uid="uid://byf2icifxvcq1" path="res://assets/enemy/Orb/Red/Spawn/Untitled1022_20260409104004.png" id="8_0qv3f"]
+[ext_resource type="Texture2D" uid="uid://bb67uyp61dmsx" path="res://assets/enemy/Orb/Red/Spawn/Untitled1022_20260409104006.png" id="9_7xcn0"]
+[ext_resource type="Texture2D" uid="uid://corqeui8egvl" path="res://assets/enemy/Orb/Red/Spawn/Untitled1022_20260409104013.png" id="10_pxeby"]
+[ext_resource type="Texture2D" uid="uid://t1a4r0p14dxx" path="res://assets/enemy/boss/Summon/ColoredOrb/Red/Explode/Untitled945_20260317082749.png" id="11_v2ehy"]
+[ext_resource type="Texture2D" uid="uid://c1q1xxyw8y740" path="res://assets/enemy/Orb/Red/Spawn/Untitled1022_20260409103856.png" id="12_6aqr1"]
+[ext_resource type="Texture2D" uid="uid://b8wgvn74bxtst" path="res://assets/enemy/Orb/Blue/Explode/Untitled1024_20260409101918.png" id="14_txyrl"]
+[ext_resource type="Texture2D" uid="uid://ciwooj7nhiv65" path="res://assets/enemy/Orb/Blue/Explode/Untitled1024_20260409101921.png" id="15_gaj1j"]
+[ext_resource type="Texture2D" uid="uid://fqfhj5bwsf5i" path="res://assets/enemy/Orb/Blue/Explode/Untitled1024_20260409101923.png" id="16_kefei"]
+[ext_resource type="Texture2D" uid="uid://rhw1x146e33k" path="res://assets/enemy/Orb/Blue/Explode/Untitled1023_20260409112121.png" id="17_eiidc"]
+[ext_resource type="Texture2D" uid="uid://jef4xsmow1tx" path="res://assets/enemy/boss/Summon/ColoredOrb/Blue/Explode/Untitled945_20260317083154.png" id="17_xggw5"]
+[ext_resource type="Texture2D" uid="uid://dfa1nbafou3tv" path="res://assets/enemy/boss/Summon/ColoredOrb/Blue/Explode/Untitled945_20260317083110.png" id="19_00rdu"]
+[ext_resource type="Texture2D" uid="uid://51d2guj3d6j8" path="res://assets/enemy/Orb/Red/Explode/Untitled1023_20260409093107.png" id="20_dx4bg"]
+[ext_resource type="Texture2D" uid="uid://cdgoniw6y2ffm" path="res://assets/enemy/Orb/Red/Explode/Untitled1023_20260409093109.png" id="21_p2qg6"]
+[ext_resource type="Texture2D" uid="uid://br3iaj0hdy51d" path="res://assets/enemy/Orb/Red/Explode/Untitled1023_20260409093112.png" id="22_fjha5"]
+[ext_resource type="Texture2D" uid="uid://d3u1c4komfx4n" path="res://assets/enemy/Orb/Red/Explode/Untitled1023_20260409102956.png" id="23_35nxk"]
+[ext_resource type="Texture2D" uid="uid://d04aae3lppq0p" path="res://assets/enemy/boss/Summon/ColoredOrb/Red/Explode/Untitled945_20260317083140.png" id="23_smgj4"]
+[ext_resource type="Texture2D" uid="uid://cx0t08c6drfa2" path="res://assets/enemy/boss/Summon/ColoredOrb/Red/Explode/Untitled945_20260317083106.png" id="25_jljii"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l855h"]
+radius = 241.05241
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nvgyg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mn63c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6aowm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xggw5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7ycmx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_smgj4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_xggw5")
+}],
+"loop": false,
+"name": &"enlarge_blue",
+"speed": 13.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_0qv3f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_7xcn0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_pxeby")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_v2ehy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6aqr1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_smgj4")
+}],
+"loop": false,
+"name": &"enlarge_red",
+"speed": 13.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_txyrl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_gaj1j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_kefei")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_xggw5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_eiidc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_00rdu")
+}],
+"loop": false,
+"name": &"explode_blue",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_dx4bg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_p2qg6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_fjha5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_smgj4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_35nxk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_jljii")
+}],
+"loop": false,
+"name": &"explode_red",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_xggw5")
+}],
+"loop": true,
+"name": &"moving_blue",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_smgj4")
+}],
+"loop": true,
+"name": &"moving_red",
+"speed": 3.0
+}]
+
+[node name="BakumonoOrb" type="Node2D"]
+scale = Vector2(0.4, 0.4)
+script = ExtResource("1_pxeby")
+color_swap_progress_min = 0.1
+color_swap_progress_max = 0.7
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.99999994, 0.99999994)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_l855h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_nvgyg")
+animation = &"moving_red"

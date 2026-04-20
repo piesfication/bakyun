@@ -36,3 +36,4 @@ func _spawn_boss_once() -> void:
 
 func _on_boss_removed() -> void:
 	current_enemy_count = 0
+	Dialogic.start("timeline_41")

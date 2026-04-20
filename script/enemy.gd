@@ -223,7 +223,7 @@ func _ready():
 	original_modulate = self.modulate 
 	set_state(State.MOVING)
 
-	player_node = get_tree().get_root().get_node("Main/Player")
+	player_node = _find_player_node()
 
 	base_y = visual.position.y
 
@@ -313,6 +313,9 @@ func _process(delta: float):
 	
 	update_flip()
 	
+	if player_node == null or not is_instance_valid(player_node):
+		player_node = _find_player_node()
+
 	if player_node:
 		attack_timer -= sim_delta
 		if depth == 0 and not is_attacking:
@@ -320,6 +323,29 @@ func _process(delta: float):
 				_trigger_close_explode()
 			elif can_attack and attack_timer <= 0:
 				start_attack()
+
+func _find_player_node() -> Node2D:
+	var tree := get_tree()
+	if tree == null:
+		return null
+
+	var root := tree.get_root()
+	if root != null:
+		var from_main := root.get_node_or_null("Main/Player") as Node2D
+		if from_main != null:
+			return from_main
+
+		var from_main2 := root.get_node_or_null("Main2/Player") as Node2D
+		if from_main2 != null:
+			return from_main2
+
+	var scene_root := tree.current_scene
+	if scene_root != null:
+		var from_scene := scene_root.find_child("Player", true, false) as Node2D
+		if from_scene != null:
+			return from_scene
+
+	return null
 	
 func start_attack():
 	if is_dead or not can_attack:

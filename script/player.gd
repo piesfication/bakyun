@@ -4,7 +4,7 @@ signal hp_changed(old_hp: int, new_hp: int)
 signal character_switched(character_name: String)
 signal died
 
-@export var max_hp := 3
+@export var max_hp := 30000000
 var current_hp := max_hp
 var invulnerable: bool = false
 
@@ -13,6 +13,7 @@ var invulnerable: bool = false
 
 var current_weapon: Node2D
 var input_locked: bool = false
+var switch_locked: bool = false
 
 @export var damage_shake_duration: float = 0.24
 @export var damage_shake_strength: float = 26.0
@@ -60,13 +61,13 @@ func _process(delta: float) -> void:
 
 
 func _input(event):
-	if input_locked:
+	if input_locked or switch_locked:
 		return
 	if event.is_action_pressed("switch"):
 		switch_weapon()
 
 func switch_weapon():
-	if input_locked:
+	if input_locked or switch_locked:
 		return
 	current_weapon.visible = false
 
@@ -75,6 +76,23 @@ func switch_weapon():
 	else:
 		current_weapon = baku
 
+	current_weapon.visible = true
+	emit_signal("character_switched", get_current_character_name())
+
+
+func set_current_character(character_name: String) -> void:
+	var normalized_character := character_name.to_lower()
+	var target_weapon: Node2D = baku
+	if normalized_character == "yuna":
+		target_weapon = yuna
+
+	if current_weapon == target_weapon:
+		return
+
+	if current_weapon != null and is_instance_valid(current_weapon):
+		current_weapon.visible = false
+
+	current_weapon = target_weapon
 	current_weapon.visible = true
 	emit_signal("character_switched", get_current_character_name())
 
@@ -114,6 +132,10 @@ func die():
 func set_input_locked(locked: bool) -> void:
 	input_locked = locked
 
+
+func set_switch_locked(locked: bool) -> void:
+	switch_locked = locked
+
 func set_invulnerable(enabled: bool) -> void:
 	invulnerable = enabled
 
@@ -139,6 +161,7 @@ func set_damage_hud_forced(enabled: bool) -> void:
 		_damage_hud.visible = false
 
 func _start_damage_shake() -> void:
+	Transition.play_crt_glitch_burst()
 	if _shake_target == null or not is_instance_valid(_shake_target):
 		_shake_target = get_tree().current_scene as Node2D
 	if _shake_target == null:

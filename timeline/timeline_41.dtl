@@ -1,0 +1,14 @@
+[wait time="4.0"]
+join yuna (Outlined) left
+yuna: (disbelieving)
+yuna: ...that's it?
+join baku (Outlined) right
+update yuna (DarkenedOutlined)
+baku: Looks like it.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: It went down too easy.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku (Outlined): Maybe we're just that good.
+[wait time="3.0"]

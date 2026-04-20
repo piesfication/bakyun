@@ -15,6 +15,7 @@ func _input_event(viewport, event, shape_idx):
 		if is_blocked_click:
 			return
 		_clicked = true
+		#LoadingManager.set_target_scene("res://scenes/story.tscn")
 		LoadingManager.set_target_scene("res://scenes/level_menu.tscn")
 		await Transition.fade_out()
 		get_tree().change_scene_to_file("res://scenes/loading_screen.tscn")

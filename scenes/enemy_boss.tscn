@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://6a1bnv075qqc"]
+[gd_scene load_steps=98 format=3 uid="uid://6a1bnv075qqc"]
 
 [ext_resource type="Texture2D" uid="uid://btjygbtf3aj75" path="res://assets/enemy/boss/Attack/Untitled934_20260316133508.png" id="1_3kk42"]
 [ext_resource type="Texture2D" uid="uid://l1kar6x52ne" path="res://assets/enemy/boss/Attack/Untitled934_20260316133603.png" id="2_fgy5c"]
@@ -12,50 +12,76 @@
 [ext_resource type="Texture2D" uid="uid://ww2sslu08dok" path="res://assets/enemy/boss/Summon/Gate/Bot/Untitled934_20260316133342.png" id="9_4dapu"]
 [ext_resource type="Texture2D" uid="uid://bghib06glp53l" path="res://assets/enemy/boss/Summon/Gate/Bot/Untitled934_20260316133349.png" id="10_be4a5"]
 [ext_resource type="Texture2D" uid="uid://bd6ehapdw0bf7" path="res://assets/enemy/boss/Summon/Gate/Bot/Untitled934_20260316133355.png" id="11_ogh0d"]
-[ext_resource type="Texture2D" uid="uid://d33aqhfs06e11" path="res://assets/enemy/boss/Summon/Vortex/Bot/Untitled943_20260316121249.png" id="12_l6bym"]
-[ext_resource type="Texture2D" uid="uid://bqaiu7jay5nah" path="res://assets/enemy/boss/Summon/Vortex/Bot/Untitled943_20260316121251.png" id="13_4q5y6"]
-[ext_resource type="Texture2D" uid="uid://d3lqk8gyl3ywj" path="res://assets/enemy/boss/Summon/Vortex/Bot/Untitled943_20260316121252.png" id="14_fu7sr"]
-[ext_resource type="Texture2D" uid="uid://bn3s55mp45cmm" path="res://assets/enemy/boss/Summon/Vortex/Bot/Untitled943_20260316121254.png" id="15_valbh"]
-[ext_resource type="Texture2D" uid="uid://cfuwklsq8rw46" path="res://assets/enemy/boss/Summon/Vortex/Bot/Untitled943_20260316121318.png" id="16_7h5b3"]
 [ext_resource type="Texture2D" uid="uid://csard1r1lamwl" path="res://assets/enemy/boss/Summon/Gate/Top/Untitled934_20260316133222.png" id="17_7lqe6"]
 [ext_resource type="Texture2D" uid="uid://bbad40h7wra34" path="res://assets/enemy/boss/Summon/Gate/Top/Untitled934_20260316133150.png" id="18_qgfep"]
 [ext_resource type="Texture2D" uid="uid://bf4u7wbb81lxn" path="res://assets/enemy/boss/Summon/Gate/Top/Untitled934_20260316133214.png" id="19_nukcs"]
 [ext_resource type="Texture2D" uid="uid://82hawixm0xhb" path="res://assets/enemy/boss/Summon/Gate/Top/Untitled934_20260316133231.png" id="20_vt0rx"]
-[ext_resource type="Texture2D" uid="uid://btk7be1qdtoff" path="res://assets/enemy/boss/Summon/Vortex/Top/Untitled940_20260316114606.png" id="21_ihxwk"]
-[ext_resource type="Texture2D" uid="uid://b0w4ncgpehera" path="res://assets/enemy/boss/Summon/Vortex/Top/Untitled940_20260316114608.png" id="22_cb2hv"]
-[ext_resource type="Texture2D" uid="uid://detr0ueg7is4o" path="res://assets/enemy/boss/Summon/Vortex/Top/Untitled940_20260316114611.png" id="23_obmup"]
-[ext_resource type="Texture2D" uid="uid://0p4g6un1yvcm" path="res://assets/enemy/boss/Summon/Vortex/Top/Untitled940_20260316114613.png" id="24_qygbk"]
-[ext_resource type="Texture2D" uid="uid://bkbh0630ikysx" path="res://assets/enemy/boss/Summon/Vortex/Top/Untitled940_20260316114616.png" id="25_fda68"]
-[ext_resource type="Texture2D" uid="uid://n6hv4qrjx30t" path="res://assets/enemy/boss/Summon/Vortex/Top/Untitled940_20260316114618.png" id="26_pjicy"]
+[ext_resource type="Texture2D" uid="uid://by7y8rqwpufxj" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132738.png" id="22_be72q"]
+[ext_resource type="Texture2D" uid="uid://k8cu533ash5q" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132740.png" id="23_mw2bq"]
+[ext_resource type="Texture2D" uid="uid://b8fd1fhl08pmf" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132742.png" id="24_jbapy"]
+[ext_resource type="Texture2D" uid="uid://nvejw1j3u46e" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132744.png" id="25_rkcqk"]
+[ext_resource type="Texture2D" uid="uid://btxarkbh0bu6f" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132746.png" id="26_q6as8"]
 [ext_resource type="Texture2D" uid="uid://bu2p4fxtew0rf" path="res://assets/enemy/boss/Summon/Gate/Mid/Untitled934_20260316133310.png" id="27_ncxhi"]
+[ext_resource type="Texture2D" uid="uid://ch216phnjgtf0" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132748.png" id="27_qf2p8"]
+[ext_resource type="Texture2D" uid="uid://bjfxm0s4scgqi" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132750.png" id="28_1bod0"]
 [ext_resource type="Texture2D" uid="uid://cv4cco5mb56jt" path="res://assets/enemy/boss/Summon/Gate/Mid/Untitled934_20260316133254.png" id="28_vompo"]
+[ext_resource type="Texture2D" uid="uid://cml4x0y4te1tk" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132753.png" id="29_6mgss"]
 [ext_resource type="Texture2D" uid="uid://chxkxgyqwdu46" path="res://assets/enemy/boss/Summon/Gate/Mid/Untitled934_20260316133300.png" id="29_fqt7g"]
+[ext_resource type="Texture2D" uid="uid://cwkc1nylcjkxq" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132755.png" id="30_8mro7"]
 [ext_resource type="Texture2D" uid="uid://brxlq3m8kfajc" path="res://assets/enemy/boss/Summon/Gate/Mid/Untitled934_20260316133308.png" id="30_nbw5e"]
-[ext_resource type="Texture2D" uid="uid://6qnx0rw48ct1" path="res://assets/enemy/boss/Summon/Vortex/Mid/Untitled942_20260316115207.png" id="31_b0fgj"]
-[ext_resource type="Texture2D" uid="uid://c3h16dtyu30v5" path="res://assets/enemy/boss/Summon/Vortex/Mid/Untitled942_20260316115209.png" id="32_7l3g1"]
-[ext_resource type="Texture2D" uid="uid://dx3f56wth2c5w" path="res://assets/enemy/boss/Summon/Vortex/Mid/Untitled942_20260316115213.png" id="33_g2ujx"]
-[ext_resource type="Texture2D" uid="uid://de6yvbx3enptq" path="res://assets/enemy/boss/Summon/Vortex/Mid/Untitled942_20260316115215.png" id="34_vm2od"]
-[ext_resource type="Texture2D" uid="uid://vtbkt1b2lq4g" path="res://assets/enemy/boss/Summon/Vortex/Mid/Untitled942_20260316115217.png" id="35_dkrra"]
-[ext_resource type="Texture2D" uid="uid://bmhyncma8cw26" path="res://assets/enemy/boss/Summon/Vortex/Mid/Untitled942_20260316115509.png" id="36_o0ak2"]
+[ext_resource type="Texture2D" uid="uid://lixuay7pjjvp" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132757.png" id="31_742tp"]
+[ext_resource type="Texture2D" uid="uid://bchsu73g5xxas" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132759.png" id="32_8trpe"]
+[ext_resource type="Texture2D" uid="uid://croyhspk8wqps" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132801.png" id="33_opxb1"]
+[ext_resource type="Texture2D" uid="uid://bfow17xonuhrp" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132803.png" id="34_rfud6"]
+[ext_resource type="Texture2D" uid="uid://br7h3x4w0han5" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132806.png" id="35_ubdnr"]
+[ext_resource type="Texture2D" uid="uid://bg2740w50a15a" path="res://assets/enemy/boss/Dead/Untitled1007_20260419183823.png" id="36_8trpe"]
+[ext_resource type="Texture2D" uid="uid://bqsway8wpgixf" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074636.png" id="36_gr6lc"]
+[ext_resource type="Texture2D" uid="uid://dpkihy12ljrlj" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074638.png" id="37_4p5uj"]
 [ext_resource type="Script" uid="uid://cktk3e25sqkrs" path="res://script/enemy_boss.gd" id="37_bossc"]
+[ext_resource type="Texture2D" uid="uid://bwbffq2v0vjs8" path="res://assets/enemy/boss/Dead/Untitled1007_20260419183947.png" id="37_opxb1"]
+[ext_resource type="Texture2D" uid="uid://b2f20jqify33a" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074640.png" id="38_qeynt"]
+[ext_resource type="Texture2D" uid="uid://bld1pru5be41j" path="res://assets/enemy/boss/Dead/Untitled1007_20260419183949.png" id="38_rfud6"]
 [ext_resource type="Texture2D" uid="uid://klfdemhjrebs" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121654.png" id="39_ncxhi"]
+[ext_resource type="Texture2D" uid="uid://c50o7c2a3p517" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074642.png" id="39_pk8gd"]
+[ext_resource type="Texture2D" uid="uid://uskquu4y3r2u" path="res://assets/enemy/boss/Dead/Untitled1007_20260419183951.png" id="39_ubdnr"]
+[ext_resource type="Texture2D" uid="uid://b7cdry1jyq7yc" path="res://assets/enemy/boss/Dead/Untitled1007_20260419184103.png" id="40_gr6lc"]
+[ext_resource type="Texture2D" uid="uid://rabl5tex4j3k" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074645.png" id="40_kxjap"]
 [ext_resource type="Texture2D" uid="uid://dim006s2kgwe3" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121801.png" id="40_vompo"]
+[ext_resource type="Texture2D" uid="uid://70f08fl5px86" path="res://assets/enemy/boss/Dead/Untitled1007_20260419184106.png" id="41_4p5uj"]
 [ext_resource type="Texture2D" uid="uid://3if6emxbt4ix" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121659.png" id="41_fqt7g"]
+[ext_resource type="Texture2D" uid="uid://c2242k7ddoypc" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074647.png" id="41_tw118"]
+[ext_resource type="Texture2D" uid="uid://bbhg2xk8stn3r" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074649.png" id="42_fahs1"]
 [ext_resource type="Texture2D" uid="uid://2dqanm37eh6w" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121702.png" id="42_nbw5e"]
+[ext_resource type="Texture2D" uid="uid://s1vf1auws6p3" path="res://assets/enemy/boss/Dead/Untitled1007_20260419184108.png" id="42_qeynt"]
 [ext_resource type="Texture2D" uid="uid://dlnhawwj060m2" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121706.png" id="43_b0fgj"]
+[ext_resource type="Texture2D" uid="uid://b2o71gua21km4" path="res://assets/enemy/boss/Dead/Untitled1007_20260419184110.png" id="43_pk8gd"]
 [ext_resource type="Texture2D" uid="uid://mwihk37pf1up" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121709.png" id="44_7l3g1"]
+[ext_resource type="Texture2D" uid="uid://cnh6yqsrs4oxh" path="res://assets/enemy/boss/Dead/Untitled1007_20260419184112.png" id="44_kxjap"]
+[ext_resource type="Texture2D" uid="uid://d18xugbwa7yra" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074654.png" id="44_wi54i"]
 [ext_resource type="Texture2D" uid="uid://fbe1nv0ch516" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121713.png" id="45_g2ujx"]
+[ext_resource type="Texture2D" uid="uid://ch6lo5ldl7mtc" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074656.png" id="45_j2yrc"]
+[ext_resource type="Texture2D" uid="uid://fcnbsvwrlv1o" path="res://assets/enemy/boss/Dead/Untitled1007_20260419184114.png" id="45_tw118"]
+[ext_resource type="Texture2D" uid="uid://tb7fc2g3k3hq" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074658.png" id="46_a1hv3"]
 [ext_resource type="Texture2D" uid="uid://cy2tfkhvunv4i" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121717.png" id="46_vm2od"]
 [ext_resource type="Texture2D" uid="uid://j7cfrw3e1w7l" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121721.png" id="47_dkrra"]
+[ext_resource type="Texture2D" uid="uid://mee1whe8wq7i" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074700.png" id="47_e117s"]
+[ext_resource type="Texture2D" uid="uid://c5a7a2s6maa7i" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074703.png" id="48_ky8i4"]
 [ext_resource type="Texture2D" uid="uid://dhfluu5op0bl5" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121753.png" id="48_o0ak2"]
 [ext_resource type="Texture2D" uid="uid://dfdwufyr4m7tq" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121818.png" id="49_j5ys4"]
+[ext_resource type="Texture2D" uid="uid://lh4q5ne2kr4a" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074705.png" id="49_vgab2"]
 [ext_resource type="Texture2D" uid="uid://bwptthnl02knp" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121821.png" id="50_8omko"]
+[ext_resource type="Texture2D" uid="uid://0ka1hioikx7h" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074707.png" id="50_qx648"]
+[ext_resource type="Texture2D" uid="uid://cwl86kjn3m3b8" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074710.png" id="51_iljnj"]
 [ext_resource type="Texture2D" uid="uid://dqoj5bo2hbn1o" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121826.png" id="51_x13js"]
+[ext_resource type="Texture2D" uid="uid://b8j8nmgtnbyvb" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074712.png" id="52_ilybr"]
 [ext_resource type="Texture2D" uid="uid://clfuoi0mfu434" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121831.png" id="52_w3lkq"]
+[ext_resource type="Texture2D" uid="uid://davasfttevi6g" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074714.png" id="53_c5gcx"]
 [ext_resource type="Texture2D" uid="uid://bjin0lh3seqmn" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121856.png" id="53_tokdj"]
 [ext_resource type="Texture2D" uid="uid://dkn4ppbpo2lha" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121859.png" id="54_3ek2g"]
+[ext_resource type="Texture2D" uid="uid://cpvs7a47x2qv2" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419074716.png" id="54_746hw"]
 [ext_resource type="Texture2D" uid="uid://cxn5rxdwiq1fk" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121901.png" id="55_2o8ht"]
 [ext_resource type="Texture2D" uid="uid://etdm4hmw0k22" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121913.png" id="56_h7ie3"]
+[ext_resource type="Texture2D" uid="uid://suqdgs8m5duc" path="res://assets/enemy/boss/Summon_Revised/Untitled1005_20260419190808.png" id="57_8trpe"]
 [ext_resource type="Texture2D" uid="uid://bof6h8y3jtp4u" path="res://assets/enemy/boss/Shield/Untitled974_20260319125758.png" id="57_be72q"]
 [ext_resource type="Texture2D" uid="uid://ckhht0pf2urvh" path="res://assets/enemy/boss/Shield/Untitled974_20260319125800.png" id="58_mw2bq"]
 [ext_resource type="Texture2D" uid="uid://c6rvgly8lu6oa" path="res://assets/enemy/boss/Shield/Untitled974_20260319125803.png" id="59_jbapy"]
@@ -127,29 +153,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_x13js"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("12_l6bym")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_4q5y6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_fu7sr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_valbh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_7h5b3")
-}],
-"loop": false,
-"name": &"default",
-"speed": 8.0
-}]
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_w3lkq"]
 animations = [{
 "frames": [{
@@ -176,32 +179,6 @@ animations = [{
 "loop": false,
 "name": &"summon",
 "speed": 6.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_tokdj"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("21_ihxwk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_cb2hv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("23_obmup")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_qygbk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_fda68")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_pjicy")
-}],
-"loop": true,
-"name": &"default",
-"speed": 13.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3ek2g"]
@@ -232,30 +209,184 @@ animations = [{
 "speed": 6.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_2o8ht"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_gr6lc"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("31_b0fgj")
+"texture": ExtResource("22_be72q")
 }, {
 "duration": 1.0,
-"texture": ExtResource("32_7l3g1")
+"texture": ExtResource("23_mw2bq")
 }, {
 "duration": 1.0,
-"texture": ExtResource("33_g2ujx")
+"texture": ExtResource("24_jbapy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("34_vm2od")
+"texture": ExtResource("25_rkcqk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("35_dkrra")
+"texture": ExtResource("26_q6as8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("36_o0ak2")
+"texture": ExtResource("27_qf2p8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_1bod0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_6mgss")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_8mro7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_742tp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_8trpe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_opxb1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_rfud6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_ubdnr")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_8mro7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_742tp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_8trpe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_opxb1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_rfud6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_ubdnr")
+}],
+"loop": false,
+"name": &"damaged",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_8trpe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_opxb1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_rfud6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_ubdnr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_gr6lc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_4p5uj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_qeynt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_pk8gd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_kxjap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_tw118")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("46_a1hv3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_e117s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_ky8i4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_vgab2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_qx648")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_iljnj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_ilybr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_c5gcx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_746hw")
+}],
+"loop": false,
+"name": &"summon_closed",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_tw118")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_fahs1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_8trpe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_wi54i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_j2yrc")
 }],
 "loop": true,
-"name": &"default",
-"speed": 15.0
+"name": &"summon_loop",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_gr6lc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_4p5uj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_qeynt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_pk8gd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_kxjap")
+}],
+"loop": false,
+"name": &"summon_open",
+"speed": 10.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6mgss"]
@@ -409,7 +540,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"weakened",
-"speed": 10.0
+"speed": 14.0
 }]
 
 [node name="EnemyBoss" type="Node2D"]
@@ -462,6 +593,7 @@ position = Vector2(-96, 64)
 position = Vector2(416, 288)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4.347826, 0)
 sprite_frames = SubResource("SpriteFrames_j5ys4")
 animation = &"idle"
 
@@ -469,44 +601,27 @@ animation = &"idle"
 sprite_frames = SubResource("SpriteFrames_8omko")
 animation = &"idle"
 
-[node name="VortexBot" type="AnimatedSprite2D" parent="AnimatedSprite2D/BotAnim"]
-visible = false
-modulate = Color(0.8784314, 0.7372549, 0.7294118, 1)
-position = Vector2(152, 160)
-scale = Vector2(1.3, 1.3)
-sprite_frames = SubResource("SpriteFrames_x13js")
-frame = 3
-frame_progress = 0.07159586
-
 [node name="TopAnim" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_w3lkq")
 animation = &"idle"
 frame_progress = 0.37889734
 
-[node name="VortexTop" type="AnimatedSprite2D" parent="AnimatedSprite2D/TopAnim"]
-modulate = Color(0.6886543, 0.86504287, 2.3464565, 1)
-position = Vector2(80, -416)
-sprite_frames = SubResource("SpriteFrames_tokdj")
-frame = 2
-frame_progress = 0.13831031
-
-[node name="OrbContainer" type="Node2D" parent="AnimatedSprite2D/TopAnim/VortexTop"]
-position = Vector2(8, 8)
+[node name="OrbContainer" type="Node2D" parent="AnimatedSprite2D/TopAnim"]
+position = Vector2(78.260864, 17.391304)
 
 [node name="MidAnim" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_3ek2g")
 animation = &"idle"
 
-[node name="VortexMid" type="AnimatedSprite2D" parent="AnimatedSprite2D/MidAnim"]
-modulate = Color(1.4687854, 0.5407801, 1.011807, 1)
-position = Vector2(-32, -192)
+[node name="OrbContainer" type="Node2D" parent="AnimatedSprite2D/MidAnim"]
+position = Vector2(78.260864, 17.391312)
 scale = Vector2(1.2, 1.2)
-sprite_frames = SubResource("SpriteFrames_2o8ht")
-frame = 5
-frame_progress = 1.0
 
-[node name="OrbContainer" type="Node2D" parent="AnimatedSprite2D/MidAnim/VortexMid"]
-position = Vector2(-13.333333, -6.6666665)
+[node name="AnimateAction" type="AnimatedSprite2D" parent="."]
+position = Vector2(69.565216, 0)
+scale = Vector2(2.2, 2.2)
+sprite_frames = SubResource("SpriteFrames_gr6lc")
+animation = &"damaged"
 
 [node name="Shield" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -537,6 +652,7 @@ scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_1bod0")
 animation = &"weakened"
 autoplay = "hp_10"
+frame_progress = 1.0
 
 [node name="WeaknessBar" type="TextureProgressBar" parent="WeakContainer"]
 visible = false
@@ -548,3 +664,6 @@ offset_bottom = 582.0
 scale = Vector2(4, 4)
 texture_under = ExtResource("63_fqt7g")
 texture_progress = ExtResource("64_nbw5e")
+
+[connection signal="animation_finished" from="AnimateAction" to="." method="_on_animated_sprite_2d_2_animation_finished"]
+[connection signal="frame_changed" from="AnimateAction" to="." method="_on_animated_sprite_2d_2_frame_changed"]

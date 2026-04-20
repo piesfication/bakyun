@@ -1,0 +1,294 @@
+[gd_scene load_steps=35 format=3 uid="uid://jmfk3k5jopvk"]
+
+[ext_resource type="Texture2D" uid="uid://cfht878rh5ox" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145259.png" id="1_25q3k"]
+[ext_resource type="Script" uid="uid://kmyycxgwtgiy" path="res://script/yuokai_boss.gd" id="1_cqvef"]
+[ext_resource type="Texture2D" uid="uid://oosh0kfedxfj" path="res://assets/enemy/Yuokai/Idle/Untitled1032_20260418174327.png" id="1_tj2yg"]
+[ext_resource type="Texture2D" uid="uid://62vsjhtwy0gx" path="res://assets/enemy/Yuokai/Idle/Untitled1032_20260418174651.png" id="2_cqvef"]
+[ext_resource type="Texture2D" uid="uid://d5knu5ol0sjq" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145409.png" id="2_f3bdi"]
+[ext_resource type="Texture2D" uid="uid://bypuk1qojtc3" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145303.png" id="3_dndry"]
+[ext_resource type="Texture2D" uid="uid://bhial7p65svfu" path="res://assets/enemy/Yuokai/Idle/Untitled1032_20260418174755.png" id="3_qu2d8"]
+[ext_resource type="Texture2D" uid="uid://by3n6mjhjdtyu" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145305.png" id="4_77u4b"]
+[ext_resource type="Texture2D" uid="uid://ca2n644ahwd1c" path="res://assets/enemy/Yuokai/Idle/Untitled1032_20260418174322.png" id="4_f65sa"]
+[ext_resource type="Texture2D" uid="uid://da5qsg0dw7lic" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145307.png" id="5_tj2yg"]
+[ext_resource type="PackedScene" uid="uid://b0oqkr3pkn6g0" path="res://scenes/weakness_point.tscn" id="6_cqvef"]
+[ext_resource type="Texture2D" uid="uid://klfdemhjrebs" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121654.png" id="7_qu2d8"]
+[ext_resource type="Texture2D" uid="uid://dim006s2kgwe3" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121801.png" id="8_f65sa"]
+[ext_resource type="Texture2D" uid="uid://3if6emxbt4ix" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121659.png" id="9_wwt05"]
+[ext_resource type="Texture2D" uid="uid://2dqanm37eh6w" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121702.png" id="10_bylpi"]
+[ext_resource type="Texture2D" uid="uid://dlnhawwj060m2" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121706.png" id="11_wg72l"]
+[ext_resource type="Texture2D" uid="uid://mwihk37pf1up" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121709.png" id="12_v460u"]
+[ext_resource type="Texture2D" uid="uid://fbe1nv0ch516" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121713.png" id="13_2j1hl"]
+[ext_resource type="Texture2D" uid="uid://cy2tfkhvunv4i" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121717.png" id="14_jwcp8"]
+[ext_resource type="Texture2D" uid="uid://j7cfrw3e1w7l" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121721.png" id="15_q2dnj"]
+[ext_resource type="Texture2D" uid="uid://dhfluu5op0bl5" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121753.png" id="16_hu0pr"]
+[ext_resource type="Texture2D" uid="uid://dfdwufyr4m7tq" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121818.png" id="17_x4umg"]
+[ext_resource type="Texture2D" uid="uid://bwptthnl02knp" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121821.png" id="18_5unks"]
+[ext_resource type="Texture2D" uid="uid://dqoj5bo2hbn1o" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121826.png" id="19_kpkev"]
+[ext_resource type="Texture2D" uid="uid://clfuoi0mfu434" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121831.png" id="20_htlae"]
+[ext_resource type="Texture2D" uid="uid://bjin0lh3seqmn" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121856.png" id="21_s272x"]
+[ext_resource type="Texture2D" uid="uid://dkn4ppbpo2lha" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121859.png" id="22_c5u0k"]
+[ext_resource type="Texture2D" uid="uid://cxn5rxdwiq1fk" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121901.png" id="23_qhr2x"]
+[ext_resource type="Texture2D" uid="uid://etdm4hmw0k22" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121913.png" id="24_u13sv"]
+[ext_resource type="Texture2D" uid="uid://bgpbbiq54ttvc" path="res://assets/enemy/boss/Hp/WeaknessDuration/Trimmed/Untitled972_20260319121848.png" id="25_2xcxx"]
+[ext_resource type="Texture2D" uid="uid://b7ryo7ggu6y1p" path="res://assets/enemy/boss/Hp/WeaknessDuration/Trimmed/Untitled972_20260319121841.png" id="26_dnnff"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_go480"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tj2yg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_cqvef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qu2d8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f65sa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aq2tn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_25q3k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_f3bdi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dndry")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_77u4b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tj2yg")
+}],
+"loop": false,
+"name": &"shooting",
+"speed": 9.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_liulr"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qu2d8")
+}],
+"loop": true,
+"name": &"hp_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_f65sa")
+}],
+"loop": true,
+"name": &"hp_10",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_wwt05")
+}],
+"loop": true,
+"name": &"hp_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_bylpi")
+}],
+"loop": true,
+"name": &"hp_3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_wg72l")
+}],
+"loop": true,
+"name": &"hp_4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_v460u")
+}],
+"loop": true,
+"name": &"hp_5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_2j1hl")
+}],
+"loop": true,
+"name": &"hp_6",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_jwcp8")
+}],
+"loop": true,
+"name": &"hp_7",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_q2dnj")
+}],
+"loop": true,
+"name": &"hp_8",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_hu0pr")
+}],
+"loop": true,
+"name": &"hp_9",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_x4umg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_5unks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_kpkev")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_5unks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_htlae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_s272x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_c5u0k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_qhr2x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_u13sv")
+}],
+"loop": false,
+"name": &"second_phase",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_x4umg")
+}],
+"loop": false,
+"name": &"weakened",
+"speed": 10.0
+}]
+
+[node name="YuokaiBoss" type="Node2D"]
+scale = Vector2(0.16, 0.16)
+script = ExtResource("1_cqvef")
+intro_speed = 200.0
+move_speed_layer2_min = 70.0
+move_speed_layer2_max = 95.0
+move_speed_layer1_min = 85.0
+move_speed_layer1_max = 100.0
+summon_burst_count = 2
+summon_burst_short_gap_min = 1.0
+summon_burst_short_gap_max = 1.0
+summon_burst_long_gap_min = 3.0
+summon_burst_long_gap_max = 4.0
+summon_orb_count_max = 8
+flap_amplitude = 30.0
+flap_frequency = 1.0
+
+[node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="BodyAnim" type="AnimatedSprite2D" parent="Node2D"]
+position = Vector2(87.083305, 0)
+sprite_frames = SubResource("SpriteFrames_go480")
+autoplay = "default"
+frame_progress = 0.08007563
+
+[node name="HandAnim" type="AnimatedSprite2D" parent="Node2D"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_aq2tn")
+animation = &"shooting"
+autoplay = "default"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(323.74994, 0)
+
+[node name="WeaknessPoint" parent="Area2D" instance=ExtResource("6_cqvef")]
+position = Vector2(-106.25, -1018.75)
+scale = Vector2(1.5, 1.5)
+
+[node name="WeaknessPoint2" parent="Area2D" instance=ExtResource("6_cqvef")]
+position = Vector2(-337.5, -462.5)
+scale = Vector2(1.5, 1.5)
+
+[node name="WeaknessPoint3" parent="Area2D" instance=ExtResource("6_cqvef")]
+position = Vector2(-150, 193.75002)
+scale = Vector2(1.5, 1.5)
+
+[node name="OrbContainer" type="Node2D" parent="."]
+position = Vector2(156.25, -456.25)
+
+[node name="WeakContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -768.0
+offset_right = 832.0
+offset_bottom = 896.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Health" type="AnimatedSprite2D" parent="WeakContainer"]
+visible = false
+position = Vector2(880.5, 243.75)
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_liulr")
+animation = &"hp_10"
+autoplay = "hp_10"
+
+[node name="WeaknessBar" type="TextureProgressBar" parent="WeakContainer"]
+visible = false
+layout_mode = 0
+offset_left = -94.500015
+offset_top = 981.25
+offset_right = 229.49998
+offset_bottom = 1067.25
+scale = Vector2(6, 6)
+texture_under = ExtResource("25_2xcxx")
+texture_progress = ExtResource("26_dnnff")
+
+[connection signal="animation_finished" from="Node2D/BodyAnim" to="." method="_on_body_anim_animation_finished"]
+[connection signal="animation_finished" from="Node2D/HandAnim" to="." method="_on_hand_anim_animation_finished"]

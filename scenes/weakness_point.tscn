@@ -73,13 +73,15 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xaoiu"]
-radius = 120.26637
+radius = 153.05228
 
 [node name="WeaknessPoint" type="Node2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7gnu5")
 animation = &"weak_blue"
+frame = 1
+frame_progress = 0.25232157
 
 [node name="Area2D" type="Area2D" parent="."]
 

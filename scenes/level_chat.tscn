@@ -12,7 +12,7 @@
 font = ExtResource("3_ojcag")
 font_size = 51
 font_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
-outline_size = 2
+outline_size = 1
 outline_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_sog0l"]
@@ -20,7 +20,7 @@ line_spacing = -20.0
 font = ExtResource("3_ojcag")
 font_size = 45
 font_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
-outline_size = 2
+outline_size = 1
 outline_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
 shadow_size = 0
 
@@ -120,11 +120,11 @@ sprite_frames = SubResource("SpriteFrames_ojcag")
 animation = &"click"
 
 [node name="LetsGoLabel" type="Label" parent="StartButton"]
-offset_left = -40.000042
-offset_top = 108.00005
-offset_right = 465.10403
-offset_bottom = 199.00005
-rotation = -0.25641754
+offset_left = -46.732094
+offset_top = 117.60164
+offset_right = 458.37198
+offset_bottom = 208.60162
+rotation = -0.2719128
 scale = Vector2(1.1, 1.1)
 text = "LET'S GO!!!"
 label_settings = SubResource("LabelSettings_nqij5")

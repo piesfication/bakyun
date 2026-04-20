@@ -43,7 +43,9 @@ func _generate_level_icons() -> void:
 			icon.icon_clicked.connect(_on_icon_clicked)
 		if i < 2 and icon_stagger_delay > 0.0:
 			await get_tree().create_timer(icon_stagger_delay).timeout
-		
+
+@onready var nomsg := $"../CanvasLayer/Phone/PhoneSprite/Screen/TextureRect/ChatArea/NoMsg"
+
 func _on_icon_clicked(icon):
 	if chat_area.is_animating:
 		return
@@ -55,4 +57,24 @@ func _on_icon_clicked(icon):
 	
 	selected_icon = icon
 	icon.on_selected()
+
+	
+	var t = create_tween()
+	
+	t.set_trans(Tween.TRANS_BACK)
+	t.set_ease(Tween.EASE_OUT)
+
+	# fade jalan terus
+	t.parallel().tween_property(nomsg, "modulate:a", 0.0, 0.6)
+
+	# scale step 1 (stretch)
+	t.parallel().tween_property(nomsg, "scale", Vector2(1.3, 1.3), 0.1)
+
+	# lanjut ke shrink
+	t.chain().tween_property(nomsg, "scale", Vector2(0.7, 0.7), 0.1)
+
+	# optional: balik ke normal / hilang total
+	t.chain().tween_property(nomsg, "scale", Vector2(0.0, 0.0), 0.2)
+	
 	chat_area.tambah_chat(icon.level_data)
+	

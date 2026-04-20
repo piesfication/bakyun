@@ -53,11 +53,11 @@ const ORB_COLOR_BLUE := 1
 @export var summon_orb_count_max: int = 6
 @export var spawn_stagger: float = 0.55
 @export var weakened_state_interval: float = 8.0
-@export var weakened_state_duration: float = 2.5
+@export var weakened_state_duration: float = 4.0
 
 @export var weakness_count: int = 3
-@export var weakness_duration_layer2: float = 3.5
-@export var weakness_duration_layer1: float = 2.5
+@export var weakness_duration_layer2: float = 6.0
+@export var weakness_duration_layer1: float = 3.5
 
 @export var weakness_approach_duration: float = 1.2
 @export var weakness_approach_distance: float = 120.0
@@ -66,28 +66,31 @@ const ORB_COLOR_BLUE := 1
 
 @export var attack_damage: int = 1
 @export var attack_anim_duration: float = 0.8
+@export var death_center_move_duration: float = 1.0
+@export var death_anim_delay: float = 2.0
 
 @export var flap_amplitude: float = 55.0
 @export var flap_frequency: float = 1.6
 
 @onready var body_anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var action_anim: AnimatedSprite2D = get_node_or_null("AnimateAction") as AnimatedSprite2D
 @onready var top_anim: AnimatedSprite2D = $AnimatedSprite2D/TopAnim
 @onready var bot_anim: AnimatedSprite2D = $AnimatedSprite2D/BotAnim
 @onready var mid_anim: AnimatedSprite2D = $AnimatedSprite2D/MidAnim
-@onready var vortex_top: AnimatedSprite2D = $AnimatedSprite2D/TopAnim/VortexTop
-@onready var vortex_mid: AnimatedSprite2D = $AnimatedSprite2D/MidAnim/VortexMid
-@onready var top_orb_container: Node2D = $AnimatedSprite2D/TopAnim/VortexTop/OrbContainer
-@onready var mid_orb_container: Node2D = $AnimatedSprite2D/MidAnim/VortexMid/OrbContainer
+@onready var vortex_top: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D/TopAnim/VortexTop") as AnimatedSprite2D
+@onready var vortex_mid: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D/MidAnim/VortexMid") as AnimatedSprite2D
+@onready var top_orb_container: Node2D = _resolve_orb_container("AnimatedSprite2D/TopAnim")
+@onready var mid_orb_container: Node2D = _resolve_orb_container("AnimatedSprite2D/MidAnim")
 @onready var weakness_set: Area2D = $SetOfWeakness
+@onready var weak_container: Control = get_node_or_null("WeakContainer") as Control
+@onready var health_anim: AnimatedSprite2D = get_node_or_null("WeakContainer/Health") as AnimatedSprite2D
+@onready var health_bar: TextureProgressBar = get_node_or_null("WeakContainer/WeaknessBar") as TextureProgressBar
+@onready var shield_anim: AnimatedSprite2D = get_node_or_null("Shield") as AnimatedSprite2D
 
 var state: BossState = BossState.INTRO
 var max_hp: int = 1
 var hp: int = 1
 var current_layer: int = 2
-
-@onready var weakness_bar: TextureProgressBar = $WeakContainer/WeaknessBar
-@onready var bar_container: Control = $WeakContainer
-
 
 var player_node: Node2D
 var crosshair_node: Node
@@ -122,71 +125,33 @@ var _battle_ui_original_pos: Dictionary = {}
 var _battle_ui_pulled_out: bool = false
 var _forced_weakness_pending: bool = false
 var _forced_weakness_duration: float = 5.0
+var _shield_base_scale: Vector2 = Vector2.ONE
+var _shield_pulse_tween: Tween
+var weakness_bar_tween: Tween = null
+var weakness_bar_pulse_tween: Tween = null
+var hp_tween: Tween = null
 
 var hitbox_area: Area2D
 
-var weakness_bar_tween: Tween = null
-
-func _start_weakness_bar(duration: float) -> void:
-	if weakness_bar == null:
-		return
-
-	# reset kalau ada tween lama
-	if weakness_bar_tween != null and is_instance_valid(weakness_bar_tween):
-		weakness_bar_tween.kill()
-
-	weakness_bar.visible = true
-	weakness_bar.value = weakness_bar.max_value
-
-	weakness_bar_tween = create_tween()
-	weakness_bar_tween.set_trans(Tween.TRANS_LINEAR)
-
-	# bar berkurang seiring waktu
-	weakness_bar_tween.tween_property(
-		weakness_bar,
-		"value",
-		0,
-		duration
-	)
-
-func _stop_weakness_bar() -> void:
-	if weakness_bar == null:
-		return
-
-	if weakness_bar_tween != null and is_instance_valid(weakness_bar_tween):
-		weakness_bar_tween.kill()
-
-	weakness_bar.visible = false
-	weakness_bar.value = weakness_bar.max_value
-	
-func _setup_bar_pivot() -> void:
-	if bar_container == null:
-		return
-
-	# Tunggu size ke-set (PENTING)
-	await get_tree().process_frame
-
-	bar_container.pivot_offset = bar_container.size / 2.0
-	
 func _ready() -> void:
-	
 	await _setup_bar_pivot()
-	
-	if weakness_bar != null:
-		weakness_bar.visible = false
-		weakness_bar.value = 0
-		weakness_bar.max_value = 100
-	
-	connect("boss_hp_changed", Callable(self, "_update_health_visual"))
 	add_to_group("enemy_nodes")
-	add_to_group("boss")
-	
+	connect("boss_hp_changed", Callable(self, "_update_health_visual"))
 	max_hp = hp_per_layer * layer_count
 	hp = max_hp
 	current_layer = layer_count
+	if shield_anim != null:
+		_shield_base_scale = shield_anim.scale
+		if not shield_anim.animation_finished.is_connected(_on_shield_animation_finished):
+			shield_anim.animation_finished.connect(_on_shield_animation_finished)
+	if health_bar != null:
+		health_bar.visible = false
+		health_bar.value = 0
+		health_bar.max_value = 100
 
 	if body_anim != null:
 		body_anim.play("idle")
+	_stop_action_animation()
 
 	_collect_weakness_templates()
 	_setup_hitbox()
@@ -203,41 +168,19 @@ func _ready() -> void:
 
 	await _set_battle_ui_pulled_out(false)
 	_show_health_ui()
-
 	if intro_ui_return_delay > 0.0:
 		await get_tree().create_timer(intro_ui_return_delay).timeout
 	_set_player_action_enabled(true)
 	emit_signal("bossfight_started")
 	_choose_new_move_target()
 	await _run_boss_loop()
-	
-var hp_tween: Tween = null
-func _play_hp_squash_stretch() -> void:
-	if health_anim == null:
-		return
-
-	if hp_tween != null:
-		hp_tween.kill()
-
-	hp_tween = create_tween()
-	hp_tween.set_trans(Tween.TRANS_BACK)
-	hp_tween.set_ease(Tween.EASE_OUT)
-
-	var original_scale := health_anim.scale
-
-	# Lebar banget (kanan-kiri)
-	hp_tween.tween_property(health_anim, "scale", original_scale * Vector2(1.35, 0.85), 0.08)
-
-	# Compress balik (sedikit tinggi)
-	hp_tween.tween_property(health_anim, "scale", original_scale * Vector2(0.9, 1.1), 0.08)
-
-	# Normal
-	hp_tween.tween_property(health_anim, "scale", original_scale, 0.12)
-	
 
 func _physics_process(delta: float) -> void:
 	if state == BossState.DEAD:
 		return
+
+	if action_anim != null and action_anim.visible and not action_anim.is_playing():
+		_stop_action_animation()
 
 	if player_node == null or not is_instance_valid(player_node):
 		player_node = _find_player_node()
@@ -253,33 +196,12 @@ func _physics_process(delta: float) -> void:
 			_update_intro_movement(delta)
 		BossState.SUMMON, BossState.WEAKNESS, BossState.ATTACK:
 			_update_random_movement(delta)
-			
-@onready var shield_anim: AnimatedSprite2D =  $Shield
-
-func _play_shield_animation() -> void:
-	if shield_anim == null or not is_instance_valid(shield_anim):
-		return
-	if shield_anim.is_playing() and shield_anim.animation == "shield":
-		return
-	shield_anim.visible = true
-	shield_anim.play("shield")
-	
-	var original_scale := shield_anim.scale
-	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_ELASTIC)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(shield_anim, "scale", original_scale * Vector2(1.3, 0.7), 0.08)  # squeeze
-	tween.tween_property(shield_anim, "scale", original_scale * Vector2(0.85, 1.2), 0.08) # stretch
-	tween.tween_property(shield_anim, "scale", original_scale, 0.15)
-	
-	await shield_anim.animation_finished
-	shield_anim.visible = false
 
 func on_hit(hit_area: Node = null) -> void:
 	if state == BossState.DEAD:
 		return
 	if not weakness_active:
-		_play_shield_animation()
+		_play_shield_feedback()
 		return
 	if hit_area == null or not (hit_area is Area2D) or not is_instance_valid(hit_area):
 		return
@@ -301,11 +223,11 @@ func on_hit(hit_area: Node = null) -> void:
 		return
 
 	_remove_active_weakpoint(weak_area)
-	
-	destroyed_weak_points += 1
 
-	if destroyed_weak_points == total_weak_points:
+	# Samakan perilaku bakumono: HP boss hanya berkurang saat semua weakness point di fase ini selesai.
+	if active_weak_areas.is_empty():
 		_apply_boss_damage(2)
+		_stop_weakness_bar()
 
 func can_be_hit_by_character(_character_name: String) -> bool:
 	return weakness_active
@@ -352,20 +274,15 @@ func _setup_intro_entry_path() -> void:
 	global_position = Vector2(target_x, -intro_spawn_above_margin)
 	_update_facing(1.0)
 
-func _show_health_ui() -> void:
-	if health_anim == null:
+func _setup_bar_pivot() -> void:
+	if weak_container == null:
 		return
 
-	health_anim.visible = true
-	health_anim.play("hp_%d" % hp_per_layer)
-	# mulai dari kecil + transparan
+	await get_tree().process_frame
+	weak_container.pivot_offset = weak_container.size / 2.0
 
-	_play_hp_squash_stretch()
-	
 func _run_boss_loop() -> void:
 	while state != BossState.DEAD:
-		
-		
 		state = BossState.SUMMON
 		var phase_timer := get_tree().create_timer(maxf(weakened_state_interval, 0.1))
 		while state != BossState.DEAD and phase_timer.time_left > 0.0:
@@ -420,6 +337,7 @@ func _run_weakness_phase(duration_override: float = -1.0, allow_early_clear: boo
 	# Store original state before approaching
 	weakness_original_position = global_position
 	weakness_original_scale = scale
+	var timed_out := false
 	
 	# Approach screen and scale up
 	await _approach_weakness_state()
@@ -429,21 +347,17 @@ func _run_weakness_phase(duration_override: float = -1.0, allow_early_clear: boo
 	weakness_active = true
 	_set_hitbox_enabled(false)
 	_spawn_weakness_points()
-	
-	var weakness_duration: float
 
+	var weakness_duration: float
 	if duration_override > 0.0:
 		weakness_duration = duration_override
 	else:
 		weakness_duration = weakness_duration_layer2 if current_layer == 2 else weakness_duration_layer1
-	
-	if health_anim != null:
+	var timeout_timer := get_tree().create_timer(maxf(weakness_duration, 0.1))
+	if health_anim != null and health_anim.sprite_frames != null and health_anim.sprite_frames.has_animation("weakened"):
 		health_anim.play("weakened")
 	_start_weakness_bar(weakness_duration)
 	_start_weakness_bar_pulse()
-
-  
-	var timeout_timer := get_tree().create_timer(maxf(weakness_duration, 0.1))
 
 	while true:
 		if state == BossState.DEAD:
@@ -456,6 +370,7 @@ func _run_weakness_phase(duration_override: float = -1.0, allow_early_clear: boo
 			_stop_weakness_bar_pulse()
 			break
 		if timeout_timer.time_left <= 0.0:
+			timed_out = true
 			break
 		await get_tree().process_frame
 
@@ -464,20 +379,17 @@ func _run_weakness_phase(duration_override: float = -1.0, allow_early_clear: boo
 	
 	weakness_active = false
 	var success := active_weak_areas.is_empty()
-	
-	if not success:
-		await _run_attack_punish_phase()
-	
 	_clear_weakness_points()
 	_set_hitbox_enabled(true)
-	
-	# stop bar
 	_stop_weakness_bar()
 	_stop_weakness_bar_pulse()
-
-	# balik ke HP anim sesuai current HP
 	_update_health_visual(hp, hp)
-	
+
+	if timed_out and not success and state != BossState.DEAD:
+		await _run_attack_punish_phase()
+		if state == BossState.DEAD:
+			return false
+
 	return success
 
 func force_weakened_state(duration: float = 5.0) -> void:
@@ -487,6 +399,7 @@ func force_weakened_state(duration: float = 5.0) -> void:
 	_forced_weakness_pending = true
 
 func _approach_weakness_state() -> void:
+	"""Smoothly scale up before weakness state while continuing random movement"""
 	var elapsed := 0.0
 	var start_scale := scale
 	
@@ -502,6 +415,7 @@ func _approach_weakness_state() -> void:
 		await get_tree().process_frame
 
 func _retreat_from_weakness_state() -> void:
+	"""Smoothly scale down after weakness state while continuing random movement"""
 	var elapsed := 0.0
 	var current_scale := scale
 	
@@ -520,24 +434,11 @@ func _run_attack_punish_phase() -> void:
 	if state == BossState.DEAD:
 		return
 	state = BossState.ATTACK
-
-	if body_anim != null:
-		
-		top_anim.visible = false
-		mid_anim.visible = false
-		bot_anim.visible = false
-		body_anim.play("attack")
-		
+	_play_action_animation("attack")
 	await get_tree().create_timer(attack_anim_duration).timeout
-	top_anim.visible = true
-	mid_anim.visible = true
-	bot_anim.visible = true
-	_stop_weakness_bar()
-	_stop_weakness_bar_pulse()
-	
+
 	if player_node != null and is_instance_valid(player_node) and player_node.has_method("take_damage"):
 		player_node.take_damage(attack_damage)
-		_heal_boss(1)
 
 	if body_anim != null:
 		body_anim.play("idle")
@@ -545,23 +446,9 @@ func _run_attack_punish_phase() -> void:
 	if state != BossState.DEAD:
 		state = BossState.SUMMON
 
-func _heal_boss(amount: int) -> void:
-	if state == BossState.DEAD or amount <= 0:
-		return
-
-	var old_hp := hp
-	hp = min(hp + amount, max_hp)
-
-	emit_signal("boss_hp_changed", old_hp, hp)
-	
-	if health_anim != null:
-		health_anim.modulate = Color(0.6, 1.0, 0.6)
-		await get_tree().create_timer(0.15).timeout
-		health_anim.modulate = Color(1,1,1)
-		
 func _summon_orb_batch() -> void:
-	
-		
+	await _start_summon_action_sequence()
+
 	var containers: Array[Node2D] = []
 	if current_layer == 2:
 		containers.append(top_orb_container if _container_turn == 0 else mid_orb_container)
@@ -573,6 +460,7 @@ func _summon_orb_batch() -> void:
 
 	if containers.is_empty():
 		_set_summon_fx_idle()
+		await _finish_summon_action_sequence()
 		return
 
 	var total_orbs: int = randi_range(summon_orb_count_min, summon_orb_count_max)
@@ -590,28 +478,51 @@ func _summon_orb_batch() -> void:
 
 		var leader: Node2D = null
 		for i in count_for_this:
-			
 			if leader != null and not is_instance_valid(leader):
 				leader = null
-				
-			var safe_leader: Node2D = null
-
-			if leader != null and is_instance_valid(leader):
-				safe_leader = leader
-
-			leader = _spawn_single_orb(container, safe_leader)
-			
+			leader = _spawn_single_orb(container, leader)
 			if i < count_for_this - 1 and spawn_stagger > 0.0:
 				await get_tree().create_timer(spawn_stagger).timeout
 
 	_set_summon_fx_idle()
+	await _finish_summon_action_sequence()
 
-var active_orbs: Array[Node2D] = []
+func _start_summon_action_sequence() -> void:
+	if action_anim == null or action_anim.sprite_frames == null:
+		return
+
+	if action_anim.sprite_frames.has_animation("summon_open"):
+		_play_action_animation("summon_open")
+		if not action_anim.sprite_frames.get_animation_loop("summon_open"):
+			await action_anim.animation_finished
+		if action_anim.visible and action_anim.sprite_frames.has_animation("summon_loop") and action_anim.animation != "summon_loop":
+			action_anim.play("summon_loop")
+		return
+
+	if action_anim.sprite_frames.has_animation("summon_loop"):
+		_play_action_animation("summon_loop")
+		return
+
+	_play_action_animation("summon")
+
+func _finish_summon_action_sequence() -> void:
+	if action_anim == null or action_anim.sprite_frames == null:
+		_stop_action_animation()
+		return
+
+	if not action_anim.visible:
+		return
+
+	if action_anim.sprite_frames.has_animation("summon_closed"):
+		action_anim.play("summon_closed")
+		if not action_anim.sprite_frames.get_animation_loop("summon_closed"):
+			await action_anim.animation_finished
+		_stop_action_animation()
+		return
+
+	_stop_action_animation()
 
 func _spawn_single_orb(container: Node2D, follow_leader: Node2D = null) -> Node2D:
-	
-	if follow_leader == null or not is_instance_valid(follow_leader):
-		follow_leader = null
 	if homing_orb_scene == null:
 		return follow_leader
 	if container == null:
@@ -638,31 +549,14 @@ func _spawn_single_orb(container: Node2D, follow_leader: Node2D = null) -> Node2
 
 	spawn_parent.add_child(orb)
 	orb.global_position = container.global_position
-	#orb.z_index = z_index + 200 - _global_orb_spawn_order
-	#_global_orb_spawn_order += 0.00001
-	active_orbs.append(orb)
-	_update_orb_z_order()
+	orb.z_index = z_index + 200 - _global_orb_spawn_order
+	_global_orb_spawn_order += 1
 
 	if orb.has_method("setup"):
 		orb.setup(player_node, follow_leader)
 
 	return orb
 
-func _update_orb_z_order():
-
-	active_orbs = active_orbs.filter(func(o): return is_instance_valid(o))
-
-	var base := z_index + 10  # pastikan selalu di depan boss
-
-	for i in active_orbs.size():
-		var orb = active_orbs[i]
-		if orb == null:
-			continue
-
-		# orb lama (index kecil) → z lebih tinggi
-		orb.z_index = base + (active_orbs.size() - i)
-		
-		
 func _pick_spawn_orb_color() -> int:
 	return ORB_COLOR_RED if randf() < 0.5 else ORB_COLOR_BLUE
 
@@ -686,23 +580,19 @@ func _play_summon_fx(containers: Array[Node2D]) -> void:
 
 	if use_top:
 		if top_anim != null:
-			top_anim.play("summon")
+			pass
 		if vortex_top != null:
 			vortex_top.visible = true
 			vortex_top.play("default")
 
 	if use_mid:
 		if mid_anim != null:
-			mid_anim.play("summon")
+			pass
 		if vortex_mid != null:
 			vortex_mid.visible = true
 			vortex_mid.play("default")
 
-var total_weak_points: int = 0
-var destroyed_weak_points: int = 0
-
 func _spawn_weakness_points() -> void:
-	
 	_clear_weakness_points()
 	if _template_weak_shapes.is_empty():
 		return
@@ -712,9 +602,6 @@ func _spawn_weakness_points() -> void:
 	pool = pool.filter(func(n): return is_instance_valid(n))
 	pool.shuffle()
 	var count: int = mini(3, pool.size())
-	
-	total_weak_points = count
-	destroyed_weak_points = 0
 
 	for i in count:
 		var weak_parent: Node2D = pool[i] as Node2D
@@ -944,7 +831,7 @@ func _update_facing(horizontal_delta: float) -> void:
 	if absf(horizontal_delta) < 1.0:
 		return
 	var face_left := horizontal_delta < 0.0
-	for spr in [body_anim, top_anim, bot_anim, mid_anim]:
+	for spr in [body_anim, action_anim, top_anim, bot_anim, mid_anim]:
 		if spr != null:
 			spr.flip_h = face_left
 
@@ -960,56 +847,69 @@ func _apply_boss_damage(amount: int) -> void:
 
 	var old_hp := hp
 	hp = max(hp - amount, 0)
-	
-	var was_layer2 := current_layer == 2
+	_play_action_animation("damaged")
 	if hp <= hp_per_layer and current_layer == 2:
 		current_layer = 1
 		await _play_second_phase_transition()
-		
 	emit_signal("boss_hp_changed", old_hp, hp)
-
-	if hp <= hp_per_layer and current_layer == 2:
-		current_layer = 1
 
 	if hp <= 0:
 		_die()
-
-func _play_second_phase_transition() -> void:
-	if health_anim == null:
-		return
-		
-	var tween := create_tween()
-	var original_scale := health_anim.scale
-
-	tween.tween_property(health_anim, "scale", original_scale * Vector2(1.4, 0.6), 0.12)
-	tween.tween_property(health_anim, "scale", original_scale * Vector2(0.7, 1.3), 0.12)
-	tween.tween_property(health_anim, "scale", original_scale, 0.15)
-
-
-	health_anim.play("second_phase")
-	await health_anim.animation_finished
-
-	# Setelah animasi, reset ke hp_10
-	health_anim.play("hp_%d" % hp_per_layer)
 
 func _die() -> void:
 	if state == BossState.DEAD:
 		return
 	state = BossState.DEAD
+	hp = 0
+	if health_anim != null and health_anim.sprite_frames != null and health_anim.sprite_frames.has_animation("dead"):
+		health_anim.play("dead")
 	weakness_active = false
 	_clear_weakness_points()
+	_stop_weakness_bar()
+	_stop_weakness_bar_pulse()
 	await _set_battle_ui_pulled_out(false)
 	_set_player_action_enabled(true)
-	if health_anim != null:
-		health_anim.play("dead")
 
 	if hitbox_area != null:
 		hitbox_area.monitoring = false
 		hitbox_area.monitorable = false
 		hitbox_area.collision_layer = 0
 
+	_stop_action_animation()
+	if body_anim != null:
+		body_anim.play("idle")
+
+	await _move_to_death_center()
+
+	if death_anim_delay > 0.0:
+		await get_tree().create_timer(death_anim_delay).timeout
+
+	if action_anim != null and action_anim.sprite_frames != null and action_anim.sprite_frames.has_animation("dead"):
+		_play_action_animation("dead")
+		if not action_anim.sprite_frames.get_animation_loop("dead"):
+			await action_anim.animation_finished
+		else:
+			await get_tree().create_timer(1.0).timeout
+
 	emit_signal("boss_defeated")
 	queue_free()
+
+func _move_to_death_center() -> void:
+	var viewport_rect := get_viewport_rect()
+	var target := Vector2(
+		clampf(viewport_rect.size.x * 0.5, move_area_left, move_area_right),
+		clampf(viewport_rect.size.y * 0.5, move_area_top, move_area_bottom)
+	)
+
+	if death_center_move_duration <= 0.0:
+		global_position = target
+		return
+
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "global_position", target, death_center_move_duration)
+	await tween.finished
 
 func _set_player_action_enabled(enabled: bool) -> void:
 	if crosshair_node != null:
@@ -1030,6 +930,180 @@ func _set_hitbox_enabled(enabled: bool) -> void:
 	hitbox_area.monitoring = enabled
 	hitbox_area.monitorable = enabled
 	hitbox_area.collision_layer = (1 << 1) if enabled else 0
+
+func _show_health_ui() -> void:
+	if health_anim == null or health_anim.sprite_frames == null:
+		return
+
+	health_anim.visible = true
+	var start_anim := "hp_%d" % hp_per_layer
+	if health_anim.sprite_frames.has_animation(start_anim):
+		health_anim.play(start_anim)
+
+	_play_hp_squash_stretch()
+
+func _play_hp_squash_stretch() -> void:
+	if health_anim == null:
+		return
+
+	if hp_tween != null:
+		hp_tween.kill()
+
+	hp_tween = create_tween()
+	hp_tween.set_trans(Tween.TRANS_BACK)
+	hp_tween.set_ease(Tween.EASE_OUT)
+
+	var original_scale := health_anim.scale
+	hp_tween.tween_property(health_anim, "scale", original_scale * Vector2(1.35, 0.85), 0.08)
+	hp_tween.tween_property(health_anim, "scale", original_scale * Vector2(0.9, 1.1), 0.08)
+	hp_tween.tween_property(health_anim, "scale", original_scale, 0.12)
+
+func _update_health_visual(old_hp: int, new_hp: int) -> void:
+	if health_anim == null or health_anim.sprite_frames == null:
+		return
+	if state == BossState.DEAD:
+		return
+
+	if new_hp < old_hp:
+		_play_hp_squash_stretch()
+
+	if new_hp <= 0:
+		if health_anim.sprite_frames.has_animation("dead"):
+			health_anim.play("dead")
+		return
+
+	var hp_in_layer := new_hp % hp_per_layer
+	if hp_in_layer == 0 and new_hp > 0:
+		hp_in_layer = hp_per_layer
+
+	var anim_name := "hp_%d" % hp_in_layer
+	if health_anim.sprite_frames.has_animation(anim_name):
+		health_anim.play(anim_name)
+
+func _play_second_phase_transition() -> void:
+	if health_anim == null:
+		return
+
+	var tween := create_tween()
+	var original_scale := health_anim.scale
+	tween.tween_property(health_anim, "scale", original_scale * Vector2(1.4, 0.6), 0.12)
+	tween.tween_property(health_anim, "scale", original_scale * Vector2(0.7, 1.3), 0.12)
+	tween.tween_property(health_anim, "scale", original_scale, 0.15)
+
+	if health_anim.sprite_frames != null and health_anim.sprite_frames.has_animation("second_phase"):
+		health_anim.play("second_phase")
+		await health_anim.animation_finished
+
+	var reset_anim := "hp_%d" % hp_per_layer
+	if health_anim.sprite_frames != null and health_anim.sprite_frames.has_animation(reset_anim):
+		health_anim.play(reset_anim)
+
+func _start_weakness_bar(duration: float) -> void:
+	if health_bar == null:
+		return
+
+	if weakness_bar_tween != null and is_instance_valid(weakness_bar_tween):
+		weakness_bar_tween.kill()
+
+	health_bar.visible = true
+	health_bar.min_value = 0.0
+	health_bar.max_value = 100.0
+	health_bar.value = health_bar.max_value
+
+	weakness_bar_tween = create_tween()
+	weakness_bar_tween.set_trans(Tween.TRANS_LINEAR)
+	weakness_bar_tween.tween_property(health_bar, "value", 0.0, maxf(duration, 0.1))
+
+func _stop_weakness_bar() -> void:
+	if health_bar == null:
+		return
+
+	if weakness_bar_tween != null and is_instance_valid(weakness_bar_tween):
+		weakness_bar_tween.kill()
+
+	health_bar.visible = false
+	health_bar.value = health_bar.max_value
+
+func _start_weakness_bar_pulse() -> void:
+	if weak_container == null:
+		return
+
+	if weakness_bar_pulse_tween != null and is_instance_valid(weakness_bar_pulse_tween):
+		weakness_bar_pulse_tween.kill()
+
+	weakness_bar_pulse_tween = create_tween()
+	weakness_bar_pulse_tween.set_loops()
+	weakness_bar_pulse_tween.set_trans(Tween.TRANS_SINE)
+	weakness_bar_pulse_tween.set_ease(Tween.EASE_IN_OUT)
+
+	var original_scale := weak_container.scale
+	weakness_bar_pulse_tween.tween_property(weak_container, "scale", original_scale * Vector2(1.1, 1.1), 0.15)
+	weakness_bar_pulse_tween.tween_property(weak_container, "scale", original_scale, 0.15)
+
+func _stop_weakness_bar_pulse() -> void:
+	if weakness_bar_pulse_tween != null and is_instance_valid(weakness_bar_pulse_tween):
+		weakness_bar_pulse_tween.kill()
+
+	if weak_container != null:
+		weak_container.scale = Vector2.ONE
+
+func _play_shield_feedback() -> void:
+	if shield_anim == null or shield_anim.sprite_frames == null:
+		return
+	if not shield_anim.sprite_frames.has_animation("shield"):
+		return
+
+	if _shield_pulse_tween != null and _shield_pulse_tween.is_running():
+		_shield_pulse_tween.kill()
+
+	shield_anim.visible = true
+	shield_anim.scale = _shield_base_scale
+	shield_anim.play("shield")
+
+	var squash := Vector2(_shield_base_scale.x * 1.08, _shield_base_scale.y * 0.9)
+	_shield_pulse_tween = create_tween()
+	_shield_pulse_tween.set_trans(Tween.TRANS_SINE)
+	_shield_pulse_tween.set_ease(Tween.EASE_OUT)
+	_shield_pulse_tween.tween_property(shield_anim, "scale", squash, 0.08)
+	_shield_pulse_tween.set_ease(Tween.EASE_IN_OUT)
+	_shield_pulse_tween.tween_property(shield_anim, "scale", _shield_base_scale, 0.14)
+
+func _on_shield_animation_finished() -> void:
+	if shield_anim == null:
+		return
+	shield_anim.visible = false
+
+func _resolve_orb_container(anim_path: String) -> Node2D:
+	# Supports both current hierarchy (TopAnim/OrbContainer) and legacy vortex hierarchy.
+	var direct := get_node_or_null(anim_path + "/OrbContainer") as Node2D
+	if direct != null:
+		return direct
+
+	for legacy_vortex_name in ["VortexTop", "VortexMid"]:
+		var legacy := get_node_or_null(anim_path + "/" + legacy_vortex_name + "/OrbContainer") as Node2D
+		if legacy != null:
+			return legacy
+
+	return null
+
+func _play_action_animation(anim_name: String) -> void:
+	if action_anim == null or action_anim.sprite_frames == null:
+		_stop_action_animation()
+		return
+	if not action_anim.sprite_frames.has_animation(anim_name):
+		_stop_action_animation()
+		return
+	if body_anim != null:
+		body_anim.visible = false
+	action_anim.visible = true
+	action_anim.play(anim_name)
+
+func _stop_action_animation() -> void:
+	if action_anim != null:
+		action_anim.stop()
+		action_anim.visible = false
+	if body_anim != null:
+		body_anim.visible = true
 
 func _find_player_node() -> Node2D:
 	var root := get_tree().current_scene
@@ -1106,78 +1180,24 @@ func _set_battle_ui_pulled_out(pulled: bool) -> void:
 	if restore_tween != null:
 		await restore_tween.finished
 
-	
-func play_redhit_effect() -> void:
-	_play_shield_animation()
-
-func play_bluehit_effect() -> void:
-	_play_shield_animation()
-
-func play_red3_effect() -> float:
-	_play_shield_animation()
-	return 0.0
-
-func play_blue3_effect() -> void:
-	_play_shield_animation()
-
-func apply_nova_pull_effect(_center: Vector2, _depth: float, _speed: float, _duration: float) -> void:
-	_play_shield_animation()
-	pass  # boss tidak bisa dipull
-	
-@onready var health_anim: AnimatedSprite2D = $WeakContainer/Health
-
-func _update_health_visual(old_hp: int, new_hp: int) -> void:
-	if state == BossState.DEAD:
-		return
-		
-	if new_hp < old_hp:
-		_play_hp_squash_stretch()
-
-	# Kalau boss mati
-	if new_hp <= 0:
-		health_anim.play("dead")
+func _on_animated_sprite_2d_2_animation_finished() -> void:
+	if action_anim == null:
 		return
 
-	# Hitung HP dalam layer saat ini
-	var hp_in_layer := new_hp % hp_per_layer
-	if hp_in_layer == 0 and new_hp > 0:
-		hp_in_layer = hp_per_layer
-
-	var anim_name := "hp_%d" % hp_in_layer
-	if health_anim.sprite_frames.has_animation(anim_name):
-		health_anim.play(anim_name)
-
-var weakness_bar_pulse_tween: Tween = null
-
-func _start_weakness_bar_pulse() -> void:
-	if bar_container == null:
+	var finished_anim := String(action_anim.animation)
+	if finished_anim == "summon_open":
+		if action_anim.sprite_frames != null and action_anim.sprite_frames.has_animation("summon_loop"):
+			action_anim.play("summon_loop")
 		return
 
-	if weakness_bar_pulse_tween != null and is_instance_valid(weakness_bar_pulse_tween):
-		weakness_bar_pulse_tween.kill()
+	if finished_anim == "summon_loop":
+		return
 
-	weakness_bar_pulse_tween = create_tween()
-	weakness_bar_pulse_tween.set_loops()
-	weakness_bar_pulse_tween.set_trans(Tween.TRANS_SINE)
-	weakness_bar_pulse_tween.set_ease(Tween.EASE_IN_OUT)
+	if finished_anim == "summon_closed":
+		_stop_action_animation()
+		return
 
-	var original_scale := bar_container.scale
+	_stop_action_animation()
 
-	weakness_bar_pulse_tween.tween_property(
-		bar_container, "scale",
-		original_scale * Vector2(1.1, 1.1),
-		0.15
-	)
-
-	weakness_bar_pulse_tween.tween_property(
-		bar_container, "scale",
-		original_scale,
-		0.15
-	)
-	
-func _stop_weakness_bar_pulse() -> void:
-	if weakness_bar_pulse_tween != null and is_instance_valid(weakness_bar_pulse_tween):
-		weakness_bar_pulse_tween.kill()
-
-	if bar_container != null:
-		bar_container.scale = Vector2.ONE
+func _on_animated_sprite_2d_2_frame_changed() -> void:
+	pass

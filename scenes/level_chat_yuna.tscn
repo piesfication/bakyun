@@ -9,7 +9,7 @@ line_spacing = -20.0
 font = ExtResource("2_y0srf")
 font_size = 45
 font_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
-outline_size = 3
+outline_size = 1
 outline_color = Color(0.16470589, 0.6156863, 0.5568628, 1)
 
 [node name="ChatYuna" type="Control"]

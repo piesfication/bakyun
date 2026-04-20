@@ -1,0 +1,174 @@
+[gd_scene load_steps=22 format=3 uid="uid://c5751foxxoihb"]
+
+[ext_resource type="Script" uid="uid://b6edh5c5e16n3" path="res://script/flyingtogetherstory.gd" id="1_f3xom"]
+[ext_resource type="Script" uid="uid://dgxvxmitrd13o" path="res://script/parallax_background.gd" id="2_bbeef"]
+[ext_resource type="Texture2D" uid="uid://71fsdc8fl4jf" path="res://assets/title/Untitled977_20260324075141.png" id="3_4144t"]
+[ext_resource type="Script" uid="uid://b57hbvyj18rxn" path="res://script/parallax_background_2.gd" id="4_m3o3a"]
+[ext_resource type="Texture2D" uid="uid://cl2t7bq0pxw0f" path="res://assets/story/Illust/FlyingTogether/Untitled1028_20260412141944.png" id="5_vr41w"]
+[ext_resource type="Texture2D" uid="uid://ccqnn6i6rs06m" path="res://assets/story/Illust/FlyingTogether/Untitled1027_20260412140625.png" id="6_cdxga"]
+[ext_resource type="Texture2D" uid="uid://d310wexmhoama" path="res://assets/story/Illust/FlyingTogether/Untitled1027_20260412140641.png" id="7_xqw0p"]
+[ext_resource type="Texture2D" uid="uid://bhdiylbgwteha" path="res://assets/story/Illust/FlyingTogether/Untitled1027_20260412140630.png" id="8_1wdb5"]
+[ext_resource type="Texture2D" uid="uid://fihubi8a3hmv" path="res://assets/story/Illust/FlyingTogether/Untitled1027_20260412140646.png" id="9_5u7nw"]
+[ext_resource type="Script" uid="uid://csf0dehln2qhw" path="res://scenes/title_background_float.gd" id="10_cdxga"]
+[ext_resource type="Texture2D" uid="uid://4wksodnvgnvv" path="res://assets/level/sea/Untitled694_20260115181335.png" id="10_m3o3a"]
+[ext_resource type="Texture2D" uid="uid://dssooydqpu272" path="res://assets/level/sea/Untitled694_20260115182142.png" id="11_vr41w"]
+[ext_resource type="Texture2D" uid="uid://i5asanwmdtcp" path="res://assets/level/sea/Untitled694_20260115180850.png" id="11_xqw0p"]
+[ext_resource type="Texture2D" uid="uid://dhx2rv2ssyyuj" path="res://assets/level/sea/Untitled694_20260115180839.png" id="12_cdxga"]
+[ext_resource type="Script" uid="uid://cwby5pfyheacu" path="res://script/grass_field.gd" id="15_nx7o3"]
+[ext_resource type="Texture2D" uid="uid://dnropqubj5pdh" path="res://assets/story/Illust/GrassField/Untitled1028_20260413100839.png" id="16_41nqk"]
+[ext_resource type="Texture2D" uid="uid://cjswbrucr22u0" path="res://assets/story/Illust/GrassField/Untitled1028_20260413100900.png" id="17_2rn28"]
+[ext_resource type="Texture2D" uid="uid://djhbn5rsxyqe3" path="res://assets/story/Illust/GrassField/Untitled1028_20260413155418.png" id="18_yopp2"]
+[ext_resource type="Texture2D" uid="uid://dje1y6fqqg51k" path="res://assets/story/Illust/GrassField/Untitled1028_20260413101328.png" id="19_muwor"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ctad"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_cdxga")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_xqw0p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nx7o3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_1wdb5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5u7nw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="story_2" type="Node2D"]
+position = Vector2(0, -43)
+script = ExtResource("1_f3xom")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = 0
+script = ExtResource("2_bbeef")
+scroll_speed = 60
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 50
+motion_mirroring = Vector2(1286.4, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(640, 368)
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("3_4144t")
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+layer = 0
+script = ExtResource("4_m3o3a")
+scroll_speed = 60
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
+motion_mirroring = Vector2(1286.4, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer"]
+position = Vector2(640, 360)
+rotation = -3.1415925
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("3_4144t")
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="SpriteChar" type="Node2D" parent="CanvasLayer3"]
+visible = false
+position = Vector2(843, 932)
+scale = Vector2(0.6, 0.6)
+
+[node name="BakuTalking" type="AnimatedSprite2D" parent="CanvasLayer3/SpriteChar"]
+position = Vector2(-85.333336, -9.333336)
+sprite_frames = SubResource("SpriteFrames_7ctad")
+
+[node name="YunaTalking" type="AnimatedSprite2D" parent="CanvasLayer3/SpriteChar"]
+position = Vector2(-85.333336, -9.333336)
+sprite_frames = SubResource("SpriteFrames_nx7o3")
+
+[node name="Overlay" type="ColorRect" parent="CanvasLayer3"]
+visible = false
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 1368.0
+offset_bottom = 752.0
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Chap2Sky" type="Sprite2D" parent="."]
+position = Vector2(681.99994, 370.00006)
+rotation = -0.0005860562
+scale = Vector2(0.72360003, 0.72360003)
+texture = ExtResource("5_vr41w")
+
+[node name="Background" type="Node2D" parent="."]
+position = Vector2(-35, -122.00001)
+rotation = 0.025745109
+scale = Vector2(1.08, 1.08)
+script = ExtResource("10_cdxga")
+
+[node name="Sky" type="Sprite2D" parent="Background"]
+scale = Vector2(0.667, 0.667)
+texture = ExtResource("11_xqw0p")
+centered = false
+
+[node name="Back" type="Sprite2D" parent="Background"]
+z_index = 10
+position = Vector2(0, 16)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("10_m3o3a")
+centered = false
+
+[node name="Back2" type="Sprite2D" parent="Background"]
+z_index = 10
+position = Vector2(0, 16)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("10_m3o3a")
+centered = false
+
+[node name="Front" type="Sprite2D" parent="Background"]
+z_index = 20
+position = Vector2(0, 16)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("11_vr41w")
+centered = false
+
+[node name="Sea" type="Sprite2D" parent="Background"]
+z_index = 30
+position = Vector2(0, -10.999998)
+scale = Vector2(0.683, 0.683)
+texture = ExtResource("12_cdxga")
+centered = false
+
+[node name="GrassField" type="Node2D" parent="."]
+visible = false
+z_index = 31
+position = Vector2(640, 347)
+scale = Vector2(0.67, 0.67)
+script = ExtResource("15_nx7o3")
+
+[node name="Sky" type="Sprite2D" parent="GrassField"]
+texture = ExtResource("16_41nqk")
+
+[node name="Tower" type="Sprite2D" parent="GrassField"]
+position = Vector2(0, 58.208954)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("17_2rn28")
+
+[node name="Char" type="Sprite2D" parent="GrassField"]
+position = Vector2(0, 111.940285)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("18_yopp2")
+
+[node name="Grass" type="Sprite2D" parent="GrassField"]
+texture = ExtResource("19_muwor")

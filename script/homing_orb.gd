@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var contact_damage: int = 1
-@export var approach_speed: float = 0.18
+@export var approach_speed: float = 0.3
 @export var min_scale: float = 0.05
 @export var max_scale: float = 0.8
 @export var drift_speed: float = 2.6
@@ -167,14 +167,49 @@ func _process(delta: float) -> void:
 func on_hit(_area: Node = null) -> void:
 	apply_damage(1)
 
+#func apply_damage(amount: int) -> void:
+	#if is_dead or neutralized or amount <= 0:
+		#return
+	#if not _can_take_damage_from_current_character():
+		#return
+	#hp -= amount
+	#if hp <= 0:
+		#_neutralize_anchor()
 func apply_damage(amount: int) -> void:
 	if is_dead or neutralized or amount <= 0:
 		return
-	if not _can_take_damage_from_current_character():
+
+	var shooter_char := _get_current_character_name()
+	if orb_color == OrbColor.RED and shooter_char == "baku":
+		if is_instance_valid(player_node) and player_node.has_method("take_damage"):
+			player_node.take_damage(1)
+		_neutralize_anchor()
+		return
+		
+	elif orb_color == OrbColor.BLUE and shooter_char == "yuna":
+		if is_instance_valid(player_node) and player_node.has_method("take_damage"):
+			player_node.take_damage(1)
+		_neutralize_anchor()
+		return
+
+	if not _can_take_damage_from_character(shooter_char):
 		return
 	hp -= amount
 	if hp <= 0:
 		_neutralize_anchor()
+		
+func _can_take_damage_from_character(shooter_char: String) -> bool:
+	if orb_color == OrbColor.RED:
+		return shooter_char == "yuna"
+	return shooter_char == "baku"
+
+		
+func _get_current_character_name() -> String:
+	if player_node == null or not is_instance_valid(player_node):
+		player_node = _find_player()
+	if player_node == null or not player_node.has_method("get_current_character_name"):
+		return ""
+	return String(player_node.get_current_character_name())
 
 func instakill(delay: float = 0.0) -> void:
 	if is_dead or neutralized:
@@ -321,15 +356,15 @@ func _can_take_damage_from_current_character() -> bool:
 
 	var shooter_char := String(player_node.get_current_character_name())
 	if orb_color == OrbColor.RED:
-		return shooter_char == "baku"
-	return shooter_char == "yuna"
+		return shooter_char == "yuna"
+	return shooter_char == "baku"
 
 func can_be_hit_by_character(character_name: String) -> bool:
 	if character_name == "":
 		return true
 	if orb_color == OrbColor.RED:
-		return character_name == "baku"
-	return character_name == "yuna"
+		return character_name == "yuna"
+	return character_name == "baku"
 
 func _find_player() -> Node2D:
 	var scene := get_tree().current_scene

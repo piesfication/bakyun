@@ -1,0 +1,134 @@
+baku: This city never had guests.
+baku: That's one of the things I like about this place.
+baku: People out there have plenty of stories about this city —
+baku: — monsters, ruins, phenomena nobody can explain. Enough to make anyone choose a different route.
+baku: So when someone showed up at the city entrance this morning —
+baku: — a witch hat just a little too big for her, hair trailing all the way to the ground, —
+baku: I was surprised enough to stand up from my bed. That's already an achievement.
+[wait time="3.0"]
+join baku (Outlined) right [animation="Fade In Up" wait="true"]
+baku (Outlined): New witch?!
+join yuna (Outlined) left [animation="Fade In Up" wait="true"]
+update baku (DarkenedOutlined) right [fade="Fade Cross"]
+yuna: Yuna. Transferred, effective today.
+update yuna (DarkenedOutlined) left [fade="Fade Cross"]
+update baku (Outlined) right [fade="Fade Cross"]
+baku (Outlined): Welcome to ! monster capital of the known world!
+baku: No neighbors, no noise complaints, no rules. Just me, the ruins, and everything that wants to kill you XD
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna (Outlined): So... who are you?
+update yuna (DarkenedOutlined)
+update baku (Outlined)
+baku (Outlined): Ah, right! How stupid of me...
+baku: I'm Baku. I run things around here. Loosely, very loosely.
+baku: Monsters show up, I deal with them!  that's pretty much the whole job description.
+baku: Come on, I made too much food anyway...
+baku: Oh right — watch out for the bird attacks around here.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: ...what do you mean by —
+label birdstrikestart (birdstrikestart)
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Ah. There's one now.
+leave --All-- [animation="Instant Out" length="0.2"]
+[wait time="0.3"]
+[signal arg="bird strike"]
+[wait time="4.0"]
+yuna (Outlined): Uughh... my head...
+baku: Oh, you're up?
+[signal arg="yuna wake up"]
+yuna: Where am I...
+join baku (Outlined) right
+baku: My place. You were out for about ten minutes.
+baku: Bird got you pretty good.
+join yuna (Outlined) left
+update baku (DarkenedOutlined)
+yuna: (touches the side of her head)\
+...a bird did this?
+update yuna (DarkenedOutlined)
+update baku (Outlined)
+baku: I did warn you.
+yuna: ......
+yuna: That was a countdown. Not a warning.
+leave --All-- [animation="Fade Out Down" wait="true"]
+narrator: (Baku slides a bowl across. Yuna takes it with both hands.)
+join yuna (Outlined) left
+yuna (Outlined): So.... how long have you been here?
+join baku (Outlined) right
+update yuna (DarkenedOutlined)
+baku (Outlined): A while.
+update baku (DarkenedOutlined) right
+update yuna (Outlined) left
+yuna (Outlined): How long is a while?
+update baku (Outlined) right
+update yuna (DarkenedOutlined) left
+baku (Outlined): (genuinely thinking about it)
+baku (Outlined): A whiiiiiiiiileeeeeeee....
+update baku (DarkenedOutlined) right
+update yuna (Outlined) left
+yuna: (small exhale)
+yuna: Alone?
+update baku (Outlined) right
+update yuna (DarkenedOutlined) left
+baku: Before you, yeah.
+update baku (DarkenedOutlined) right
+update yuna (Outlined) left
+yuna: No other witches assigned here?
+update baku (Outlined) right
+update yuna (DarkenedOutlined) left
+baku: (shrugs)
+baku: They usually don't last long.
+update baku (DarkenedOutlined) right
+update yuna (Outlined) left
+yuna: Why?
+update baku (Outlined) right
+update yuna (DarkenedOutlined) left
+baku: Different reasons. Too quiet. Too dangerous. Sometimes both at once.
+update baku (DarkenedOutlined) right
+update yuna (Outlined) left
+yuna: And you stayed.
+update baku (Outlined) right
+update yuna (DarkenedOutlined) left
+baku: I like it here.
+leave --All-- [animation="Fade Out Down" wait="true"]
+[wait time="2.0"]
+join yuna (Outlined) left
+yuna: (goes back to eating)
+yuna: ...the food's decent.
+join baku (Outlined) right
+update yuna (DarkenedOutlined)
+baku (Outlined): (grins)
+baku (Outlined): Decent.
+leave --All-- [animation="Fade Out Down" wait="true"]
+[wait time="2.0"]
+label testjump (testjump)
+join baku (Outlined) right
+- "You come here because you wanted to, or because you had to?"
+	baku (Outlined): You come here because you wanted to, or because you had to?
+	update baku (DarkenedOutlined)
+	join yuna (Outlined) left
+	yuna: (stops eating)
+	yuna: Had to.
+	update baku (Outlined)
+	update yuna (DarkenedOutlined)
+	baku: Mmhm.
+	leave --All-- [animation="Fade Out Down" wait="true"]
+	[wait time="2.0"]
+	baku: I let it sit there. One word. Fast. The kind of answer you give when the real answer is too long...
+	baku: ....and you're not sure the other person actually wants to hear it.
+	baku: I did want to hear it.
+	baku: But not today.
+- (Say nothing. Refill Yuna's bowl.)
+	baku (Outlined): (Say nothing. Refill Yuna's bowl.)
+	join yuna (Outlined) left
+	update baku (DarkenedOutlined)
+	yuna (Outlined): You're not going to ask why I'm here?
+	update yuna (DarkenedOutlined)
+	update baku (Outlined)
+	baku: You'll tell me eventually.
+	leave --All-- [animation="Fade Out Down" wait="true"]
+	yuna: ......
+[wait time="2.0"]
+[signal arg="level menu"]

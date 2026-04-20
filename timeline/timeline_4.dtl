@@ -1,0 +1,74 @@
+yuna: This morning I opened my notebook to the first page I wrote in this city.
+yuna: "Objective\: prove competence. Return to the association."
+yuna: Two lines. Clear. Measurable.
+yuna: I stared at them for a long time.
+yuna: Then closed the notebook without writing anything.
+yuna: The alpha is at the city center today — first time it's stopped moving.
+yuna: Baku knew since before dawn.
+yuna: She didn't wake me immediately.
+yuna: She made tea first, set it on my table, then knocked on my door.
+yuna: I didn't say anything about that.
+yuna: But I drank every last drop.
+[wait time="2.0"]
+narrator: Sky dark since morning. Wind from every direction.
+narrator: They fly into the city center — the tallest ruins, the densest vines, a place even regular spawns rarely enter.
+[wait time="1.0"]
+[signal arg="boss entrance"]
+[wait time="5.0"]
+narrator: The alpha is there.
+narrator: Larger than words can describe —
+narrator: — round, its hand-shaped wings spread wide, its face a set of concentric rings that feels like it's looking back.
+narrator: Its movements are slow. But every movement displaces the air around it.
+[wait time="2.0"]
+join baku (Outlined) right
+baku: (whispers, tone completely normal)\
+There it is.
+update baku (DarkenedOutlined)
+join yuna (Outlined) left
+yuna: You said define big —
+update yuna (DarkenedOutlined)
+update baku (Outlined)
+baku: I said reeeeeaaaaaaally big.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: This isn't really big. This is —
+update yuna (DarkenedOutlined)
+update baku (Outlined)
+baku: Oh—right, one more important thing!
+baku: Yuna, do you remember the basics of sorcery?
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: Baku… this is not the time—
+update yuna (DarkenedOutlined)
+update baku (Outlined)
+baku: All sorcery can be classified into two types.
+baku: Sever… the red one. Like mine.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: And Sigil… the blue one... like mine.
+update yuna (DarkenedOutlined)
+update baku (Outlined)
+baku: Even if they can resonate in harmony…
+baku: ....in their purest form, they exist to destroy each other.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: ....
+update yuna (DarkenedOutlined)
+update baku (Outlined)
+baku: Break Sigil with Sever.
+baku: Break Sever with Sigil.
+baku: You understand, right?
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: …I understand.
+update yuna (DarkenedOutlined)
+update baku (Outlined)
+baku: Nice!
+baku: if that’s the case, let’s start the hunt!!
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: Wait—
+update yuna (DarkenedOutlined)
+update baku (Outlined)
+baku: BANZAAAAIIII!!!!
+[signal arg="boss fight"]
