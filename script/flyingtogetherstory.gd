@@ -31,6 +31,24 @@ func _process(delta):
 		flyingtogether.position.y = base_pos[flyingtogether].y + sin(time * 2) * 20
 
 func on_dialogic_signal(arg: String):
+	
+	if (arg == "back to city") :
+		overlay.modulate.a = 0.0
+		overlay.visible = true
+		await get_tree().create_timer(0.3).timeout
+		fade_overlay(1.0, 1.0) # fade in
+		await get_tree().create_timer(1).timeout
+		
+		fade_in(bg,2)
+		fade_out(chapter2background, 2)
+		if (grass.visible == true) :
+			fade_out(grass, 2)
+		
+		await get_tree().create_timer(1).timeout
+		
+		await get_tree().create_timer(0.3).timeout
+		fade_overlay(0, 1.0)
+		
 	if (arg == "start chapter 2") :
 		chapter2background.visible = true
 		bakuTalking.play("default")
@@ -45,16 +63,22 @@ func on_dialogic_signal(arg: String):
 		await get_tree().create_timer(1).timeout
 		
 		fade_in(chapter2background,2)
-		flyingtogether.visible = true
-		flyingtogether.modulate.a = 0
-		fade_in(flyingtogether,2)
-		move_to(Vector2(843, 403), flyingtogether, 2)
+	
 		fade_out(bg, 2)
+		if (grass.visible == true) :
+			fade_out(grass, 2)
 		
 		await get_tree().create_timer(1).timeout
 		
 		await get_tree().create_timer(0.3).timeout
 		fade_overlay(0, 1.0)
+	
+	if (arg == "flying together enter"):
+		flyingtogether.visible = true
+		flyingtogether.modulate.a = 0
+		fade_in(flyingtogether,2)
+		move_to(Vector2(843, 403), flyingtogether, 2)
+	
 		
 	if (arg == "bt"):
 		

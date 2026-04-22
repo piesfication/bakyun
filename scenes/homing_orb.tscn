@@ -1,10 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://xagbf7jd1fhf"]
+[gd_scene load_steps=22 format=3 uid="uid://xagbf7jd1fhf"]
 
-[ext_resource type="Texture2D" uid="uid://c4fynm16fxw1w" path="res://assets/enemy/Orb/Blue/Spawn/Untitled1022_20260409104006.png" id="3_do742"]
 [ext_resource type="Texture2D" uid="uid://bhpqv4qqud1c3" path="res://assets/enemy/Orb/Blue/Spawn/Untitled1022_20260409103636.png" id="4_yb70x"]
 [ext_resource type="Texture2D" uid="uid://d2vaco6aksnhq" path="res://assets/enemy/Orb/Blue/Spawn/Untitled1022_20260409103851.png" id="6_ol664"]
 [ext_resource type="Texture2D" uid="uid://jef4xsmow1tx" path="res://assets/enemy/boss/Summon/ColoredOrb/Blue/Explode/Untitled945_20260317083154.png" id="7_y1abd"]
-[ext_resource type="Texture2D" uid="uid://bb67uyp61dmsx" path="res://assets/enemy/Orb/Red/Spawn/Untitled1022_20260409104006.png" id="9_i0cp3"]
 [ext_resource type="Texture2D" uid="uid://corqeui8egvl" path="res://assets/enemy/Orb/Red/Spawn/Untitled1022_20260409104013.png" id="10_r2ggu"]
 [ext_resource type="Script" uid="uid://8ee13m7275k0" path="res://script/homing_orb.gd" id="11_orbsc"]
 [ext_resource type="Texture2D" uid="uid://c1q1xxyw8y740" path="res://assets/enemy/Orb/Red/Spawn/Untitled1022_20260409103856.png" id="12_5nktb"]
@@ -29,7 +27,7 @@ radius = 169.70563
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_do742")
+"texture": ExtResource("16_ae8ss")
 }, {
 "duration": 1.0,
 "texture": ExtResource("4_yb70x")
@@ -49,7 +47,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("9_i0cp3")
+"texture": ExtResource("21_qdpk0")
 }, {
 "duration": 1.0,
 "texture": ExtResource("10_r2ggu")
@@ -133,7 +131,6 @@ animations = [{
 [node name="HomingOrb" type="Node2D"]
 scale = Vector2(0.4, 0.4)
 script = ExtResource("11_orbsc")
-min_scale = 0.3
 drift_speed = 3.0
 drift_move_speed = 350.0
 leader_wave_frequency = 3.0

@@ -1,28 +1,41 @@
-[gd_scene load_steps=35 format=3 uid="uid://jmfk3k5jopvk"]
+[gd_scene load_steps=48 format=3 uid="uid://jmfk3k5jopvk"]
 
 [ext_resource type="Texture2D" uid="uid://cfht878rh5ox" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145259.png" id="1_25q3k"]
 [ext_resource type="Script" uid="uid://kmyycxgwtgiy" path="res://script/yuokai_boss.gd" id="1_cqvef"]
 [ext_resource type="Texture2D" uid="uid://oosh0kfedxfj" path="res://assets/enemy/Yuokai/Idle/Untitled1032_20260418174327.png" id="1_tj2yg"]
 [ext_resource type="Texture2D" uid="uid://62vsjhtwy0gx" path="res://assets/enemy/Yuokai/Idle/Untitled1032_20260418174651.png" id="2_cqvef"]
 [ext_resource type="Texture2D" uid="uid://d5knu5ol0sjq" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145409.png" id="2_f3bdi"]
+[ext_resource type="Texture2D" uid="uid://b4uanijarh2nq" path="res://assets/enemy/Yuokai/Attack/Untitled1039_20260422103504.png" id="2_kpkev"]
 [ext_resource type="Texture2D" uid="uid://bypuk1qojtc3" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145303.png" id="3_dndry"]
+[ext_resource type="Texture2D" uid="uid://kr58sobqy45u" path="res://assets/enemy/Yuokai/Attack/Untitled1039_20260422103509.png" id="3_htlae"]
 [ext_resource type="Texture2D" uid="uid://bhial7p65svfu" path="res://assets/enemy/Yuokai/Idle/Untitled1032_20260418174755.png" id="3_qu2d8"]
 [ext_resource type="Texture2D" uid="uid://by3n6mjhjdtyu" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145305.png" id="4_77u4b"]
 [ext_resource type="Texture2D" uid="uid://ca2n644ahwd1c" path="res://assets/enemy/Yuokai/Idle/Untitled1032_20260418174322.png" id="4_f65sa"]
+[ext_resource type="Texture2D" uid="uid://bcvevje2ac1j5" path="res://assets/enemy/Yuokai/Attack/Untitled1039_20260422103531.png" id="4_s272x"]
+[ext_resource type="Texture2D" uid="uid://cfkfty6ilm1bm" path="res://assets/enemy/Yuokai/Attack/Untitled1039_20260422103539.png" id="5_c5u0k"]
 [ext_resource type="Texture2D" uid="uid://da5qsg0dw7lic" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145307.png" id="5_tj2yg"]
 [ext_resource type="PackedScene" uid="uid://b0oqkr3pkn6g0" path="res://scenes/weakness_point.tscn" id="6_cqvef"]
+[ext_resource type="Texture2D" uid="uid://qy23g24x4rex" path="res://assets/enemy/Yuokai/Attack/Untitled1039_20260422103813.png" id="6_qhr2x"]
 [ext_resource type="Texture2D" uid="uid://klfdemhjrebs" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121654.png" id="7_qu2d8"]
 [ext_resource type="Texture2D" uid="uid://dim006s2kgwe3" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121801.png" id="8_f65sa"]
 [ext_resource type="Texture2D" uid="uid://3if6emxbt4ix" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121659.png" id="9_wwt05"]
 [ext_resource type="Texture2D" uid="uid://2dqanm37eh6w" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121702.png" id="10_bylpi"]
+[ext_resource type="Texture2D" uid="uid://2m8ieevib1d3" path="res://assets/enemy/Yuokai/Summon/Untitled1038_20260422094922.png" id="11_u13sv"]
 [ext_resource type="Texture2D" uid="uid://dlnhawwj060m2" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121706.png" id="11_wg72l"]
+[ext_resource type="Texture2D" uid="uid://demb7ewl3i3cx" path="res://assets/enemy/Yuokai/Summon/Untitled1038_20260422205041.png" id="12_2xcxx"]
 [ext_resource type="Texture2D" uid="uid://mwihk37pf1up" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121709.png" id="12_v460u"]
 [ext_resource type="Texture2D" uid="uid://fbe1nv0ch516" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121713.png" id="13_2j1hl"]
+[ext_resource type="Texture2D" uid="uid://b3453w7wah6dg" path="res://assets/enemy/Yuokai/Summon/Untitled1038_20260422094948.png" id="13_dnnff"]
+[ext_resource type="Texture2D" uid="uid://dnj30b3p0lvep" path="res://assets/enemy/Yuokai/Summon/Untitled1038_20260422094952.png" id="14_go480"]
 [ext_resource type="Texture2D" uid="uid://cy2tfkhvunv4i" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121717.png" id="14_jwcp8"]
 [ext_resource type="Texture2D" uid="uid://j7cfrw3e1w7l" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121721.png" id="15_q2dnj"]
+[ext_resource type="Texture2D" uid="uid://cpo85jn0r5haf" path="res://assets/enemy/Yuokai/Summon/Untitled1038_20260422094956.png" id="15_rbo88"]
 [ext_resource type="Texture2D" uid="uid://dhfluu5op0bl5" path="res://assets/enemy/boss/Hp/Bar/Untitled972_20260319121753.png" id="16_hu0pr"]
+[ext_resource type="Texture2D" uid="uid://u1e5dtg8cqn7" path="res://assets/enemy/Yuokai/Summon/Untitled1038_20260422205119.png" id="16_q0llh"]
+[ext_resource type="Texture2D" uid="uid://brh5uyqpulcka" path="res://assets/enemy/Yuokai/Summon/Untitled1038_20260422095007.png" id="17_kdsa8"]
 [ext_resource type="Texture2D" uid="uid://dfdwufyr4m7tq" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121818.png" id="17_x4umg"]
 [ext_resource type="Texture2D" uid="uid://bwptthnl02knp" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121821.png" id="18_5unks"]
+[ext_resource type="Texture2D" uid="uid://cxrm5yl0vsukp" path="res://assets/enemy/Yuokai/Summon/Untitled1038_20260422095014.png" id="18_14un5"]
 [ext_resource type="Texture2D" uid="uid://dqoj5bo2hbn1o" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121826.png" id="19_kpkev"]
 [ext_resource type="Texture2D" uid="uid://clfuoi0mfu434" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121831.png" id="20_htlae"]
 [ext_resource type="Texture2D" uid="uid://bjin0lh3seqmn" path="res://assets/enemy/boss/Hp/Transition/Untitled972_20260319121856.png" id="21_s272x"]
@@ -34,6 +47,29 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_go480"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kpkev")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_htlae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_s272x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_c5u0k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qhr2x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_kpkev")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_tj2yg")
@@ -50,6 +86,35 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_u13sv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_2xcxx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_dnnff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_go480")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_rbo88")
+}, {
+"duration": 0.5,
+"texture": ExtResource("16_q0llh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_kdsa8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_14un5")
+}],
+"loop": false,
+"name": &"summon",
+"speed": 10.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_aq2tn"]
@@ -231,8 +296,10 @@ scale = Vector2(3, 3)
 [node name="BodyAnim" type="AnimatedSprite2D" parent="Node2D"]
 position = Vector2(87.083305, 0)
 sprite_frames = SubResource("SpriteFrames_go480")
+animation = &"summon"
 autoplay = "default"
-frame_progress = 0.08007563
+frame = 4
+frame_progress = 0.6334033
 
 [node name="HandAnim" type="AnimatedSprite2D" parent="Node2D"]
 visible = false
@@ -256,7 +323,7 @@ position = Vector2(-150, 193.75002)
 scale = Vector2(1.5, 1.5)
 
 [node name="OrbContainer" type="Node2D" parent="."]
-position = Vector2(156.25, -456.25)
+position = Vector2(118.75, -81.25)
 
 [node name="WeakContainer" type="Control" parent="."]
 layout_mode = 3

@@ -317,9 +317,24 @@ animations = [{
 radius = 42.631226
 height = 804.8251
 
-[node name="Main" instance=ExtResource("1_v43r2")]
+[node name="Main2" instance=ExtResource("1_v43r2")]
 script = ExtResource("2_dkxaw")
 boss_spawn_position = Vector2(800, 512)
+post_boss_delay_before_ui_hide = 0.4
+post_boss_delay_after_ui_hide = 0.3
+post_boss_damage_hud_fade_duration = 0.35
+post_boss_parallax_move_duration = 0.8
+post_boss_parallax_bg_target = Vector2(640, 368)
+post_boss_parallax_bg2_target = Vector2(640, 360)
+post_boss_timeline = "timeline_411_yuokai_post"
+play_intro_timeline_before_boss = true
+intro_timeline = "timeline_411_yuokai"
+intro_spawn_signal = "spawn_boss"
+spawn_boss_in_neutral_mode = true
+start_summon_signal = "start_summon"
+phase_transition_timeline = "timeline_411_yuokai_phase2"
+phase_transition_resume_signal = "start_summon_phase_2"
+hide_health_bar_on_phase_transition = true
 enemy_scene = ExtResource("3_dkxaw")
 bird_strike_chance = 0.1
 bird_strike_shoot_lock_duration = 4.0
@@ -381,3 +396,15 @@ polygon = PackedVector2Array(-188.72313, -30.036133, -170.0112, 751.0016, 1565.5
 position = Vector2(639, 468)
 rotation = -1.6000026
 shape = SubResource("CapsuleShape2D_5qyiw")
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="." index="14"]
+layer = 0
+
+[node name="Overlay" type="ColorRect" parent="CanvasLayer3" index="0"]
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 1368.0
+offset_bottom = 752.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true

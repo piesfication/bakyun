@@ -9,6 +9,7 @@ yuna: She didn't wake me immediately.
 yuna: She made tea first, set it on my table, then knocked on my door.
 yuna: I didn't say anything about that.
 yuna: But I drank every last drop.
+yuna: I keep telling myself I want to go back to the association. I've stopped being sure that's true.
 [wait time="2.0"]
 narrator: Sky dark since morning. Wind from every direction.
 narrator: They fly into the city center — the tallest ruins, the densest vines, a place even regular spawns rarely enter.
@@ -21,24 +22,24 @@ narrator: — round, its hand-shaped wings spread wide, its face a set of concen
 narrator: Its movements are slow. But every movement displaces the air around it.
 [wait time="2.0"]
 join baku (Outlined) right
-baku: (whispers, tone completely normal)\
+baku: (whispers)\
 There it is.
 update baku (DarkenedOutlined)
 join yuna (Outlined) left
-yuna: You said define big —
+yuna: You never said it would be this massive —
 update yuna (DarkenedOutlined)
 update baku (Outlined)
-baku: I said reeeeeaaaaaaally big.
+baku: I told you, no witch has ever seen it before.  I didn't know it would be really big either.
 update yuna (Outlined)
 update baku (DarkenedOutlined)
 yuna: This isn't really big. This is —
 update yuna (DarkenedOutlined)
 update baku (Outlined)
-baku: Oh—right, one more important thing!
+baku: Oh — right, one more important thing!
 baku: Yuna, do you remember the basics of sorcery?
 update yuna (Outlined)
 update baku (DarkenedOutlined)
-yuna: Baku… this is not the time—
+yuna: Baku… this is not the time —
 update yuna (DarkenedOutlined)
 update baku (Outlined)
 baku: All sorcery can be classified into two types.
@@ -67,8 +68,10 @@ baku: Nice!
 baku: if that’s the case, let’s start the hunt!!
 update yuna (Outlined)
 update baku (DarkenedOutlined)
-yuna: Wait—
+yuna: Wait —
 update yuna (DarkenedOutlined)
 update baku (Outlined)
 baku: BANZAAAAIIII!!!!
+[wait time="1.5" hide_text="false"]
 [signal arg="boss fight"]
+leave --All-- [animation="Instant Out" length="0.0"]

@@ -26,8 +26,13 @@ func on_dialogic_signal(arg: String):
 	if (arg == "move") :
 		print("chp 2 start")
 		anchor.global_position = Vector2(378, 636)
-	if (arg == "start grass field"):
-		anchor.global_position = Vector2(634, 670)
+	if (arg == "start grass field" or arg == "together"):
+		anchor.global_position = Vector2(609, 670)
+	if (arg == "epilogue") :
+		anchor.global_position = Vector2(820, 627)
+
+
+
 
 enum Alignments {LEFT, CENTER, RIGHT}
 

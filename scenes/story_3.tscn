@@ -1,0 +1,126 @@
+[gd_scene load_steps=14 format=3 uid="uid://di87tnpeix8ml"]
+
+[ext_resource type="Script" uid="uid://choj5g4n4p8cd" path="res://script/rooftopstory.gd" id="1_jxbns"]
+[ext_resource type="Script" uid="uid://dgxvxmitrd13o" path="res://script/parallax_background.gd" id="2_fk4pr"]
+[ext_resource type="Texture2D" uid="uid://71fsdc8fl4jf" path="res://assets/title/Untitled977_20260324075141.png" id="3_mtqe4"]
+[ext_resource type="Script" uid="uid://b57hbvyj18rxn" path="res://script/parallax_background_2.gd" id="4_wrlmg"]
+[ext_resource type="Script" uid="uid://csf0dehln2qhw" path="res://scenes/title_background_float.gd" id="10_kwe6h"]
+[ext_resource type="Texture2D" uid="uid://dlcf2nmcjtpvj" path="res://assets/level/rain/Untitled698_20260407183657.png" id="10_nfmh3"]
+[ext_resource type="Texture2D" uid="uid://bimeyer1kxnm8" path="res://assets/level/rain/Untitled698_20260407183643.png" id="11_3qn0i"]
+[ext_resource type="Texture2D" uid="uid://i5asanwmdtcp" path="res://assets/level/sea/Untitled694_20260115180850.png" id="11_sbf40"]
+[ext_resource type="Texture2D" uid="uid://4wksodnvgnvv" path="res://assets/level/sea/Untitled694_20260115181335.png" id="12_iinsk"]
+[ext_resource type="Texture2D" uid="uid://bv8igeel6h5of" path="res://assets/level/rain/Untitled698_20260407183650.png" id="12_u2r4g"]
+[ext_resource type="Texture2D" uid="uid://d3cu3rs4yd53l" path="res://assets/level/rain/Untitled698_20260407183634.png" id="13_8fhrg"]
+[ext_resource type="Texture2D" uid="uid://dssooydqpu272" path="res://assets/level/sea/Untitled694_20260115182142.png" id="13_ry7bl"]
+[ext_resource type="Texture2D" uid="uid://dhx2rv2ssyyuj" path="res://assets/level/sea/Untitled694_20260115180839.png" id="14_62lvu"]
+
+[node name="story_3" type="Node2D"]
+position = Vector2(0, -43)
+script = ExtResource("1_jxbns")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = 0
+script = ExtResource("2_fk4pr")
+scroll_speed = 60
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 50
+motion_mirroring = Vector2(1286.4, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(640, 368)
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("3_mtqe4")
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+layer = 0
+script = ExtResource("4_wrlmg")
+scroll_speed = 60
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
+motion_mirroring = Vector2(1286.4, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer"]
+position = Vector2(640, 360)
+rotation = -3.1415925
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("3_mtqe4")
+
+[node name="Background" type="Node2D" parent="."]
+position = Vector2(-35, -122.00001)
+rotation = 0.025745109
+scale = Vector2(1.08, 1.08)
+script = ExtResource("10_kwe6h")
+
+[node name="Sky" type="Sprite2D" parent="Background"]
+scale = Vector2(0.667, 0.667)
+texture = ExtResource("11_sbf40")
+centered = false
+
+[node name="Back" type="Sprite2D" parent="Background"]
+z_index = 10
+position = Vector2(0, 16)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("12_iinsk")
+centered = false
+
+[node name="Back2" type="Sprite2D" parent="Background"]
+z_index = 10
+position = Vector2(0, 16)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("12_iinsk")
+centered = false
+
+[node name="Front" type="Sprite2D" parent="Background"]
+z_index = 20
+position = Vector2(0, 16)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("13_ry7bl")
+centered = false
+
+[node name="Sea" type="Sprite2D" parent="Background"]
+z_index = 30
+position = Vector2(0, -10.999998)
+scale = Vector2(0.683, 0.683)
+texture = ExtResource("14_62lvu")
+centered = false
+
+[node name="Background2" type="Node2D" parent="."]
+position = Vector2(-35, -122.00001)
+rotation = 0.025745109
+scale = Vector2(1.08, 1.08)
+script = ExtResource("10_kwe6h")
+
+[node name="Sky" type="Sprite2D" parent="Background2"]
+scale = Vector2(0.667, 0.667)
+texture = ExtResource("10_nfmh3")
+centered = false
+
+[node name="Back" type="Sprite2D" parent="Background2"]
+visible = false
+z_index = 10
+position = Vector2(0, 16)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("12_iinsk")
+centered = false
+
+[node name="Back2" type="Sprite2D" parent="Background2"]
+z_index = 10
+position = Vector2(0, 16)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("11_3qn0i")
+centered = false
+
+[node name="Front" type="Sprite2D" parent="Background2"]
+z_index = 20
+position = Vector2(0, 16)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("12_u2r4g")
+centered = false
+
+[node name="Sea" type="Sprite2D" parent="Background2"]
+z_index = 30
+position = Vector2(0, -10.999998)
+scale = Vector2(0.683, 0.683)
+texture = ExtResource("13_8fhrg")
+centered = false

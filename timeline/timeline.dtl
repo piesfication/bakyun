@@ -2,25 +2,29 @@ baku: This city never had guests.
 baku: That's one of the things I like about this place.
 baku: People out there have plenty of stories about this city —
 baku: — monsters, ruins, phenomena nobody can explain. Enough to make anyone choose a different route.
-baku: So when someone showed up at the city entrance this morning —
-baku: — a witch hat just a little too big for her, hair trailing all the way to the ground, —
+baku: So when someone actually showed up at the city entrance this morning —
+baku: — backpack on, assignment letter in hand, expression working very hard to not look completely terrified —
 baku: I was surprised enough to stand up from my bed. That's already an achievement.
 [wait time="3.0"]
 join baku (Outlined) right [animation="Fade In Up" wait="true"]
 baku (Outlined): New witch?!
 join yuna (Outlined) left [animation="Fade In Up" wait="true"]
 update baku (DarkenedOutlined) right [fade="Fade Cross"]
-yuna: Yuna. Transferred, effective today.
+yuna: I'm Yuna. Transferred to this city, effective today. Is there anyone I should report to —
 update yuna (DarkenedOutlined) left [fade="Fade Cross"]
 update baku (Outlined) right [fade="Fade Cross"]
-baku (Outlined): Welcome to ! monster capital of the known world!
-baku: No neighbors, no noise complaints, no rules. Just me, the ruins, and everything that wants to kill you XD
+baku: Welcome!
+baku (Outlined): Welcome to this city  — monster capital of the known world!
+baku: No neighbors, no noise complaints. Just ruins, things that want to eat you, and the best view you'll ever see from a rooftop!
 update yuna (Outlined)
 update baku (DarkenedOutlined)
-yuna (Outlined): So... who are you?
+yuna (Outlined): ...is there a commanding officer I should —
 update yuna (DarkenedOutlined)
 update baku (Outlined)
-baku (Outlined): Ah, right! How stupid of me...
+baku (Outlined): Oh, and me! There's me.
+baku: Ah, right —
+baku: (laughs a little)\
+Been a while since I've had to introduce myself.
 baku: I'm Baku. I run things around here. Loosely, very loosely.
 baku: Monsters show up, I deal with them!  that's pretty much the whole job description.
 baku: Come on, I made too much food anyway...
@@ -31,7 +35,7 @@ yuna: ...what do you mean by —
 label birdstrikestart (birdstrikestart)
 update baku (Outlined)
 update yuna (DarkenedOutlined)
-baku: Ah. There's one now.
+baku: Ah! There's one now.
 leave --All-- [animation="Instant Out" length="0.2"]
 [wait time="0.3"]
 [signal arg="bird strike"]
@@ -53,7 +57,8 @@ baku: I did warn you.
 yuna: ......
 yuna: That was a countdown. Not a warning.
 leave --All-- [animation="Fade Out Down" wait="true"]
-narrator: (Baku slides a bowl across. Yuna takes it with both hands.)
+narrator: Yuna stares at her.
+narrator: Then looks down at the bowl. Picks up the spoon.
 join yuna (Outlined) left
 yuna (Outlined): So.... how long have you been here?
 join baku (Outlined) right
@@ -75,37 +80,36 @@ update yuna (DarkenedOutlined) left
 baku: Before you, yeah.
 update baku (DarkenedOutlined) right
 update yuna (Outlined) left
-yuna: No other witches assigned here?
+yuna: The assignment letter didn't mention anyone living here.
 update baku (Outlined) right
 update yuna (DarkenedOutlined) left
 baku: (shrugs)
-baku: They usually don't last long.
+baku: I'm not really on the official roster anymore.
 update baku (DarkenedOutlined) right
 update yuna (Outlined) left
-yuna: Why?
+yuna: You're not associated with the association?
 update baku (Outlined) right
 update yuna (DarkenedOutlined) left
-baku: Different reasons. Too quiet. Too dangerous. Sometimes both at once.
+baku: Not for a long time.
 update baku (DarkenedOutlined) right
 update yuna (Outlined) left
-yuna: And you stayed.
+yuna: Then what are you doing here?
 update baku (Outlined) right
 update yuna (DarkenedOutlined) left
-baku: I like it here.
+baku: I live here
 leave --All-- [animation="Fade Out Down" wait="true"]
 [wait time="2.0"]
-join yuna (Outlined) left
-yuna: (goes back to eating)
+narrator: Yuna stares at her again.
+narrator: Trying to find the part that makes sense. Not finding it.
 yuna: ...the food's decent.
-join baku (Outlined) right
 update yuna (DarkenedOutlined)
 baku (Outlined): (grins)
 baku (Outlined): Decent.
-leave --All-- [animation="Fade Out Down" wait="true"]
 [wait time="2.0"]
 label testjump (testjump)
 join baku (Outlined) right
 - "You come here because you wanted to, or because you had to?"
+	set {StoryBranch.FirstOption} += 1.0
 	baku (Outlined): You come here because you wanted to, or because you had to?
 	update baku (DarkenedOutlined)
 	join yuna (Outlined) left
@@ -116,11 +120,12 @@ join baku (Outlined) right
 	baku: Mmhm.
 	leave --All-- [animation="Fade Out Down" wait="true"]
 	[wait time="2.0"]
-	baku: I let it sit there. One word. Fast. The kind of answer you give when the real answer is too long...
-	baku: ....and you're not sure the other person actually wants to hear it.
-	baku: I did want to hear it.
-	baku: But not today.
+	baku: I didn't push further.
+	baku: One word, fast — like she'd been rehearsing it the whole trip here.
+	baku: People who answer like that usually have a story they're not ready to tell yet.
+	baku: That's fine. This city has a way of bringing things out eventually.
 - (Say nothing. Refill Yuna's bowl.)
+	set {StoryBranch.SecondOption} += 1.0
 	baku (Outlined): (Say nothing. Refill Yuna's bowl.)
 	join yuna (Outlined) left
 	update baku (DarkenedOutlined)
@@ -129,6 +134,21 @@ join baku (Outlined) right
 	update baku (Outlined)
 	baku: You'll tell me eventually.
 	leave --All-- [animation="Fade Out Down" wait="true"]
-	yuna: ......
+	[wait time="2.0"]
+	baku: She didn't respond.
+	baku: But she finished everything in the bowl.
+	baku: That felt like enough for now.
 [wait time="2.0"]
+baku: Her assignment letter said "transferred."
+baku: I've been around long enough to know what that word usually means.
+baku: But that's her story to tell.
+baku: What I know\: she arrived with a backpack too heavy for its contents, a hat too big for her head, and the expression of someone who made a decision and isn't sure yet if it was the right one.
+[wait time="2.0"]
+baku: This city has plenty of monsters.
+baku: But somewhere out there —
+baku: — deeper in the city, where even the regular spawns don't go —
+baku: — something else has been sitting still for a very long time.
+baku: I've been waiting for a reason to go find it.
+baku: Maybe she's it.
+[wait time="3.0"]
 [signal arg="level menu"]

@@ -117,7 +117,6 @@ var _battle_ui_names: Array[String] = [
 	"CardUI",
 	"UIKoisuruMeter",
 	"UIMahouMeter",
-	"DamageHud",
 	"Player",
 	"Crosshair"
 ]
@@ -130,6 +129,7 @@ var _shield_pulse_tween: Tween
 var weakness_bar_tween: Tween = null
 var weakness_bar_pulse_tween: Tween = null
 var hp_tween: Tween = null
+var _health_dead_sequence_started: bool = false
 
 var hitbox_area: Area2D
 
@@ -148,6 +148,9 @@ func _ready() -> void:
 		health_bar.visible = false
 		health_bar.value = 0
 		health_bar.max_value = 100
+
+	if health_anim != null and health_anim.has_signal("animation_changed") and not health_anim.animation_changed.is_connected(Callable(self, "_on_health_anim_animation_changed")):
+		health_anim.animation_changed.connect(Callable(self, "_on_health_anim_animation_changed"))
 
 	if body_anim != null:
 		body_anim.play("idle")
@@ -176,9 +179,6 @@ func _ready() -> void:
 	await _run_boss_loop()
 
 func _physics_process(delta: float) -> void:
-	if state == BossState.DEAD:
-		return
-
 	if action_anim != null and action_anim.visible and not action_anim.is_playing():
 		_stop_action_animation()
 
@@ -356,6 +356,7 @@ func _run_weakness_phase(duration_override: float = -1.0, allow_early_clear: boo
 	var timeout_timer := get_tree().create_timer(maxf(weakness_duration, 0.1))
 	if health_anim != null and health_anim.sprite_frames != null and health_anim.sprite_frames.has_animation("weakened"):
 		health_anim.play("weakened")
+	_sync_weakness_bar_visibility()
 	_start_weakness_bar(weakness_duration)
 	_start_weakness_bar_pulse()
 
@@ -439,6 +440,7 @@ func _run_attack_punish_phase() -> void:
 
 	if player_node != null and is_instance_valid(player_node) and player_node.has_method("take_damage"):
 		player_node.take_damage(attack_damage)
+		_apply_boss_damage(-1)
 
 	if body_anim != null:
 		body_anim.play("idle")
@@ -861,8 +863,7 @@ func _die() -> void:
 		return
 	state = BossState.DEAD
 	hp = 0
-	if health_anim != null and health_anim.sprite_frames != null and health_anim.sprite_frames.has_animation("dead"):
-		health_anim.play("dead")
+	_health_dead_sequence_started = false
 	weakness_active = false
 	_clear_weakness_points()
 	_stop_weakness_bar()
@@ -886,10 +887,14 @@ func _die() -> void:
 
 	if action_anim != null and action_anim.sprite_frames != null and action_anim.sprite_frames.has_animation("dead"):
 		_play_action_animation("dead")
+		await _trigger_health_dead_at_action_frame(1)
 		if not action_anim.sprite_frames.get_animation_loop("dead"):
 			await action_anim.animation_finished
 		else:
 			await get_tree().create_timer(1.0).timeout
+	elif not _health_dead_sequence_started:
+		_health_dead_sequence_started = true
+		await _play_health_dead_then_hide()
 
 	emit_signal("boss_defeated")
 	queue_free()
@@ -905,11 +910,54 @@ func _move_to_death_center() -> void:
 		global_position = target
 		return
 
-	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_SINE)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "global_position", target, death_center_move_duration)
-	await tween.finished
+	var distance := maxf(global_position.distance_to(target), 1.0)
+	var move_speed := distance / maxf(death_center_move_duration, 0.001)
+	while is_instance_valid(self) and global_position.distance_to(target) > 6.0:
+		var step := move_speed * get_process_delta_time()
+		global_position = global_position.move_toward(target, step)
+		await get_tree().process_frame
+
+func _trigger_health_dead_at_action_frame(target_frame: int) -> void:
+	if _health_dead_sequence_started:
+		return
+	if action_anim == null or not is_instance_valid(action_anim):
+		_health_dead_sequence_started = true
+		await _play_health_dead_then_hide()
+		return
+
+	var guard := 300
+	while guard > 0:
+		if not is_instance_valid(action_anim):
+			break
+		if action_anim.animation != "dead":
+			break
+		if action_anim.frame >= target_frame:
+			break
+		await get_tree().process_frame
+		guard -= 1
+
+	if _health_dead_sequence_started:
+		return
+	_health_dead_sequence_started = true
+	await _play_health_dead_then_hide()
+
+func _play_health_dead_then_hide() -> void:
+	if health_anim == null or not is_instance_valid(health_anim):
+		return
+
+	health_anim.visible = true
+	var did_play_dead := false
+	if health_anim.sprite_frames != null and health_anim.sprite_frames.has_animation("dead"):
+		health_anim.play("dead")
+		did_play_dead = true
+
+	if did_play_dead:
+		if health_anim.sprite_frames.get_frame_count("dead") > 0:
+			await health_anim.animation_finished
+		else:
+			await get_tree().process_frame
+
+	health_anim.hide()
 
 func _set_player_action_enabled(enabled: bool) -> void:
 	if crosshair_node != null:
@@ -968,8 +1016,7 @@ func _update_health_visual(old_hp: int, new_hp: int) -> void:
 		_play_hp_squash_stretch()
 
 	if new_hp <= 0:
-		if health_anim.sprite_frames.has_animation("dead"):
-			health_anim.play("dead")
+		_sync_weakness_bar_visibility()
 		return
 
 	var hp_in_layer := new_hp % hp_per_layer
@@ -979,6 +1026,7 @@ func _update_health_visual(old_hp: int, new_hp: int) -> void:
 	var anim_name := "hp_%d" % hp_in_layer
 	if health_anim.sprite_frames.has_animation(anim_name):
 		health_anim.play(anim_name)
+	_sync_weakness_bar_visibility()
 
 func _play_second_phase_transition() -> void:
 	if health_anim == null:
@@ -1000,6 +1048,9 @@ func _play_second_phase_transition() -> void:
 
 func _start_weakness_bar(duration: float) -> void:
 	if health_bar == null:
+		return
+	if not _should_show_weakness_bar():
+		_sync_weakness_bar_visibility()
 		return
 
 	if weakness_bar_tween != null and is_instance_valid(weakness_bar_tween):
@@ -1024,8 +1075,33 @@ func _stop_weakness_bar() -> void:
 	health_bar.visible = false
 	health_bar.value = health_bar.max_value
 
+func _should_show_weakness_bar() -> bool:
+	if health_bar == null:
+		return false
+	if health_anim == null or not is_instance_valid(health_anim):
+		return false
+	if not weakness_active:
+		return false
+	return String(health_anim.animation) == "weakened"
+
+func _sync_weakness_bar_visibility() -> void:
+	if health_bar == null:
+		return
+
+	if _should_show_weakness_bar():
+		health_bar.visible = true
+		return
+
+	if weakness_bar_tween != null and is_instance_valid(weakness_bar_tween):
+		weakness_bar_tween.kill()
+	health_bar.visible = false
+	health_bar.value = health_bar.max_value
+	_stop_weakness_bar_pulse()
+
 func _start_weakness_bar_pulse() -> void:
 	if weak_container == null:
+		return
+	if not _should_show_weakness_bar():
 		return
 
 	if weakness_bar_pulse_tween != null and is_instance_valid(weakness_bar_pulse_tween):
@@ -1046,6 +1122,9 @@ func _stop_weakness_bar_pulse() -> void:
 
 	if weak_container != null:
 		weak_container.scale = Vector2.ONE
+
+func _on_health_anim_animation_changed() -> void:
+	_sync_weakness_bar_visibility()
 
 func _play_shield_feedback() -> void:
 	if shield_anim == null or shield_anim.sprite_frames == null:
@@ -1139,27 +1218,28 @@ func _set_battle_ui_pulled_out(pulled: bool) -> void:
 		if node == null:
 			continue
 
-		# UIMahouMeter ditarik ke atas; elemen lain ditarik ke bawah.
 		var pull_vec := Vector2(0.0, pull_dist)
 		if name == "UIMahouMeter":
 			pull_vec = Vector2(0.0, -pull_dist)
-		elif name == "CardUI":
-			pull_vec = Vector2(-pull_dist, pull_dist)
 		elif name == "Player":
 			pull_vec = Vector2(pull_dist, pull_dist)
+		elif name == "Crosshair" or name == "UIKoisuruMeter":
+			pull_vec = Vector2(0.0, pull_dist)
+		elif name == "CardUI":
+			pull_vec = Vector2(-pull_dist, pull_dist)
 
 		if node is Node2D:
 			var n2d := node as Node2D
 			if pulled:
 				if not _battle_ui_original_pos.has(name):
-					_battle_ui_original_pos[name] = n2d.position
-				n2d.position = (_battle_ui_original_pos[name] as Vector2) + pull_vec
+					_battle_ui_original_pos[name] = n2d.global_position
+				n2d.global_position = (_battle_ui_original_pos[name] as Vector2) + pull_vec
 			elif _battle_ui_original_pos.has(name):
 				var target_pos := _battle_ui_original_pos[name] as Vector2
 				if restore_tween != null:
-					restore_tween.tween_property(n2d, "position", target_pos, intro_ui_return_anim_duration)
+					restore_tween.tween_property(n2d, "global_position", target_pos, intro_ui_return_anim_duration)
 				else:
-					n2d.position = target_pos
+					n2d.global_position = target_pos
 			continue
 
 		if node is CanvasLayer:
@@ -1200,4 +1280,10 @@ func _on_animated_sprite_2d_2_animation_finished() -> void:
 	_stop_action_animation()
 
 func _on_animated_sprite_2d_2_frame_changed() -> void:
-	pass
+	if action_anim.animation == "dead" and body_anim.frame >= 2:
+				if Transition != null and Transition.has_method("play_crt_glitch_burst"):
+					Transition.play_crt_glitch_burst()
+				if player_node != null and is_instance_valid(player_node) and player_node.has_method("trigger_screen_shake"):
+					player_node.trigger_screen_shake()
+				
+		

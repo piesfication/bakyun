@@ -11,4 +11,87 @@ yuna: It went down too easy.
 update baku (Outlined)
 update yuna (DarkenedOutlined)
 baku (Outlined): Maybe we're just that good.
+leave --All-- [animation="Fade Out Down" wait="true"]
 [wait time="3.0"]
+join yuna (Outlined) left
+yuna: ...I'm glad we made it through this.
+yuna: Together.  Obviously.
+join baku (Outlined) right
+update yuna (DarkenedOutlined)
+baku: (grinning)\
+That doesn't sound like you.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: Shut up. What do you mean?
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Nothing, nothing.
+baku: (holding back a laugh)\
+Please, go on.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: There's nothing to go on about.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: (still grinning)\
+Shame... I wanted to hear more.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: (looks away)\
+Forget it.
+leave --All-- [animation="Fade Out Down" wait="true"]
+[wait time="1.0"]
+narrator: Baku laughs.
+narrator: Not mocking. Just — pleased.
+narrator: Yuna doesn't respond. But she sits down next to her.
+join baku (Outlined) right
+baku: So — when are you heading back?
+update baku (DarkenedOutlined)
+join yuna (Outlined) left
+yuna: Once the report is done.
+yuna: Tomorrow, maybe.
+yuna: Or the day after if—
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: That soon.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: The mission is over. There's no reason to delay.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: The association must be happy! Their best member finally coming home.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: I wouldn't know about that.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: You're always like that —
+baku: — not knowing things that are already obvious.
+leave --All-- [animation="Fade Out Down" wait="true"]
+[wait time="1.0"]
+yuna: I glanced at her.
+yuna: She was still looking at the city.
+yuna: Too still. Too quiet for someone who's never quiet.
+yuna: I noticed that.
+yuna: I didn't say anything about it.
+[wait time="3.0"]
+if {StoryBranch.FirstOption} > {StoryBranch.SecondOption}:
+	baku: I hope you won't forget me.
+	[wait_input]
+	[signal arg="trigger_bakumono"]
+	[wait time="2.0"]
+	[signal arg="devour baku"]
+	[wait time="6.0"]
+	yuna: Baku?....
+	[wait time="3.0"]
+	[signal arg="bakumono_level"]
+else:
+	yuna: ...thank you. For being my friend.
+	[wait_input]
+	[signal arg="trigger_yuokai"]
+	[wait time="2.0"]
+	[signal arg="devour yuna"]
+	[wait time="6.0"]
+	baku: Yuna?....
+	[wait time="3.0"]
+	[signal arg="yuokai_level"]

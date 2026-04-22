@@ -1,0 +1,16 @@
+baku: ...dark.
+baku: Heavy.
+baku: Like sinking but not wet.
+baku: Where am I...
+baku: ...oh.
+baku: I can hear something. Far away —
+baku: — like sound coming from behind the surface of water.
+baku: That's...
+baku: ...Yuna?
+[signal arg="remove overlay"]
+[wait time="3.0"]
+[signal arg="spawn_boss"]
+yuna: ...Baku?
+yuna: Please say something!
+[wait time="4.0"]
+[signal arg="start_summon"]

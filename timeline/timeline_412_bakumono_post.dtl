@@ -1,0 +1,5 @@
+[signal arg="show overlay"]
+[wait time="3.0"]
+yuna: BAKU —
+[wait time="3.0"]
+[signal arg="post bakumono"]

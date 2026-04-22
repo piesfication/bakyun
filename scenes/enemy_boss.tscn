@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://6a1bnv075qqc"]
+[gd_scene load_steps=101 format=3 uid="uid://6a1bnv075qqc"]
 
 [ext_resource type="Texture2D" uid="uid://btjygbtf3aj75" path="res://assets/enemy/boss/Attack/Untitled934_20260316133508.png" id="1_3kk42"]
 [ext_resource type="Texture2D" uid="uid://l1kar6x52ne" path="res://assets/enemy/boss/Attack/Untitled934_20260316133603.png" id="2_fgy5c"]
@@ -90,6 +90,9 @@
 [ext_resource type="Texture2D" uid="uid://dw13xhn0ad34d" path="res://assets/enemy/boss/Shield/Untitled974_20260319125938.png" id="62_qf2p8"]
 [ext_resource type="Texture2D" uid="uid://bgpbbiq54ttvc" path="res://assets/enemy/boss/Hp/WeaknessDuration/Trimmed/Untitled972_20260319121848.png" id="63_fqt7g"]
 [ext_resource type="Texture2D" uid="uid://b7ryo7ggu6y1p" path="res://assets/enemy/boss/Hp/WeaknessDuration/Trimmed/Untitled972_20260319121841.png" id="64_nbw5e"]
+[ext_resource type="Texture2D" uid="uid://du5chynx23keb" path="res://assets/enemy/type_1/Hp/Untitled975_20260319195747.png" id="71_ubdnr"]
+[ext_resource type="Texture2D" uid="uid://dvut77o5tvpuy" path="res://assets/enemy/type_1/Hp/Untitled975_20260319195745.png" id="72_gr6lc"]
+[ext_resource type="Texture2D" uid="uid://ck0mvmi4wki20" path="res://assets/enemy/type_1/Hp/Untitled975_20260319195757.png" id="73_4p5uj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j5ys4"]
 animations = [{
@@ -314,7 +317,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"dead",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -417,10 +420,19 @@ animations = [{
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1bod0"]
 animations = [{
-"frames": [],
-"loop": true,
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("71_ubdnr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_gr6lc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_4p5uj")
+}],
+"loop": false,
 "name": &"dead",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -621,7 +633,9 @@ scale = Vector2(1.2, 1.2)
 position = Vector2(69.565216, 0)
 scale = Vector2(2.2, 2.2)
 sprite_frames = SubResource("SpriteFrames_gr6lc")
-animation = &"damaged"
+animation = &"dead"
+frame = 9
+frame_progress = 1.0
 
 [node name="Shield" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -650,9 +664,8 @@ visible = false
 position = Vector2(800, 0)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_1bod0")
-animation = &"weakened"
+animation = &"dead"
 autoplay = "hp_10"
-frame_progress = 1.0
 
 [node name="WeaknessBar" type="TextureProgressBar" parent="WeakContainer"]
 visible = false

@@ -6,6 +6,7 @@ signal boss_hp_changed(old_hp: int, new_hp: int)
 
 enum BossState {
 	INTRO,
+	NEUTRAL,
 	SUMMON,
 	WEAKNESS,
 	ATTACK,
@@ -78,6 +79,7 @@ const ORB_COLOR_BLUE := 1
 
 @export var attack_damage: int = 1
 @export var attack_anim_duration: float = 0.8
+@export var health_bar_target_scale: Vector2 = Vector2(6.0, 6.0)
 
 @export var death_move_to_center_speed: float = 260.0
 @export var death_before_dead_anim_delay: float = 3.0
@@ -114,7 +116,8 @@ var weakness_active: bool = false
 var weak_parent: Node2D
 var active_weak_areas: Array[Area2D] = []
 
-var intro_target_position: Vector2 = Vector2.ZERO
+var intro_target_position: Vector2 = Vector2(800, 512)
+
 var weakness_original_position: Vector2 = Vector2.ZERO
 var weakness_original_scale: Vector2 = Vector2.ONE
 
@@ -130,7 +133,6 @@ var _battle_ui_names: Array[String] = [
 	"CardUI",
 	"UIKoisuruMeter",
 	"UIMahouMeter",
-	"DamageHud",
 	"Player",
 	"Crosshair"
 ]
@@ -146,10 +148,13 @@ var _attack_damage_armed: bool = false
 var _attack_damage_done: bool = false
 var _death_sequence_started: bool = false
 var _health_dead_sequence_started: bool = false
+var _combat_active: bool = true
 
 var hitbox_area: Area2D
 
 var weakness_bar_tween: Tween = null
+var _health_bar_visibility_tween: Tween = null
+var _health_bar_base_scale: Vector2 = Vector2.ONE
 
 func _start_weakness_bar(duration: float) -> void:
 	if weakness_bar == null:
@@ -253,6 +258,11 @@ func _ready() -> void:
 		if not body_anim.frame_changed.is_connected(Callable(self, "_on_body_anim_frame_changed")):
 			body_anim.frame_changed.connect(Callable(self, "_on_body_anim_frame_changed"))
 
+	if health_anim != null and is_instance_valid(health_anim):
+		_health_bar_base_scale = _resolve_health_bar_base_scale()
+		# Hide health bar di awal (akan di-show saat combat sebenarnya dimulai)
+		health_anim.visible = false
+
 	_flap_amplitude_runtime = flap_amplitude
 	_flap_frequency_runtime = flap_frequency
 
@@ -271,11 +281,17 @@ func _ready() -> void:
 		return
 
 	await _set_battle_ui_pulled_out(false)
-	_show_health_ui()
 
 	if intro_ui_return_delay > 0.0:
 		await get_tree().create_timer(intro_ui_return_delay).timeout
-	_set_player_action_enabled(true)
+	_set_player_action_enabled(_combat_active)
+	if not _combat_active:
+		_set_hitbox_enabled(false)
+		set_health_bar_visible(false)
+		state = BossState.NEUTRAL
+	else:
+		# Show health bar hanya jika combat active
+		_show_health_ui()
 	emit_signal("bossfight_started")
 	_choose_new_move_target()
 	await _run_boss_loop()
@@ -292,7 +308,9 @@ func _play_hp_squash_stretch() -> void:
 	hp_tween.set_trans(Tween.TRANS_BACK)
 	hp_tween.set_ease(Tween.EASE_OUT)
 
-	var original_scale := health_anim.scale
+	_health_bar_base_scale = _resolve_health_bar_base_scale()
+	var original_scale := _health_bar_base_scale
+	health_anim.scale = original_scale
 
 	# Lebar banget (kanan-kiri)
 	hp_tween.tween_property(health_anim, "scale", original_scale * Vector2(1.35, 0.85), 0.08)
@@ -317,8 +335,99 @@ func _physics_process(delta: float) -> void:
 	match state:
 		BossState.INTRO:
 			_update_intro_movement(delta)
-		BossState.SUMMON, BossState.WEAKNESS, BossState.ATTACK:
+		BossState.NEUTRAL, BossState.SUMMON, BossState.WEAKNESS, BossState.ATTACK:
 			_update_random_movement(delta)
+
+func set_initial_combat_active(active: bool) -> void:
+	_combat_active = active
+
+func set_combat_active(active: bool) -> void:
+	_combat_active = active
+	if state == BossState.DEAD:
+		return
+
+	if _combat_active:
+		_set_player_action_enabled(true)
+		if not weakness_active:
+			_set_hitbox_enabled(true)
+		set_health_bar_visible(true)
+		if state == BossState.NEUTRAL:
+			state = BossState.SUMMON
+		return
+
+	_forced_weakness_pending = false
+	_attack_damage_armed = false
+	_attack_damage_done = false
+	weakness_active = false
+	_clear_weakness_points()
+	_stop_weakness_bar()
+	_stop_weakness_bar_pulse()
+	_force_clear_active_orbs_for_weaken_transition()
+	_set_hitbox_enabled(false)
+	_set_player_action_enabled(false)
+	set_health_bar_visible(false)
+	state = BossState.NEUTRAL
+
+func is_combat_active() -> bool:
+	return _combat_active and state != BossState.DEAD
+
+func set_health_bar_visible(visible: bool) -> void:
+	if health_anim == null or not is_instance_valid(health_anim):
+		return
+	_health_bar_base_scale = _resolve_health_bar_base_scale()
+	if visible:
+		health_anim.visible = true
+		health_anim.scale = _health_bar_base_scale
+		_update_health_visual(hp, hp)
+		_play_health_bar_visibility_animation(true)
+		return
+
+	if not visible:
+		_stop_weakness_bar()
+		_stop_weakness_bar_pulse()
+		_play_health_bar_visibility_animation(false)
+		return
+
+func _play_health_bar_visibility_animation(show: bool) -> void:
+	if health_anim == null or not is_instance_valid(health_anim):
+		return
+
+	if _health_bar_visibility_tween != null and is_instance_valid(_health_bar_visibility_tween):
+		_health_bar_visibility_tween.kill()
+
+	_health_bar_base_scale = _resolve_health_bar_base_scale()
+
+	var base_scale := _health_bar_base_scale
+	health_anim.scale = base_scale
+	health_anim.visible = true
+	if show:
+		health_anim.modulate = Color(1, 1, 1, 1)
+
+	_health_bar_visibility_tween = create_tween()
+	_health_bar_visibility_tween.set_trans(Tween.TRANS_BACK)
+	_health_bar_visibility_tween.set_ease(Tween.EASE_OUT)
+	_health_bar_visibility_tween.tween_property(health_anim, "scale", base_scale * Vector2(1.22, 0.82), 0.08)
+	_health_bar_visibility_tween.tween_property(health_anim, "scale", base_scale * Vector2(0.9, 1.12), 0.08)
+	_health_bar_visibility_tween.tween_property(health_anim, "scale", base_scale, 0.12)
+
+	if not show:
+		_health_bar_visibility_tween.tween_callback(func() -> void:
+			if health_anim != null and is_instance_valid(health_anim):
+				health_anim.scale = base_scale
+				health_anim.visible = false
+		)
+
+func _resolve_health_bar_base_scale() -> Vector2:
+	if health_bar_target_scale != Vector2.ZERO:
+		return health_bar_target_scale
+
+	if health_anim != null and is_instance_valid(health_anim) and health_anim.scale != Vector2.ZERO:
+		return health_anim.scale
+
+	if weakness_bar != null and is_instance_valid(weakness_bar) and weakness_bar.scale != Vector2.ZERO:
+		return weakness_bar.scale
+
+	return Vector2.ONE
 			
 @onready var shield_anim: AnimatedSprite2D =  $Shield
 
@@ -434,6 +543,12 @@ func _show_health_ui() -> void:
 	
 func _run_boss_loop() -> void:
 	while state != BossState.DEAD:
+		if not _combat_active:
+			if state != BossState.NEUTRAL:
+				state = BossState.NEUTRAL
+			await get_tree().process_frame
+			continue
+
 		state = BossState.SUMMON
 		var summon_cycles_min := mini(summon_cycles_per_phase_min, summon_cycles_per_phase_max)
 		var summon_cycles_max := maxi(summon_cycles_per_phase_min, summon_cycles_per_phase_max)
@@ -681,7 +796,7 @@ func _retreat_from_weakness_state() -> void:
 @onready var animattack = $AnimatedSprite2D2
 
 func _run_attack_punish_phase() -> void:
-	if state == BossState.DEAD:
+	if state == BossState.DEAD or not _combat_active:
 		return
 	state = BossState.ATTACK
 	_attack_damage_armed = true
@@ -1473,27 +1588,28 @@ func _set_battle_ui_pulled_out(pulled: bool) -> void:
 		if node == null:
 			continue
 
-		# UIMahouMeter ditarik ke atas; elemen lain ditarik ke bawah.
 		var pull_vec := Vector2(0.0, pull_dist)
 		if name == "UIMahouMeter":
 			pull_vec = Vector2(0.0, -pull_dist)
-		elif name == "CardUI":
-			pull_vec = Vector2(-pull_dist, pull_dist)
 		elif name == "Player":
 			pull_vec = Vector2(pull_dist, pull_dist)
+		elif name == "Crosshair" or name == "UIKoisuruMeter":
+			pull_vec = Vector2(0.0, pull_dist)
+		elif name == "CardUI":
+			pull_vec = Vector2(-pull_dist, pull_dist)
 
 		if node is Node2D:
 			var n2d := node as Node2D
 			if pulled:
 				if not _battle_ui_original_pos.has(name):
-					_battle_ui_original_pos[name] = n2d.position
-				n2d.position = (_battle_ui_original_pos[name] as Vector2) + pull_vec
+					_battle_ui_original_pos[name] = n2d.global_position
+				n2d.global_position = (_battle_ui_original_pos[name] as Vector2) + pull_vec
 			elif _battle_ui_original_pos.has(name):
 				var target_pos := _battle_ui_original_pos[name] as Vector2
 				if restore_tween != null:
-					restore_tween.tween_property(n2d, "position", target_pos, intro_ui_return_anim_duration)
+					restore_tween.tween_property(n2d, "global_position", target_pos, intro_ui_return_anim_duration)
 				else:
-					n2d.position = target_pos
+					n2d.global_position = target_pos
 			continue
 
 		if node is CanvasLayer:

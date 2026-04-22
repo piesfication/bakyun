@@ -1,0 +1,212 @@
+jump timeline_5/together
+[signal arg="start chapter 5"]
+baku: No mission today.
+baku: First time in — I don't even know how long. Years, maybe.
+baku: This city feels different this morning.
+baku: Quieter, but not in the way it used to be quiet.
+baku: The old quiet was just absence. This one has something in it.
+baku: Yuna is already outside when I come out, looking at the city.
+baku: She doesn't have her notebook open. That's new.
+baku: I make two cups. Sit in the other chair. Hand her one.
+baku: She takes it without looking away from the city.
+baku: We sit like that for a while.
+baku: It's the best morning I've had in a long time.
+[signal arg="start convo"]
+[wait time="1.0"]
+[signal arg="move"]
+[wait time="3.0"]
+narrator: They fly —
+narrator: — no destination, no patrol. Just up.
+narrator: City below them, the sea to the west, everything else beyond that.
+[signal arg="flying together enter"]
+[wait time="3.0"]
+[signal arg="bt"]
+baku: Quieter than usual down there.
+[signal arg="yt"]
+yuna: The alpha is gone.
+yuna: The spawns will thin out. Might take weeks, might take months.
+[signal arg="bt"]
+baku: Means less work.
+[signal arg="yt"]
+yuna: Or time for other things.
+[signal arg="bt"]
+baku: (glances over)\
+Other things like what?
+[signal arg="yt"]
+yuna: (looking ahead)
+yuna: I don't know. I've never had time for other things.
+[signal arg="bt"]
+baku: I can teach you.
+[signal arg="yt"]
+yuna: That's a concerning offer.
+[signal arg="bt"]
+baku: You'll be fine. Probably.
+[signal arg="yt"]
+yuna: Probably.
+[wait time="3.0"]
+[signal arg="yt"]
+yuna: Baku.
+[signal arg="bt"]
+baku: Hm?
+[signal arg="yt"]
+yuna: The witch from the rumor.
+yuna: The one who drove all the monsters back alone when she was seven.
+yuna: That's you.
+[signal arg="bt"]
+baku: ....where'd you hear that?
+[signal arg="yt"]
+yuna: I've known the rumor since I was small. I just didn't know it was you until —
+yuna: — actually I think I knew for a while. I just didn't say anything.
+[signal arg="bt"]
+baku: (amused)\
+Why not?
+[signal arg="yt"]
+yuna: You didn't ask.
+[signal arg="bt"]
+baku: ( laughs) Okay. Fair.
+[wait time="2.0"]
+[signal arg="out"]
+narrator: Still Flying, morning Into afternoon.
+narrator: They've been up here for hours. Neither has suggested going back.
+[wait time="2.0"]
+[signal arg="bt"]
+[signal arg="in"]
+yuna: Can I tell you something?
+[signal arg="yt"]
+yuna: You're going to tell me regardless.
+[signal arg="bt"]
+baku: I didn't stay here because I was brave, or because it was the right thing to do.
+baku: I stayed because I didn't know where else to go.
+baku: I was seven. I'd just done something no one thought was possible.
+baku: And everyone wanted something from me after that — the association, the government, everyone.
+baku: So I just... didn't go back.
+[signal arg="yt"]
+yuna: You've been here since then.
+yuna: Alone. For years.
+[signal arg="bt"]
+baku: It wasn't bad. I like this city.
+[signal arg="yt"]
+yuna: Baku.
+[signal arg="bt"]
+baku: I really do —
+[signal arg="yt"]
+yuna: You were seven.
+[wait time="2.5"]
+[signal arg="bt"]
+baku: Yeah.
+baku: But it's fine now.
+baku: (glances at Yuna)\
+It's actually pretty good now.
+[signal arg="out"]
+narrator: Yuna looks at her.
+narrator: Then looks ahead.
+[signal arg="yt"]
+[signal arg="in"]
+yuna: I'm not going back to the association.
+[signal arg="bt"]
+baku: I know.
+[signal arg="yt"]
+yuna: I'll need to send them a report, about the alpha.
+yuna: They'll probably try to recall me.
+[signal arg="bt"]
+baku: Probably.
+[signal arg="yt"]
+yuna: I'll tell them I'm staying for extended documentation of post-alpha spawn behavior.
+[signal arg="bt"]
+baku: (slowly grinning)\
+That's very official.
+[signal arg="yt"]
+yuna: I'm a very official person.
+[signal arg="bt"]
+baku: Is that what you're calling it?
+[signal arg="yt"]
+yuna: Do you want me to stay or not?
+[signal arg="bt"]
+baku: Of course I want to!
+[wait time="3.0"]
+[signal arg="out"]
+join baku right
+baku: Hey, Yuna.
+leave baku [animation="Instant Out" wait="true"]
+yuna: Hm?
+join baku (Outlined) right [animation="Instant In"]
+baku: This city is ours now. Let’s give it a name.
+join yuna (Outlined) left
+update baku (DarkenedOutlined)
+yuna: ....Huh??
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: After everything, we can’t just keep calling it “this city”, "that city", or whatever anymore.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: (small laugh)\
+What kind of name are you even thinking?
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Something with both of us in it… hmm…
+baku: …like maybe—
+baku: — How about something like “Bakuna”? What do you think?
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: That sounds like a disease.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Hey— it’s Baku + Yuna!
+update baku (DarkenedOutlined)
+update yuna (Outlined)
+yuna: Still sounds like a disease.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: …you’re mean.
+update baku (DarkenedOutlined)
+update yuna (Outlined)
+yuna: You asked.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Then you name it.
+update baku (DarkenedOutlined)
+update yuna (Outlined)
+yuna: A name with both of us in it…
+yuna: Hmm…
+leave --All-- [animation="Fade Out Down" wait="true"]
+[wait time="2.0"]
+yuna: Then I’ll name this city…
+yuna: “Bakyun”
+label epilogue
+[signal arg="epilogue"]
+[wait time="3.0"]
+[signal arg="yuna epilogue"]
+yuna: We fly until the sky goes orange.
+yuna: It's the most ordinary afternoon I've had since before the banishment. Maybe longer.
+yuna: We land back at the basecamp as the first stars show up.
+yuna: The city around us quiet in the way it is now — not empty, just resting.
+yuna: I still haven't sent the report.
+yuna: I'll write it tomorrow. Or the day after.
+yuna: The spawn behavior documentation is genuinely ongoing, after all.
+yuna: Baku makes tea again — two cups, without asking —
+yuna: — and I think about how this started with a bowl of food and a "bird" knocking me unconscious and somehow led here.
+yuna: I think about the two lines I wrote on my first day.
+yuna: "Objective\: prove competence. Return to the association."
+yuna: And the one line underneath.
+yuna: "Revised."
+yuna: I don't think I need to write anything else.
+[signal arg="baku epilogue"]
+baku: She's going to stay.
+baku: I knew before she said it. I think I knew for a while.
+baku: This city has been mine for a long time —
+baku: — the ruins, the vines, the monsters, the silence.
+baku: All of it. I built a life out of it and I was good at it and I told myself that was enough.
+baku: It was enough.
+baku: It's better now.
+baku: The stars are out. We're back at the basecamp, two cups of tea, the city doing its quiet thing around us.
+baku: Yuna has her notebook open but she's not writing in it.
+baku: She's just holding it. That's new. I like it.
+baku: Tomorrow the spawns will still be there.
+baku: The city will still be ours to manage.
+baku: There will be patrols and weird monster encounters and Yuna asking me to define things I can't define.
+baku: But tonight —
+baku: — tonight we're just here.
+baku: Above the ground, above everything.
+label together
+[signal arg="together"]
+baku: Together.

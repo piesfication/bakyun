@@ -1,0 +1,17 @@
+yuna: Baku. I know you can hear me.
+yuna: I've been trying to find the right moment to say this for weeks. I kept waiting.
+yuna: There isn't one. There's just now.
+yuna: I don't want to go back to the association.
+yuna: I didn't realize it until I tried to picture it —
+yuna: — walking back in, sitting at that desk, being that version of myself again.
+yuna: What I felt wasn't longing. It wasn't even relief.
+yuna: It was nothing. Because none of that is home anymore.
+yuna: You look at me like I'm just — Yuna. Not a file, not a competency assessment, not a witch who failed one mission.
+yuna: Nobody has ever done that. You didn't even think about it. You just did it.
+yuna: I don't know what to call that. But I know I can't go back to a place that never did.
+[wait time="2.0"]
+yuna: So you don't get to leave. Not like this.
+yuna: Not before I tell you that you're the first place that's ever felt like home.
+yuna: Please comeback, Baku.
+[wait time="2.0"]
+[signal arg="start_summon_phase_2"]

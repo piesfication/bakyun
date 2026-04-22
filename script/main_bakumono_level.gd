@@ -20,22 +20,27 @@ func _configure_yuna_only_mode() -> void:
 	_set_combat_cast_locked(true)
 
 func _spawn_boss_once() -> void:
-	if boss_spawned:
-		return
-	if enemy_scene == null:
-		push_warning("enemy_scene belum diset untuk main_bakumono")
-		return
+	super._spawn_boss_once()
+	
+@onready var overlay_bakumono = $CanvasLayer3/Overlay
+func on_dialogic_signal(arg: String):
+	super.on_dialogic_signal(arg)
+	
+	if (arg == "remove overlay") :
+		
+		fade_out(overlay_bakumono, 3)
 
-	var boss = enemy_scene.instantiate()
-	if boss == null:
-		push_warning("Gagal instantiate bakumono boss scene")
-		return
+		pass
+	
+	if (arg == "show overlay") :
+		
+		fade_in(overlay_bakumono, 2)
+		
+	
+func fade_in(arg, dur):
+	var tween = create_tween()
+	tween.tween_property(arg, "modulate:a", 1.0, dur).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
-	boss.position = boss_spawn_position
-	boss.z_index = max(next_z_index, z_front_min)
-	next_z_index -= 1
-	enemy_container.add_child(boss)
-
-	boss_spawned = true
-	current_enemy_count = 1
-	boss.tree_exited.connect(_on_boss_removed)
+func fade_out(arg, dur):
+	var tween = create_tween()
+	tween.tween_property(arg, "modulate:a", 0.0, dur).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)

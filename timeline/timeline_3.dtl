@@ -1,0 +1,249 @@
+baku: The alpha is moving.
+baku: Not toward the edges —
+baku: — toward the center. Pulling inward, like something contracting.
+baku: I've felt it for years as a kind of background noise, a hum at the back of everything.
+baku: Now it's getting louder.
+baku: Yuna found the latest trail marker before I pointed it out.
+baku: She didn't say anything when she found it —
+baku: — just wrote in her notebook with an expression I've gotten good at reading.
+baku: Not fear. Something more complicated.
+baku: Like someone who knows they're getting what they asked for and isn't sure anymore if they still want it.
+baku: I didn't bring it up. But I noticed.
+[signal arg="rooftop in"]
+[wait time="5.0"]
+join yuna (Outlined) left
+yuna: Three sighting points this week. All moving toward center.
+join baku (Outlined) right
+update yuna (DarkenedOutlined)
+baku: Yeah.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: Pattern suggests convergence within the week. Maybe less.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Probably less.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: Baku. When you first felt the alpha — how old were you?
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+yuna: (thinks)\
+Eight, maybe? Nine?
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: You've known for that long and never —
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: It wasn't time.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: How do you know when it's time?
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: (simply)\
+You just know.
+leave --All-- [animation="Fade Out Down" wait="true"]
+[wait time="2.0"]
+narrator: Yuna puts her pen down. Looks at the city below —
+narrator: — the vines, the silence, the shapes of things that used to be something else.
+join yuna (Outlined) left
+yuna: Baku. Can I ask you something?
+join baku (Outlined) right
+update yuna (DarkenedOutlined)
+baku: You just did.
+update baku (DarkenedOutlined)
+update yuna (Outlined)
+yuna: (ignores that)
+yuna: Why did you stay here? After everything. You said you've been here since you were eight.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Yeah.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: Alone.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Pretty much.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: ...why were you even in this city at eight? Where were your parents? The association wouldn't just —
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: It's a long story.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: (looks at her)\
+We have time.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: (pause)\
+Maybe later.
+leave --All-- [animation="Fade Out Down" wait="true"]
+[wait time="2.0"]
+narrator: Yuna looks at her for a moment longer.
+narrator: She doesn't push. But she's filing it away — the age, the city, the way Baku said "long story" like it's something she's decided not to think about too hard.
+narrator: Something isn't adding up yet. But it will.
+[wait time="2.0"]
+join yuna (Outlined) left
+update baku (DarkenedOutlined)
+yuna: Okay.
+yuna: But you stayed. Even after whatever the long story is. You stayed.
+join baku (Outlined) center
+update yuna (DarkenedOutlined)
+baku: Out there, everything is people against people.
+baku: At least here I know what I'm dealing with.
+baku: Monsters make sense.
+baku: They do what they do. No politics. No expectations.
+baku: No one trying to make you into something you're not.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: (quietly)\
+I think I understand that.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: (turns to look at her)\
+Yeah?
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: Not wanting to be made into something. Not fitting the shape they need you to be.
+yuna: The association has a very specific idea of what a witch should look like. How she should operate. What she should prioritize.
+yuna: I spent years trying to be that. I was good at it.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: And then?
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: And then I wasn't. Once. And that was enough for them.
+yuna: I got banished for one mistake.
+leave --All-- [animation="Fade Out Down" wait="true"]
+[wait time="2.5"]
+narrator: Baku is quiet.
+[wait time="2.0"]
+join baku (Outlined) right
+baku: What did they call you? Before the banishment.
+join yuna (Outlined) left
+update baku (DarkenedOutlined)
+yuna: Precise. Dependable. High-functioning.
+yuna: Never — just Yuna.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Yeah.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: (glances at baku)
+yuna: What did they call you?
+[wait time="1.0"]
+leave --All-- [animation="Fade Out Down" wait="true"]
+[wait time="2.5"]
+baku: "The Red Witch"
+baku: The ultimate weapon.
+[wait time="2.0"]
+narrator: Yuna stares at her.
+Something is clicking. Quietly, in the back of her mind.
+narrator: The Red Witch.
+narrator: Eight years old.
+narrator: She doesn't say it yet.
+[wait time="2.0"]
+join yuna (Outlined) left
+yuna: (carefully)\
+When did you leave the association?
+join baku (Outlined) right
+update yuna (DarkenedOutlined)
+baku: I didn't leave. I just... didn't go back.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: After the long story?
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: After the long story.
+leave --All-- [animation="Fade Out Down" wait="true"]
+[wait time="2.0"]
+narrator: Silence.
+narrator: Yuna looks at her notebook. Then at Baku.
+narrator: She's probably wrong.
+narrator: She's almost certain she's not.
+narrator: But she doesn't say anything. Not yet.
+[wait time="2.0"]
+[signal arg="getting darker"]
+[wait time="2.0"]
+narrator: It's gotten darker. Neither of them has suggested moving.
+join yuna (Outlined) left
+yuna: Baku.
+join baku (Outlined) right
+update yuna (DarkenedOutlined)
+baku: Hm?
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: The alpha — when it stops moving completely. That's when we move?
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: That's when we move.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: Aren't you afraid?
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: I guess no.
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: Not even a little?
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Are you?
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: Not of the alpha.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Then what?
+[wait time="3.0"]
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: After the alpha — the association will want a full report. They'll probably want me back immediately.
+yuna: Everything goes back to how it was.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+baku: Isn't that what you want?
+[wait time="1.0" hide_text="false"]
+[wait time="3.0"]
+join baku (Outlined) right
+- "Whatever happens after the alpha — that's your call. Not theirs."
+	set {StoryBranch.FirstOption} += 1.0
+	update yuna (DarkenedOutlined)
+	update baku (Outlined)
+	baku: Whatever happens after the alpha — that's your call. Not theirs.
+	update yuna (Outlined)
+	update baku (DarkenedOutlined)
+	yuna: ...yeah.
+	leave --All-- [animation="Fade Out Down" wait="true"]
+- (say nothing, Just stay there a little longer)
+	set {StoryBranch.SecondOption} += 1.0
+	leave --All-- [animation="Fade Out Down" wait="true"]
+	baku: The wind keeps moving.
+	[wait time="2.0"]
+	baku: We stay on that roof until it's too dark to see the city properly.
+	baku: She didn't ask to leave. Neither did I.
+	baku: Some things don't need words.
+	baku: I'm just not sure she knows that yet.
+[wait time="3.0"]
+baku: She asked what they called me.
+baku: I told her the short version. The titles. The labels.
+baku: The things people said when they needed to explain what I was without having to think about who I was.
+baku: I've never said any of that out loud before.
+baku: Not because it was secret. Just — there was never anyone to say it to.
+baku: This city doesn't ask questions. The monsters don't care what the association called me. And I got good at not caring either.
+baku: But she asked. And I answered. And she didn't say anything after —
+baku: — didn't offer sympathy or analysis or a carefully worded response.
+baku: She just looked at me like she was seeing something real.
+baku: That's it. That's the whole thing.
+baku: I've been the strongest witch alive since I was five years old.
+baku: I have been useful and powerful and an asset and a weapon and a miracle and every other word people reach for when they don't want to say person.
+baku: Yuna looks at me like I'm a person.
+baku: The alpha is almost here.
+baku: After this — she'll have what she needs.
+baku: She'll go back to the association and she'll rebuild what they took from her and she'll be fine.
+baku: She's going to be fine. I'm going to help her get there.
+baku: That's what you do for someone you —
+baku: That's what you do for a friend.
+[wait time="3.0"]
+[signal arg="level menu"]

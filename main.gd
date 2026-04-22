@@ -52,7 +52,7 @@ var level_time_left: float = 0.0
 @export var base_z_index: int = 100
 @export var z_front_min: int = 40
 var next_z_index: int
-var _ultimate_ui_names: Array[String] = ["CardUI", "UIKoisuruMeter", "UIMahouMeter", "DamageHud", "Player", "Crosshair"]
+var _ultimate_ui_names: Array[String] = ["CardUI", "UIKoisuruMeter", "UIMahouMeter", "Player", "Crosshair"]
 var _ultimate_ui_original_pos: Dictionary = {}
 var _ultimate_ui_pulled_out: bool = false
 
@@ -646,6 +646,10 @@ func _set_ultimate_ui_pulled_out(pulled: bool, skip_damage_hud: bool = false, in
 		var pull_vec := Vector2(0.0, pull_dist)
 		if name == "UIMahouMeter":
 			pull_vec = Vector2(0.0, -pull_dist)
+		elif name == "Player":
+			pull_vec = Vector2(pull_dist, pull_dist)
+		elif name == "Crosshair" or name == "UIKoisuruMeter":
+			pull_vec = Vector2(0.0, pull_dist)
 		elif name == "CardUI":
 			pull_vec = Vector2(-pull_dist, pull_dist)
 
@@ -653,18 +657,18 @@ func _set_ultimate_ui_pulled_out(pulled: bool, skip_damage_hud: bool = false, in
 			var n2d := node as Node2D
 			if pulled:
 				if not _ultimate_ui_original_pos.has(name):
-					_ultimate_ui_original_pos[name] = n2d.position
+					_ultimate_ui_original_pos[name] = n2d.global_position
 				var target_pos := (_ultimate_ui_original_pos[name] as Vector2) + pull_vec
 				if pull_tween != null:
-					pull_tween.tween_property(n2d, "position", target_pos, ultimate_ui_pull_out_anim_duration)
+					pull_tween.tween_property(n2d, "global_position", target_pos, ultimate_ui_pull_out_anim_duration)
 				else:
-					n2d.position = target_pos
+					n2d.global_position = target_pos
 			elif _ultimate_ui_original_pos.has(name):
 				var target_pos := _ultimate_ui_original_pos[name] as Vector2
 				if restore_tween != null:
-					restore_tween.tween_property(n2d, "position", target_pos, ultimate_ui_return_anim_duration)
+					restore_tween.tween_property(n2d, "global_position", target_pos, ultimate_ui_return_anim_duration)
 				else:
-					n2d.position = target_pos
+					n2d.global_position = target_pos
 			continue
 
 		if node is CanvasLayer:

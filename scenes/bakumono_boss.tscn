@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://dk61iacrvgthh"]
+[gd_scene load_steps=69 format=3 uid="uid://dk61iacrvgthh"]
 
 [ext_resource type="Script" uid="uid://df8kjoi26f1hf" path="res://script/bakumono_boss.gd" id="1_bl0gs"]
 [ext_resource type="Texture2D" uid="uid://cb48ed4bp31wi" path="res://assets/enemy/Bakumono/Revised/Attack/Untitled1015_20260415221945.png" id="2_0ipr7"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://cfht878rh5ox" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145259.png" id="5_2ix5t"]
 [ext_resource type="Texture2D" uid="uid://ico3nqrh4ydl" path="res://assets/enemy/Bakumono/Revised/Attack/Untitled1015_20260415224031.png" id="5_qqigt"]
 [ext_resource type="Texture2D" uid="uid://gxh2xrg0h627" path="res://assets/enemy/Bakumono/Revised/Idle/Untitled1015_20260412094616.png" id="5_wg85a"]
-[ext_resource type="Texture2D" uid="uid://bf1s8c2j0loev" path="res://assets/enemy/Bakumono/Revised/Attack/Untitled1015_20260415221930.png" id="6_sh0jw"]
 [ext_resource type="Texture2D" uid="uid://d5knu5ol0sjq" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145409.png" id="6_wg85a"]
 [ext_resource type="Texture2D" uid="uid://bypuk1qojtc3" path="res://assets/enemy/Bakumono/Hand/Shooting/separated hand2_20260408145303.png" id="7_k6ytd"]
 [ext_resource type="Texture2D" uid="uid://bjtrkeikl3l27" path="res://assets/enemy/Bakumono/Revised/Dead/Untitled1015_20260420180630.png" id="8_ijuq6"]
@@ -84,9 +83,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("3_g71rx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_sh0jw")
 }, {
 "duration": 1.0,
 "texture": ExtResource("2_0ipr7")
@@ -419,8 +415,10 @@ scale = Vector2(3, 3)
 
 [node name="BodyAnim" type="AnimatedSprite2D" parent="Node2D"]
 sprite_frames = SubResource("SpriteFrames_2fk5t")
-animation = &"dead"
+animation = &"summon"
 autoplay = "default"
+frame = 8
+frame_progress = 1.0
 
 [node name="HandAnim" type="AnimatedSprite2D" parent="Node2D"]
 visible = false

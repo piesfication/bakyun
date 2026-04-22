@@ -2,8 +2,8 @@ extends Node2D
 
 @export var contact_damage: int = 1
 @export var approach_speed: float = 0.3
-@export var min_scale: float = 0.05
-@export var max_scale: float = 0.8
+@export var min_scale: float = 0.35
+@export var max_scale: float = 0.9
 @export var drift_speed: float = 2.6
 @export var drift_move_speed: float = 320.0
 @export var leader_wave_amplitude: float = 44.0

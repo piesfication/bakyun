@@ -34,8 +34,16 @@ directories/dch_directory={
 directories/dtl_directory={
 "timeline": "res://timeline/timeline.dtl",
 "timeline_2": "res://timeline/timeline_2.dtl",
+"timeline_3": "res://timeline/timeline_3.dtl",
 "timeline_4": "res://timeline/timeline_4.dtl",
-"timeline_41": "res://timeline/timeline_41.dtl"
+"timeline_41": "res://timeline/timeline_41.dtl",
+"timeline_411_yuokai": "res://timeline/timeline_411_yuokai.dtl",
+"timeline_411_yuokai_phase2": "res://timeline/timeline_411_yuokai_phase2.dtl",
+"timeline_411_yuokai_post": "res://timeline/timeline_411_yuokai_post.dtl",
+"timeline_412_bakumono": "res://timeline/timeline_412_bakumono.dtl",
+"timeline_412_bakumono_phase2": "res://timeline/timeline_412_bakumono_phase2.dtl",
+"timeline_412_bakumono_post": "res://timeline/timeline_412_bakumono_post.dtl",
+"timeline_5": "res://timeline/timeline_5.dtl"
 }
 layout/style_directory={
 "": "res://style/style_1.tres",
@@ -44,7 +52,12 @@ layout/style_directory={
 glossary/default_case_sensitive=true
 layout/style_list=["res://style/style_1.tres"]
 layout/default_style="res://style/style_1.tres"
-variables={}
+variables={
+"StoryBranch": {
+"FirstOption": 0,
+"SecondOption": 0
+}
+}
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.05
 text/initial_text_reveal_skippable=true

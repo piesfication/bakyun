@@ -5,14 +5,20 @@ yuna: — and I still don't fully understand how Baku operates.
 yuna: She has no patrol schedule.
 yuna: No documentation system.
 yuna: No protocol of any kind that I can study and follow.
-yuna: What she does have\: instincts that are somehow always right...
-yuna: ...and a calmness that makes no sense for someone living alone in a city full of monsters.
-yuna: I've tried building a more structured system a few times.
-yuna: Baku never refused. She just.... didn't follow it.
-yuna: And somehow her way still worked.
+yuna: She notices things before I do. Always.
+yuna: But only if I look myself — she won't just tell me.
+yuna: "You'll understand it better if you see it," she says. Every time.
+yuna: It's infuriating.
+yuna: It also works, which makes it more infuriating.
+yuna: The strangest part isn't how she operates. It's that I still don't know who she is.
+yuna: No last name. No association record.
+yuna: No explanation for how a teenager ended up alone in a city full of monsters and is somehow completely fine with that.
+yuna: I've heard rumors, once, when I was small. About a witch who drove every monster back to this city alone.
+yuna: Singlehandedly ended the apocalypse.
+yuna: Nobody knew her name. Nobody knew where she went after.
+yuna: I used to think about that a lot. I've been thinking about it again lately.
 [signal arg="start convo"]
-[wait time="5.0"]
-[signal arg="move"]
+[signal arg="flying together enter"]
 [signal arg="yt"]
 yuna: Zone C was clear today. But there was activity there yesterday.
 [signal arg="bt"]
@@ -23,7 +29,8 @@ yuna: How do you know?
 baku: (points down)
 baku: Look at the traces.
 [signal arg="out"]
-narrator: Yuna looks down. There's something — tracks, or maybe energy residue — she hadn't noticed before.
+narrator: Yuna looks. There's something —
+narrator: — she hadn't caught it before.
 [signal arg="in"]
 [signal arg="yt"]
 [wait time="2.0"]
@@ -37,16 +44,17 @@ yuna: Why didn't you mention this earlier?
 [signal arg="bt"]
 baku: You didn't ask.
 [signal arg="yt"]
-yuna: Baku. If there's relevant information —
+yuna: (exhales) Baku. If there's relevant information —
 [signal arg="bt"]
 baku: You'll understand it better if you see it yourself. It sticks more that way.
 [signal arg="out"]
 [wait time="2.0"]
 narrator: Yuna closes her notebook. Looks out over the city.
+[wait time="2.0"]
 yuna: At the association, everything gets documented. There's a protocol for —
 baku: Are you still at the association?
 yuna: ......
-yuna: ...not yet.
+yuna: ..not currently.
 yuna: But I'm going back.
 [signal arg="in"]
 [signal arg="bt"]
@@ -62,108 +70,157 @@ baku: What do you want me to say?
 [wait time="3.0"]
 [signal arg="start grass field"]
 [wait time="4.0"]
-yuna: We land.
-yuna: Sit in the field.
-yuna: Overcast sky but not threatening.
+narrator: They land.
+yuna: Sit in the overgrown field at the city's western edge. Overcast but calm.
 yuna: In the distance, the city's silhouette — buildings still standing among the ones that have already fallen.
 [wait time="2.0"]
 [signal arg="start convo grass field"]
 join yuna (Outlined) left
-yuna: Baku. Have you heard about the alpha?
+yuna: Baku. I need to get back to the association.
 join baku (DarkenedOutlined) right
 update baku (Outlined)
 update yuna (DarkenedOutlined)
-baku: .....
-baku: Where'd you hear that?
+baku: (not surprised)\
+I figured.
 update baku (DarkenedOutlined)
 update yuna (Outlined)
-yuna: The briefing before I was sent here.
-yuna: It was mentioned briefly — a monster with size and power beyond normal classification.
-yuna: Possibly the source of all the spawns in this city.
+yuna: My banishment — it wasn't permanent.
+yuna: But I need to prove I'm still competent. That the last mission was a one-time failure, not a pattern.
+update baku (Outlined)
+update yuna (DarkenedOutlined)
+How do you plan to do that from here?
+update yuna (Outlined)
+update baku (DarkenedOutlined)
+yuna: That's what I've been trying to figure out.
+yuna: Is there anything in this city significant enough that the association would take notice?
 update baku (Outlined)
 update yuna (DarkenedOutlined)
 baku: (looks at the sky)
-baku: I've seen it once. Long time ago.
-update baku (DarkenedOutlined)
+baku: There's an alpha.
 update yuna (Outlined)
-yuna: And?
-yuna: What does the creature look like?
+update baku (DarkenedOutlined)
+yuna: ...a what?
 update baku (Outlined)
 update yuna (DarkenedOutlined)
-baku: Big.
+baku: A monster. Deep in the city center.
+baku: I've felt it for years — never seen it, never gone after it.
+baku: It's not like the regular spawns. It's the source, their leader.
+baku: (looks at Yuna)\
+If you could bring proof that you took it down — that's not just competence.
+baku: That's something no witch in the association has ever done.
 update baku (DarkenedOutlined)
 update yuna (Outlined)
-yuna: Define big.
+yuna: You've known about this and never reported it?
 update baku (Outlined)
 update yuna (DarkenedOutlined)
-baku: (thinks for a moment)
-baku: Reeeeeaaaaaaally big!
+baku: (shrugs)\
+Who would I report it to?
 update baku (DarkenedOutlined)
 update yuna (Outlined)
-yuna: (exhales)
-yuna: That is not helpful at all.
+yuna: ..fair point.
+Can we find it?
 update baku (Outlined)
 update yuna (DarkenedOutlined)
-baku: (smirks)
-baku: You'll know when you see it XD
+baku: Eventually. It's been moving. Getting closer to the surface.
 leave --All-- [animation="Fade Out Down" wait="true"]
 [wait time="1.0"]
-yuna: If I can bring proof that I defeated the alpha  —
-yuna: — the association will reconsider lifting my banishment...
-baku: (turns)
-join baku (Outlined) right
-baku: That's your plan?
-join yuna (Outlined) left
-update baku (DarkenedOutlined)
-yuna: It's the only plan that makes sense.
-[wait time="3.0"]
-update baku (Outlined)
-update yuna (DarkenedOutlined)
-baku: Okay!
-baku: We'll find it.
-update baku (DarkenedOutlined)
-update yuna (Outlined)
-yuna: .....just like that?
-update baku (Outlined)
-update yuna (DarkenedOutlined)
-baku: You want me to talk you into it first?
-- "No. Thank you."
-	update yuna (Outlined)
-	update baku (DarkenedOutlined)
-	yuna: No. Thank you.
-	[wait time="2.0"]
-	leave --All--
-	yuna: Baku nods.
-	yuna: We sit a little longer before flying back.
-	yuna: That night I opened my notebook to a fresh page. I don't know why I wrote her name there —
-	yuna: — not in the data column, not in the observations section.
-	yuna: Just in the margin.
-	yuna: Small.
+narrator: Yuna looks at the city. Then at Baku.
+[wait time="2.0"]
+yuna: Why are you telling me this now?
+baku: You needed a reason. Now you have one.
+[wait time="2.0"]
+[signal arg="start convo"]
+[wait time="5.0"]
+[signal arg="move"]
+narrator: They're heading back.
+narrator: Quieter than usual.
+[wait time="2.0"]
+yuna: The alpha — if we can document the takedown properly, that's concrete evidence. Something the association can't dismiss.
+yuna: We'd need to plan the approach carefully. Study the pattern first, then —
+[signal arg="bt"]
+[signal arg="flying together enter"]
+narrator: She stops. Baku is looking at her.
+[signal arg="yt"]
+yuna: ...what?
+[signal arg="bt"]
+baku: (small smile)\
+You said "we."
+[signal arg="yt"]
+yuna: I meant — strategically speaking, two parties would be statistically more likely to —
+[signal arg="bt"]
+baku: Uh huh.
+[signal arg="yt"]
+yuna: It's a tactical assessment. Not a —
+yuna: — Don't read into it!
+[signal arg="bt"]
+baku: I'm not reading into anything.
+[signal arg="yt"]
+yuna: Good.
+[signal arg="bt"]
+baku: "We."
+[signal arg="yt"]
+yuna: I will push you off this broom.
+[signal arg="bt"]
+baku: (laughing)\
+Okay, okay. Three weeks of pattern observation first. We can start tomorrow.
+[signal arg="yt"]
+yuna: (gives up)\
+...fine.
+[wait time="2.0"]
+[signal arg="out"]
+[wait time="1.0"]
+narrator: Baku is still smiling. Not making it a thing — just warm.
+narrator: Yuna looks at her. She's not laughing at her.
+narrator: Not filing it away to use later. Just — said it, and let it go.
+narrator: Like it was fine. Like Yuna was fine.\
+That's not something Yuna is used to.
+join yuna right
+- "Thank you, for helping me."
+	set {StoryBranch.FirstOption} += 1.0
+	[wait time="2.0" hide_text="false"]
+	[wait time="1.0"]
+	yuna: Baku waves it off like it's nothing.
+	yuna: We fly back without saying much else.
+	yuna: That night I opened my notebook to a new page.
+	yuna: I wrote the word "alpha" at the top.
+	yuna: Then, without really thinking about it, I wrote her name in the margin.
 	yuna: I didn't erase it.
-- "Why do you want to help?"
-	update yuna (Outlined)
-	update baku (DarkenedOutlined)
-	yuna: Why do you want to help?
+- "Why do you want to help me?"
+	set {StoryBranch.SecondOption} += 1.0
+	[wait time="2.0" hide_text="false"]
+	[wait time="1.0"]
 	update yuna (DarkenedOutlined)
-	update baku (Outlined) right
-	baku: Because you want something clear. And the alpha needs to be dealt with anyway.
+	baku: Because you want something clear. And the alpha needs dealing with anyway.
 	update yuna (Outlined)
-	update baku (DarkenedOutlined)
 	yuna: Those are two different reasons.
-	update baku (Outlined)
-	update yuna (DarkenedOutlined)
-	baku: Yeah...
 	leave --All-- [animation="Fade Out Down" wait="true"]
+	baku: Yeah.
 	[wait time="2.0"]
 	yuna: I waited for her to continue.
 	yuna: She didn't.
 	yuna: I'm not sure why that was enough. But it was.
-[wait time="2.5"]
-yuna: That night I opened my notebook.
-yuna: New page, title\: Alpha — known data.
-yuna: Two lines so far. One of them reads\: "really big" —
-yuna: — source\: Baku.
-yuna: I stared at that for a while.
-yuna: Then — for reasons I couldn't explain — I didn't erase it.
+[signal arg="back to city"]
+[wait time="2.0"]
+yuna: That night I sat with my notebook open for a long time without writing anything.
+yuna: I kept thinking about what Baku said.
+yuna: "You'll tell me eventually.".
+yuna: Like it was already decided. Like she already knew she'd be here when I got around to it.
+yuna: Nobody has ever assumed that about me before.
+yuna: At the association, everything was conditional.
+yuna: Your position, your assignments, the way people looked at you in the hallway — all of it contingent on your last performance.
+yuna: One mistake and the whole thing recalibrated.
+yuna: I knew that going in. I accepted it. I told myself that was just how things worked.
+yuna: And then I made one mistake.
+yuna: And they were right — that is how things worked. It worked exactly like that.
+yuna: I keep telling myself I want to go back. And I do. I think I do.
+yuna: But when I try to picture it — walking back into that building, sitting at that desk, being that version of myself again — what I feel isn't longing.
+yuna: I don't know what it is.
+yuna: There's a rumor I heard when I was small. A witch — who drove every monster back to this city alone. Singlehandedly ended the apocalypse.
+yuna: Nobody knew her name. Nobody knew where she went after.
+yuna: I used to think about that a lot. What kind of person does something like that at seven and then just disappears.
+yuna: Baku has been in this city since she was — she didn't say exactly.
+yuna: But the way she talks about it, the way she knows every corner of it, the way she moves through it like it's an extension of herself —
+yuna: It's a long story, she said. I'm probably wrong.
+yuna: But I've been thinking about it since she said that. And I can't quite make myself stop
 [wait time="3.0"]
 [signal arg="level menu"]

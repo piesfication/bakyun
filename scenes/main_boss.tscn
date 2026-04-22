@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://o4vxjklhbsaj"]
+[gd_scene load_steps=50 format=3 uid="uid://o4vxjklhbsaj"]
 
 [ext_resource type="PackedScene" uid="uid://d1u6i3t35llsd" path="res://scenes/main.tscn" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://6a1bnv075qqc" path="res://scenes/enemy_boss.tscn" id="2_boss"]
@@ -7,10 +7,204 @@
 [ext_resource type="Texture2D" uid="uid://bimeyer1kxnm8" path="res://assets/level/rain/Untitled698_20260407183643.png" id="5_jlh21"]
 [ext_resource type="Texture2D" uid="uid://bv8igeel6h5of" path="res://assets/level/rain/Untitled698_20260407183650.png" id="6_jjwca"]
 [ext_resource type="Texture2D" uid="uid://d3cu3rs4yd53l" path="res://assets/level/rain/Untitled698_20260407183634.png" id="7_i2qsl"]
+[ext_resource type="Script" uid="uid://dgxvxmitrd13o" path="res://script/parallax_background.gd" id="8_eefn7"]
+[ext_resource type="Texture2D" uid="uid://71fsdc8fl4jf" path="res://assets/title/Untitled977_20260324075141.png" id="9_dcuno"]
+[ext_resource type="Script" uid="uid://b57hbvyj18rxn" path="res://script/parallax_background_2.gd" id="10_yuctv"]
+[ext_resource type="Texture2D" uid="uid://cixxbl3itgmgg" path="res://assets/story/Expression/Untitled1013_20260420213334.png" id="11_0a3hd"]
+[ext_resource type="Texture2D" uid="uid://cwf56q24ce66o" path="res://assets/story/Expression/Untitled1013_20260420215132.png" id="12_hbfm3"]
+[ext_resource type="Texture2D" uid="uid://b2hy8v5nv3she" path="res://assets/story/Expression/Untitled1013_20260420213825.png" id="13_351p7"]
+[ext_resource type="Texture2D" uid="uid://cxlfr37im8sx7" path="res://assets/story/Expression/Untitled1013_20260420215519.png" id="14_the8s"]
+[ext_resource type="Texture2D" uid="uid://dlikng1dvyww8" path="res://assets/enemy/boss/Moving/Untitled934_20260316132955.png" id="15_0dtc1"]
+[ext_resource type="Script" uid="uid://dy3sbgc700hsk" path="res://script/flap.gd" id="15_dcuno"]
+[ext_resource type="Texture2D" uid="uid://bwvtjyjyuyxg4" path="res://assets/enemy/boss/Moving/Untitled934_20260316132802.png" id="16_2xlfu"]
+[ext_resource type="Texture2D" uid="uid://b5c4qvgde61ew" path="res://assets/enemy/boss/Moving/Untitled934_20260316133142.png" id="17_ah8yc"]
+[ext_resource type="Texture2D" uid="uid://e13ic0u86bkw" path="res://assets/enemy/boss/Summon/Gate/Bot/Untitled934_20260316133337.png" id="18_wqvqt"]
+[ext_resource type="Texture2D" uid="uid://ww2sslu08dok" path="res://assets/enemy/boss/Summon/Gate/Bot/Untitled934_20260316133342.png" id="19_u6nka"]
+[ext_resource type="Texture2D" uid="uid://bghib06glp53l" path="res://assets/enemy/boss/Summon/Gate/Bot/Untitled934_20260316133349.png" id="20_3xswo"]
+[ext_resource type="Texture2D" uid="uid://bd6ehapdw0bf7" path="res://assets/enemy/boss/Summon/Gate/Bot/Untitled934_20260316133355.png" id="21_s726y"]
+[ext_resource type="Texture2D" uid="uid://bbad40h7wra34" path="res://assets/enemy/boss/Summon/Gate/Top/Untitled934_20260316133150.png" id="22_o6cwb"]
+[ext_resource type="Texture2D" uid="uid://bf4u7wbb81lxn" path="res://assets/enemy/boss/Summon/Gate/Top/Untitled934_20260316133214.png" id="23_3bvrq"]
+[ext_resource type="Texture2D" uid="uid://csard1r1lamwl" path="res://assets/enemy/boss/Summon/Gate/Top/Untitled934_20260316133222.png" id="24_utp0t"]
+[ext_resource type="Texture2D" uid="uid://82hawixm0xhb" path="res://assets/enemy/boss/Summon/Gate/Top/Untitled934_20260316133231.png" id="25_ffjs4"]
+[ext_resource type="Texture2D" uid="uid://cv4cco5mb56jt" path="res://assets/enemy/boss/Summon/Gate/Mid/Untitled934_20260316133254.png" id="26_2nnp8"]
+[ext_resource type="Texture2D" uid="uid://chxkxgyqwdu46" path="res://assets/enemy/boss/Summon/Gate/Mid/Untitled934_20260316133300.png" id="27_wrcg6"]
+[ext_resource type="Texture2D" uid="uid://brxlq3m8kfajc" path="res://assets/enemy/boss/Summon/Gate/Mid/Untitled934_20260316133308.png" id="28_1ucrx"]
+[ext_resource type="Texture2D" uid="uid://bu2p4fxtew0rf" path="res://assets/enemy/boss/Summon/Gate/Mid/Untitled934_20260316133310.png" id="29_ieeyh"]
+[ext_resource type="Texture2D" uid="uid://by7y8rqwpufxj" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132738.png" id="30_jbi13"]
+[ext_resource type="Texture2D" uid="uid://k8cu533ash5q" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132740.png" id="31_4s5x6"]
+[ext_resource type="Texture2D" uid="uid://b8fd1fhl08pmf" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132742.png" id="32_mmlco"]
+[ext_resource type="Texture2D" uid="uid://nvejw1j3u46e" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132744.png" id="33_t360d"]
+[ext_resource type="Texture2D" uid="uid://btxarkbh0bu6f" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132746.png" id="34_ulcyl"]
+[ext_resource type="Texture2D" uid="uid://ch216phnjgtf0" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132748.png" id="35_njwf8"]
+[ext_resource type="Texture2D" uid="uid://bjfxm0s4scgqi" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132750.png" id="36_63uhl"]
+[ext_resource type="Texture2D" uid="uid://cml4x0y4te1tk" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132753.png" id="37_a85uv"]
+[ext_resource type="Texture2D" uid="uid://cwkc1nylcjkxq" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132755.png" id="38_kjudv"]
+[ext_resource type="Texture2D" uid="uid://lixuay7pjjvp" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132757.png" id="39_wmubx"]
+[ext_resource type="Texture2D" uid="uid://bchsu73g5xxas" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132759.png" id="40_uumcp"]
+[ext_resource type="Texture2D" uid="uid://croyhspk8wqps" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132801.png" id="41_upt26"]
+[ext_resource type="Texture2D" uid="uid://bfow17xonuhrp" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132803.png" id="42_74cri"]
+[ext_resource type="Texture2D" uid="uid://br7h3x4w0han5" path="res://assets/enemy/boss/Attack_Revised/Untitled1009_20260419132806.png" id="43_hrtxp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3xbsg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_0dtc1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_2xlfu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ah8yc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ss8hs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_wqvqt")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_wqvqt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_u6nka")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_3xswo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_s726y")
+}],
+"loop": false,
+"name": &"summon",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_71lyx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_o6cwb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_o6cwb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_3bvrq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_utp0t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_ffjs4")
+}],
+"loop": false,
+"name": &"summon",
+"speed": 6.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3qsqa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_2nnp8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_2nnp8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_wrcg6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_1ucrx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_ieeyh")
+}],
+"loop": false,
+"name": &"summon",
+"speed": 6.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dxlj1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_jbi13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_4s5x6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_mmlco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_t360d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_ulcyl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_njwf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_63uhl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_a85uv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_kjudv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_wmubx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_uumcp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_upt26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_74cri")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_hrtxp")
+}],
+"loop": false,
+"name": &"devour",
+"speed": 10.0
+}]
 
 [node name="Main" instance=ExtResource("1_main")]
 script = ExtResource("3_script")
 boss_spawn_position = Vector2(800, 512)
+post_boss_delay_before_ui_hide = 5.0
+post_boss_delay_after_ui_hide = 0.35
+post_boss_damage_hud_fade_duration = 0.35
+post_boss_parallax_move_duration = 0.35
+post_boss_parallax_bg_target = Vector2(640, 368)
+post_boss_parallax_bg2_target = Vector2(640, 360)
 enemy_scene = ExtResource("2_boss")
 max_enemies = 1
 spawn_interval = 9999.0
@@ -42,3 +236,106 @@ position = Vector2(-232, 296)
 [node name="DamageHud" parent="." index="7"]
 position = Vector2(641.00006, 366.00003)
 scale = Vector2(0.70937514, 0.7333333)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." index="13"]
+layer = 0
+script = ExtResource("8_eefn7")
+scroll_speed = 60
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
+z_index = 50
+motion_mirroring = Vector2(1286.4, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" index="0"]
+position = Vector2(640, 506)
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("9_dcuno")
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="." index="14"]
+layer = 0
+script = ExtResource("10_yuctv")
+scroll_speed = 60
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2" index="0"]
+motion_mirroring = Vector2(1286.4, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer" index="0"]
+position = Vector2(640, 207)
+rotation = -3.1415925
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("9_dcuno")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="15"]
+layer = 0
+
+[node name="BakuYunaExpression" type="Node2D" parent="CanvasLayer" index="0"]
+z_index = 40
+position = Vector2(632, 514)
+scale = Vector2(0.45, 0.45)
+
+[node name="BakuSmile" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="0"]
+visible = false
+position = Vector2(0, 308.3333)
+texture = ExtResource("11_0a3hd")
+
+[node name="YunaSmile" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="1"]
+visible = false
+position = Vector2(0, 240.00002)
+texture = ExtResource("12_hbfm3")
+
+[node name="BakuShock" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="2"]
+visible = false
+position = Vector2(0, 318.33334)
+texture = ExtResource("13_351p7")
+
+[node name="YunaShock" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="3"]
+visible = false
+position = Vector2(0, 240.00002)
+texture = ExtResource("14_the8s")
+
+[node name="BossAnim" type="Node2D" parent="CanvasLayer" index="1"]
+z_index = 39
+position = Vector2(596, 320)
+scale = Vector2(1.2, 1.2)
+script = ExtResource("15_dcuno")
+
+[node name="Base" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim" index="0"]
+visible = false
+scale = Vector2(0.45, 0.45)
+sprite_frames = SubResource("SpriteFrames_3xbsg")
+autoplay = "default"
+
+[node name="BotAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim/Base" index="0"]
+sprite_frames = SubResource("SpriteFrames_ss8hs")
+animation = &"idle"
+
+[node name="TopAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim/Base" index="1"]
+sprite_frames = SubResource("SpriteFrames_71lyx")
+animation = &"idle"
+
+[node name="MidAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim/Base" index="2"]
+sprite_frames = SubResource("SpriteFrames_3qsqa")
+animation = &"idle"
+
+[node name="DevourAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim" index="1"]
+visible = false
+position = Vector2(22, 0)
+sprite_frames = SubResource("SpriteFrames_dxlj1")
+animation = &"devour"
+frame = 13
+frame_progress = 1.0
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="." index="16"]
+layer = 0
+
+[node name="Overlay" type="ColorRect" parent="CanvasLayer3" index="0"]
+visible = false
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 1368.0
+offset_bottom = 752.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[connection signal="frame_changed" from="CanvasLayer/BossAnim/DevourAnim" to="." method="_on_devour_anim_frame_changed"]

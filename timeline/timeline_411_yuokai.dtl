@@ -1,0 +1,16 @@
+yuna: ...dark.
+yuna: Heavy.
+yuna: Can't move.
+yuna: Where—
+yuna: ....oh.
+yuna: There's a sound. Far away.
+yuna: Like hearing something from behind the surface of water.
+yuna: That's...
+yuna: ...Baku?
+[signal arg="remove overlay"]
+[wait time="3.0"]
+[signal arg="spawn_boss"]
+baku: ...Yuna?
+baku: Please say something!
+[wait time="4.0"]
+[signal arg="start_summon"]
