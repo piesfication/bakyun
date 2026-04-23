@@ -265,6 +265,8 @@ func _begin_level_end_sequence(is_loss: bool) -> void:
 	if is_loss:
 		await _play_level_end_screen_fade(Color(0, 0, 0, 1))
 	else:
+		if has_node("/root/StoryProgress"):
+			StoryProgress.record_mission_win()
 		await _play_level_end_screen_fade(Color(1, 1, 1, 1))
 
 	level_ended = true

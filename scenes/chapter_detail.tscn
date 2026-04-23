@@ -1,0 +1,156 @@
+[gd_scene load_steps=16 format=3 uid="uid://yxp7wog7064q"]
+
+[ext_resource type="Texture2D" uid="uid://cebca6q40pqjo" path="res://assets/story/Menu/Untitled929_20260423164237.png" id="1_3mm23"]
+[ext_resource type="Script" uid="uid://c3848byvtuunh" path="res://script/chapter_detail.gd" id="1_lb0hu"]
+[ext_resource type="Texture2D" uid="uid://wrakf5uxjqh1" path="res://assets/story/Menu/Untitled929_20260423164242.png" id="2_1cui5"]
+[ext_resource type="Texture2D" uid="uid://civl0dyw4xwm4" path="res://assets/story/Menu/Untitled929_20260423164226.png" id="3_f8lnv"]
+[ext_resource type="Texture2D" uid="uid://c4issm3i3223g" path="res://assets/story/Menu/Untitled929_20260423164231.png" id="4_n05ml"]
+[ext_resource type="FontFile" uid="uid://qeemo4t5r47y" path="res://assets/font/rusted_orlando_sans/Rusted Orlando Sans Demo.otf" id="5_felwv"]
+[ext_resource type="LabelSettings" uid="uid://dui1n45mjcgh2" path="res://labelsettings/story_menu.tres" id="6_hmjjl"]
+[ext_resource type="FontFile" uid="uid://bjisq025387gx" path="res://assets/font/zrtw-hackynote-personal-use/ZRTW-HackynotePersonalUse.ttf" id="7_3qrph"]
+[ext_resource type="FontFile" uid="uid://p2hs0cdn7fn8" path="res://assets/font/Wild-Words-Font-2/CC Wild Words Roman.ttf" id="9_f8lnv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4pqjb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3mm23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1cui5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1cui5")
+}],
+"loop": true,
+"name": &"chapter1and3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_f8lnv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n05ml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n05ml")
+}],
+"loop": true,
+"name": &"chapter2and4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3mm23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1cui5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1cui5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f8lnv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n05ml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n05ml")
+}],
+"loop": true,
+"name": &"chapter5",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rt3uk"]
+line_spacing = -25.0
+font = ExtResource("5_felwv")
+font_size = 140
+font_color = Color(0.6156863, 0.6431373, 0.4862745, 1)
+outline_size = 3
+outline_color = Color(0.6156863, 0.6431373, 0.4862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2khes"]
+line_spacing = -10.0
+font = ExtResource("7_3qrph")
+font_size = 45
+font_color = Color(0.6156863, 0.6431373, 0.4862745, 1)
+outline_size = 1
+outline_color = Color(0.6156863, 0.6431373, 0.4862745, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3mm23"]
+size = Vector2(312.7013, 331.65717)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1cui5"]
+size = Vector2(424.46362, 462.92914)
+
+[sub_resource type="LabelSettings" id="LabelSettings_n05ml"]
+font = ExtResource("9_f8lnv")
+font_size = 46
+font_color = Color(0.6156863, 0.6431373, 0.4862745, 1)
+outline_size = 1
+outline_color = Color(0.6156863, 0.6431373, 0.4862745, 1)
+
+[node name="ChapterDetail" type="Node2D"]
+rotation = -0.14940348
+scale = Vector2(0.6, 0.6)
+script = ExtResource("1_lb0hu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-21.756653, 0)
+scale = Vector2(1.0283289, 1)
+sprite_frames = SubResource("SpriteFrames_4pqjb")
+animation = &"chapter5"
+
+[node name="ChapterTitle" type="Label" parent="."]
+offset_left = 125.95946
+offset_top = -388.91693
+offset_right = 578.33826
+offset_bottom = 28.083069
+rotation = 0.30513003
+text = "CHAPTER TITLE"
+label_settings = SubResource("LabelSettings_rt3uk")
+autowrap_mode = 3
+
+[node name="ChapterNumber" type="Label" parent="."]
+offset_left = 261.0
+offset_top = -526.00006
+offset_right = 476.0
+offset_bottom = -455.00006
+rotation = 0.32466722
+text = "Chapter "
+label_settings = ExtResource("6_hmjjl")
+
+[node name="Synopsis" type="Label" parent="."]
+offset_left = 1.3980942
+offset_top = -154.85023
+offset_right = 413.74374
+offset_bottom = 431.14978
+rotation = 0.31671092
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+label_settings = SubResource("LabelSettings_2khes")
+autowrap_mode = 3
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="StartArea" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-382.30344, 154.81946)
+rotation = -0.03200317
+shape = SubResource("RectangleShape2D_3mm23")
+
+[node name="CharArea" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-230.36475, -272.32303)
+rotation = 0.43146804
+scale = Vector2(1.0000002, 1.0000002)
+shape = SubResource("RectangleShape2D_1cui5")
+
+[node name="Number" type="Label" parent="."]
+offset_left = 435.44653
+offset_top = -451.88507
+offset_right = 475.44653
+offset_bottom = -411.88507
+rotation = 0.32529584
+text = "5"
+label_settings = SubResource("LabelSettings_n05ml")

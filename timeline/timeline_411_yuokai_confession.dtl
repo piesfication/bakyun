@@ -1,0 +1,56 @@
+baku: I meant it.
+yuna: I know.
+baku: Not because things got bad up there. Not because I thought —
+baku: I meant it before. I kept telling myself it wasn't the right time.
+yuna: There wasn't going to be a right time.
+baku: No.
+baku: There never is.
+[wait time="2.0"]
+yuna: I wasn't planning to leave. I should have told you that earlier.
+baku: Why didn't you?
+yuna: I was afraid it was the wrong reason.
+yuna: That I was staying because I don't have anywhere else — not because I actually wanted to be here.
+baku: And now?
+yuna: I know the difference now.
+yuna: It's the second one.
+[wait time="3.0"]
+baku: You said "we." Week two. When you were talking about the plan.
+yuna: ...you noticed.
+baku: I noticed everything.
+baku: I think that's when I knew.
+yuna: I was hoping you hadn't.
+baku: (smiling)\
+I know. You got very busy explaining tactical assessments.
+[wait time="2.0"]
+yuna: ...I did.
+baku: For what it's worth —
+baku: (looks at Yuna)
+baku: You're the first person who ever just saw me. Not the title. Not the power.
+baku: Just me.
+baku: You're the first person who ever asked what they called me.
+baku: Like it mattered what I thought about it.
+baku: Nobody ever did that before.
+narrator: Yuna looks back at her.
+yuna: It matters.
+narrator: Something in Baku's expression — just for a second —
+narrator: — is the expression of someone hearing something they didn't know they needed.
+baku: Yeah.
+baku: Me too.
+[wait time="3.0"]
+yuna: There's a part of sinking that can't be explained to someone who hasn't been through it.
+yuna: Not the dark. Not the depth.
+yuna: But the voice from above the surface — faint, but there.
+yuna: The one thing that keeps you moving upward.
+yuna: I heard everything she said. Every word.
+yuna: And I understood, floating in that sea afterward —
+yuna: she didn't say it because things were desperate.
+yuna: She said it because it was true. And it had been true for a while.
+yuna: And the situation just finally made it impossible to keep quiet about.
+yuna: In my notebook — somehow still readable — two lines from this morning\:
+yuna: "Objective\: prove competence. Return to the association."
+yuna: I didn't erase them.
+yuna: I wrote one line underneath\:
+yuna: "Revised."
+[signal arg="end of confession"]
+[wait time="3.0"]
+[signal arg="level menu"]

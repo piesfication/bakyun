@@ -1,0 +1,183 @@
+[gd_scene load_steps=16 format=3 uid="uid://clni6vf7g87ed"]
+
+[ext_resource type="Script" uid="uid://dlkrgvy2wf1xa" path="res://script/story_menu.gd" id="1_46nyp"]
+[ext_resource type="Texture2D" uid="uid://bj8vc2m62afna" path="res://assets/story/Menu/Untitled869_20260423183111.png" id="2_0e5xh"]
+[ext_resource type="FontFile" uid="uid://dcs4tsec8f7yd" path="res://assets/font/zrtw-hackynote-personal-use/ZRTW-HackynotePersonalUse.otf" id="3_vjbdf"]
+[ext_resource type="Script" uid="uid://byrdnbkqsw5xf" path="res://script/mission_click.gd" id="4_0e5xh"]
+[ext_resource type="Script" uid="uid://dtppdsewryec4" path="res://script/back_click.gd" id="4_myusa"]
+[ext_resource type="PackedScene" uid="uid://ipsj4qvblc3m" path="res://scenes/level_confirmation.tscn" id="5_f2glh"]
+[ext_resource type="Script" uid="uid://dgxvxmitrd13o" path="res://script/parallax_background.gd" id="6_3vk0y"]
+[ext_resource type="Texture2D" uid="uid://71fsdc8fl4jf" path="res://assets/title/Untitled977_20260324075141.png" id="7_qdmnm"]
+[ext_resource type="Script" uid="uid://b57hbvyj18rxn" path="res://script/parallax_background_2.gd" id="8_pbitw"]
+[ext_resource type="PackedScene" uid="uid://br4cpi30marww" path="res://scenes/story_icon.tscn" id="9_xjv6n"]
+[ext_resource type="PackedScene" uid="uid://yxp7wog7064q" path="res://scenes/chapter_detail.tscn" id="10_46nyp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ojubo"]
+font = ExtResource("3_vjbdf")
+font_size = 30
+font_color = Color(0.5803922, 0.75686276, 0.64705884, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgpns"]
+size = Vector2(103.999985, 56)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cabf2"]
+font = ExtResource("3_vjbdf")
+font_size = 30
+font_color = Color(1, 0.56078434, 0.5568628, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jpff"]
+size = Vector2(88, 56)
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+script = ExtResource("1_46nyp")
+phone_node_path = NodePath("")
+map_manager_node_path = NodePath("")
+background_float_amplitude = 5.0
+phone_float_speed = 2.0
+background_float_speed = 1.0
+background_phase_offset = 0.3
+background_scale_padding = 0.0
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(656, 379)
+scale = Vector2(0.69, 0.69)
+texture = ExtResource("2_0e5xh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Mission" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = -0.26065162
+anchor_top = 0.1521739
+anchor_right = -0.26065162
+anchor_bottom = 0.1521739
+offset_left = 506.63403
+offset_top = -63.565216
+offset_right = 585.63403
+offset_bottom = -17.565216
+text = "Mission"
+label_settings = SubResource("LabelSettings_ojubo")
+
+[node name="MissionClick" type="Area2D" parent="CanvasLayer/Mission"]
+script = ExtResource("4_0e5xh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Mission/MissionClick"]
+position = Vector2(36, 22)
+shape = SubResource("RectangleShape2D_qgpns")
+
+[node name="Back" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.81875
+anchor_top = 0.055555556
+anchor_right = 0.81875
+anchor_bottom = 0.055555556
+offset_left = -969.0
+offset_top = 7.0
+offset_right = -906.0
+offset_bottom = 53.0
+text = "Back "
+label_settings = SubResource("LabelSettings_cabf2")
+
+[node name="BackClick" type="Area2D" parent="CanvasLayer/Back"]
+script = ExtResource("4_myusa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Back/BackClick"]
+position = Vector2(28, 21)
+shape = SubResource("RectangleShape2D_2jpff")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = 0
+script = ExtResource("6_3vk0y")
+scroll_speed = 40
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 50
+position = Vector2(0, 52)
+motion_mirroring = Vector2(1286.4, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(640, 369)
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("7_qdmnm")
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+layer = 0
+script = ExtResource("8_pbitw")
+scroll_speed = 40
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
+position = Vector2(-16, -56)
+motion_mirroring = Vector2(1286.4, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer"]
+position = Vector2(640, 416.00003)
+rotation = -3.1415925
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("7_qdmnm")
+
+[node name="StorySelectionIcon" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -7.0
+offset_top = -63.0
+offset_right = 33.0
+offset_bottom = -23.0
+
+[node name="Chapter1" parent="StorySelectionIcon" instance=ExtResource("9_xjv6n")]
+position = Vector2(526.99994, 578.99994)
+scale = Vector2(0.4, 0.4)
+
+[node name="Chapter2" parent="StorySelectionIcon" instance=ExtResource("9_xjv6n")]
+position = Vector2(290, 604)
+scale = Vector2(0.4, 0.4)
+
+[node name="Chapter3" parent="StorySelectionIcon" instance=ExtResource("9_xjv6n")]
+position = Vector2(327, 411.99997)
+scale = Vector2(0.4, 0.4)
+
+[node name="Chapter4" parent="StorySelectionIcon" instance=ExtResource("9_xjv6n")]
+position = Vector2(434.99997, 357)
+scale = Vector2(0.4, 0.4)
+
+[node name="Chapter5" parent="StorySelectionIcon" instance=ExtResource("9_xjv6n")]
+position = Vector2(270, 274)
+scale = Vector2(0.4, 0.4)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="ChapterDetail" parent="CanvasLayer2" instance=ExtResource("10_46nyp")]
+position = Vector2(900, 371.99994)
+scale = Vector2(0.55, 0.55)
+
+[node name="Overlay" type="ColorRect" parent="CanvasLayer2"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.70000005)
+
+[node name="LevelConfirmationContainer" type="Control" parent="CanvasLayer2"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LevelConfirmation" parent="CanvasLayer2/LevelConfirmationContainer" instance=ExtResource("5_f2glh")]
+visible = false
+position = Vector2(640, 384.00003)
+scale = Vector2(0.65, 0.65)

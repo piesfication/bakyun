@@ -34,6 +34,11 @@ func on_dialogic_signal(arg: String):
 		
 		fade_in(overlay_yuokai, 2)
 	
+	if (arg == "post yuokai"):
+		LoadingManager.set_target_scene("res://scenes/story_4_1.tscn")
+		await Transition.fade_out()
+		get_tree().change_scene_to_file("res://scenes/loading_screen.tscn")
+		await Transition.fade_in() # fade out
 
 func fade_in(arg, dur):
 	var tween = create_tween()

@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dui1n45mjcgh2"]
+
+[ext_resource type="FontFile" uid="uid://bjisq025387gx" path="res://assets/font/zrtw-hackynote-personal-use/ZRTW-HackynotePersonalUse.ttf" id="1_ikot5"]
+
+[resource]
+font = ExtResource("1_ikot5")
+font_size = 55
+font_color = Color(0.6156863, 0.6431373, 0.4862745, 1)
+outline_size = 2
+outline_color = Color(0.6156863, 0.6431373, 0.4862745, 1)

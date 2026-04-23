@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ctue4xy3337pk"]
+[gd_scene load_steps=30 format=3 uid="uid://ctue4xy3337pk"]
 
 [ext_resource type="Script" uid="uid://byncm8d1drwvw" path="res://scenes/map_manager.gd" id="2_2go0k"]
 [ext_resource type="Texture2D" uid="uid://rxjxv5rh1cct" path="res://assets/menu/Island/Untitled868_20260403132417.png" id="2_cabf2"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://dgxvxmitrd13o" path="res://script/parallax_background.gd" id="13_tkofx"]
 [ext_resource type="Texture2D" uid="uid://71fsdc8fl4jf" path="res://assets/title/Untitled977_20260324075141.png" id="14_qc6d6"]
 [ext_resource type="Script" uid="uid://b57hbvyj18rxn" path="res://script/parallax_background_2.gd" id="15_ojubo"]
+[ext_resource type="Script" uid="uid://b4usntkl3nx1l" path="res://script/story_click.gd" id="16_qgpns"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6flmm"]
 shader = ExtResource("8_q0t2x")
@@ -61,13 +62,7 @@ font_size = 30
 font_color = Color(0.5803922, 0.75686276, 0.64705884, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cabf2"]
-size = Vector2(96.000015, 56.000004)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgpns"]
-size = Vector2(103.999985, 56)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_78vb6"]
-size = Vector2(175.99994, 56)
+size = Vector2(85.00001, 56.000004)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cabf2"]
 font = ExtResource("11_qc6d6")
@@ -102,8 +97,12 @@ texture = ExtResource("2_cabf2")
 layout_mode = 3
 anchor_right = 0.994
 anchor_bottom = 0.989
-offset_right = -560.32007
-offset_bottom = 7.919983
+offset_left = 100.99999
+offset_top = 66.0
+offset_right = -459.32007
+offset_bottom = 73.91998
+rotation = 0.08136914
+scale = Vector2(0.8, 0.8)
 mouse_filter = 1
 
 [node name="PhoneSprite" type="Node2D" parent="CanvasLayer/Phone"]
@@ -176,57 +175,20 @@ anchor_left = -0.26065162
 anchor_top = 0.1521739
 anchor_right = -0.26065162
 anchor_bottom = 0.1521739
-offset_left = 1060.634
+offset_left = 1363.634
 offset_top = -65.565216
-offset_right = 1127.634
+offset_right = 1430.634
 offset_bottom = -19.565216
 text = "Story"
 label_settings = SubResource("LabelSettings_ojubo")
 
-[node name="Story" type="Area2D" parent="CanvasLayer/Story"]
+[node name="StoryClick" type="Area2D" parent="CanvasLayer/Story"]
 position = Vector2(-23, 0)
+script = ExtResource("16_qgpns")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Story/Story"]
-position = Vector2(65, 24)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Story/StoryClick"]
+position = Vector2(59.5, 24)
 shape = SubResource("RectangleShape2D_cabf2")
-
-[node name="Mission" type="Label" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = -0.26065162
-anchor_top = 0.1521739
-anchor_right = -0.26065162
-anchor_bottom = 0.1521739
-offset_left = 1173.634
-offset_top = -63.565216
-offset_right = 1252.634
-offset_bottom = -17.565216
-text = "Mission"
-label_settings = SubResource("LabelSettings_ojubo")
-
-[node name="BackClick" type="Area2D" parent="CanvasLayer/Mission"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Mission/BackClick"]
-position = Vector2(36, 22)
-shape = SubResource("RectangleShape2D_qgpns")
-
-[node name="Achievement" type="Label" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 0.81875
-anchor_top = 0.055555556
-anchor_right = 0.81875
-anchor_bottom = 0.055555556
-offset_left = -96.0
-offset_top = 10.0
-offset_right = 56.0
-offset_bottom = 56.0
-text = "Achievement "
-label_settings = SubResource("LabelSettings_ojubo")
-
-[node name="BackClick" type="Area2D" parent="CanvasLayer/Achievement"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Achievement/BackClick"]
-position = Vector2(72, 18)
-shape = SubResource("RectangleShape2D_78vb6")
 
 [node name="Back" type="Label" parent="CanvasLayer"]
 anchors_preset = -1

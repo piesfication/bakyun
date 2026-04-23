@@ -37,6 +37,11 @@ func _ready() -> void:
 	else:
 		_spawn_boss_once()
 
+func _begin_level_end_sequence(is_loss: bool) -> void:
+	if not is_loss and has_node("/root/StoryProgress"):
+		StoryProgress.mark_chapter_completed(4)
+	super._begin_level_end_sequence(is_loss)
+
 enum AnimMode {
 	MOVE_ONLY,
 	FADE_ONLY,

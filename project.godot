@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Bakyun"
-run/main_scene="uid://ctue4xy3337pk"
+run/main_scene="uid://unffs1vlk3ih"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,6 +23,7 @@ LoadingManager="*res://script/loading_manager.gd"
 Transition="*res://scenes/transition.tscn"
 MusicManager="*res://scenes/music_manager.tscn"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+StoryProgress="*res://script/story_progress.gd"
 
 [dialogic]
 
@@ -38,9 +39,11 @@ directories/dtl_directory={
 "timeline_4": "res://timeline/timeline_4.dtl",
 "timeline_41": "res://timeline/timeline_41.dtl",
 "timeline_411_yuokai": "res://timeline/timeline_411_yuokai.dtl",
+"timeline_411_yuokai_confession": "res://timeline/timeline_411_yuokai_confession.dtl",
 "timeline_411_yuokai_phase2": "res://timeline/timeline_411_yuokai_phase2.dtl",
 "timeline_411_yuokai_post": "res://timeline/timeline_411_yuokai_post.dtl",
 "timeline_412_bakumono": "res://timeline/timeline_412_bakumono.dtl",
+"timeline_412_bakumono_confession": "res://timeline/timeline_412_bakumono_confession.dtl",
 "timeline_412_bakumono_phase2": "res://timeline/timeline_412_bakumono_phase2.dtl",
 "timeline_412_bakumono_post": "res://timeline/timeline_412_bakumono_post.dtl",
 "timeline_5": "res://timeline/timeline_5.dtl"

@@ -1,3 +1,4 @@
+[wait time="3.0"]
 baku: This city never had guests.
 baku: That's one of the things I like about this place.
 baku: People out there have plenty of stories about this city —
@@ -8,9 +9,11 @@ baku: I was surprised enough to stand up from my bed. That's already an achievem
 [wait time="3.0"]
 join baku (Outlined) right [animation="Fade In Up" wait="true"]
 baku (Outlined): New witch?!
+baku: From the association?!
 join yuna (Outlined) left [animation="Fade In Up" wait="true"]
 update baku (DarkenedOutlined) right [fade="Fade Cross"]
-yuna: I'm Yuna. Transferred to this city, effective today. Is there anyone I should report to —
+yuna: I'm Yuna. Transferred to this city, effective today.
+yuna:  Is there anyone I should report to —
 update yuna (DarkenedOutlined) left [fade="Fade Cross"]
 update baku (Outlined) right [fade="Fade Cross"]
 baku: Welcome!
@@ -36,7 +39,7 @@ label birdstrikestart (birdstrikestart)
 update baku (Outlined)
 update yuna (DarkenedOutlined)
 baku: Ah! There's one now.
-leave --All-- [animation="Instant Out" length="0.2"]
+leave --All-- [animation="Instant Out" length="0.2" wait="true"]
 [wait time="0.3"]
 [signal arg="bird strike"]
 [wait time="4.0"]
@@ -54,12 +57,16 @@ yuna: (touches the side of her head)\
 update yuna (DarkenedOutlined)
 update baku (Outlined)
 baku: I did warn you.
+update baku (DarkenedOutlined)
+update yuna (Outlined)
 yuna: ......
 yuna: That was a countdown. Not a warning.
 leave --All-- [animation="Fade Out Down" wait="true"]
+[wait time="1.5"]
 narrator: Yuna stares at her.
 narrator: Then looks down at the bowl. Picks up the spoon.
 join yuna (Outlined) left
+[wait time="1.0"]
 yuna (Outlined): So.... how long have you been here?
 join baku (Outlined) right
 update yuna (DarkenedOutlined)
@@ -142,7 +149,9 @@ join baku (Outlined) right
 baku: Her assignment letter said "transferred."
 baku: I've been around long enough to know what that word usually means.
 baku: But that's her story to tell.
-baku: What I know\: she arrived with a backpack too heavy for its contents, a hat too big for her head, and the expression of someone who made a decision and isn't sure yet if it was the right one.
+baku: What I know\: she arrived with a backpack too heavy for its contents —
+baku:  — a hat too big for her head —
+baku:  — and the expression of someone who made a decision and isn't sure yet if it was the right one.
 [wait time="2.0"]
 baku: This city has plenty of monsters.
 baku: But somewhere out there —

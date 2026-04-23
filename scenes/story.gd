@@ -84,6 +84,8 @@ func on_dialogic_signal(arg: String):
 		fade_overlay(0.0, 1.0) # fade out
 		
 	if (arg == "level menu") :
+		if has_node("/root/StoryProgress"):
+			StoryProgress.mark_chapter_completed(1)
 		LoadingManager.set_target_scene("res://scenes/level_menu.tscn")
 		await Transition.fade_out()
 		get_tree().change_scene_to_file("res://scenes/loading_screen.tscn")
