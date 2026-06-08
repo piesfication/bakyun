@@ -8,11 +8,16 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Bakyun"
 run/main_scene="uid://unffs1vlk3ih"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
+boot_splash/image="res://assets/rstk/Ristek_Gamedev (2).png"
 config/icon="res://icon.svg"
 
 [audio]
@@ -26,7 +31,7 @@ LoadingDialogue="*res://script/loading_dialogue.gd"
 LoadingManager="*res://script/loading_manager.gd"
 Transition="*res://scenes/transition.tscn"
 MusicManager="res://scenes/music_manager.tscn"
-Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+Dialogic="*uid://ds2q0uclmolvu"
 StoryProgress="*res://script/story_progress.gd"
 AudioManager="*res://audio/world_audio_manager.tscn"
 

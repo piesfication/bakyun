@@ -1,4 +1,4 @@
-[gd_scene load_steps=190 format=3 uid="uid://d1u6i3t35llsd"]
+[gd_scene format=3 uid="uid://d1u6i3t35llsd"]
 
 [ext_resource type="Script" uid="uid://c8cdaugw4lwkp" path="res://main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://i5asanwmdtcp" path="res://assets/level/sea/Untitled694_20260115180850.png" id="2_tbgi4"]
@@ -1023,7 +1023,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_sd6wn"]
 radius = 24.0
 
-[node name="Main2" type="Node2D"]
+[node name="Main2" type="Node2D" unique_id=1936861115]
 script = ExtResource("1_o5qli")
 enemy_scene = ExtResource("2_ya4ey")
 bird_strike_check_interval = 12.0
@@ -1031,7 +1031,7 @@ bird_strike_chance = 0.15
 bird_strike_shoot_lock_duration = 1.5
 level_duration_seconds = 150.0
 
-[node name="BirdStrike" type="AnimatedSprite2D" parent="."]
+[node name="BirdStrike" type="AnimatedSprite2D" parent="." unique_id=853740342]
 z_index = 500
 position = Vector2(720, 304)
 scale = Vector2(0.9, 0.9)
@@ -1040,7 +1040,7 @@ animation = &"strike"
 frame = 5
 frame_progress = 1.0
 
-[node name="MissionClear" type="AnimatedSprite2D" parent="."]
+[node name="MissionClear" type="AnimatedSprite2D" parent="." unique_id=1578793020]
 z_index = 500
 position = Vector2(640, 369)
 sprite_frames = SubResource("SpriteFrames_8jwmc")
@@ -1048,7 +1048,7 @@ animation = &"clear"
 frame = 9
 frame_progress = 1.0
 
-[node name="BirdStrikeAlert" type="AnimatedSprite2D" parent="."]
+[node name="BirdStrikeAlert" type="AnimatedSprite2D" parent="." unique_id=501589456]
 z_index = 500
 position = Vector2(640, 369)
 sprite_frames = SubResource("SpriteFrames_jgau6")
@@ -1056,111 +1056,111 @@ animation = &"popup"
 frame = 10
 frame_progress = 1.0
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." unique_id=660405411]
 position = Vector2(-18.000002, -8)
 scale = Vector2(1.03, 1.03)
 script = ExtResource("3_vxglm")
 
-[node name="Sky" type="Sprite2D" parent="Background"]
+[node name="Sky" type="Sprite2D" parent="Background" unique_id=1125588362]
 scale = Vector2(0.667, 0.667)
 texture = ExtResource("2_tbgi4")
 centered = false
 
-[node name="Back" type="Sprite2D" parent="Background"]
+[node name="Back" type="Sprite2D" parent="Background" unique_id=1537011722]
 z_index = 10
 position = Vector2(0, 16)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_tefeu")
 centered = false
 
-[node name="Back2" type="Sprite2D" parent="Background"]
+[node name="Back2" type="Sprite2D" parent="Background" unique_id=307075479]
 z_index = 10
 position = Vector2(0, 16)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_tefeu")
 centered = false
 
-[node name="Front" type="Sprite2D" parent="Background"]
+[node name="Front" type="Sprite2D" parent="Background" unique_id=816147253]
 z_index = 20
 position = Vector2(0, 16)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("4_o6xl0")
 centered = false
 
-[node name="Sea" type="Sprite2D" parent="Background"]
+[node name="Sea" type="Sprite2D" parent="Background" unique_id=1979331423]
 z_index = 30
 position = Vector2(0, -10.999998)
 scale = Vector2(0.683, 0.683)
 texture = ExtResource("5_tipki")
 centered = false
 
-[node name="TriggerZOrder" type="Area2D" parent="Background"]
+[node name="TriggerZOrder" type="Area2D" parent="Background" unique_id=670969900]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Background/TriggerZOrder"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Background/TriggerZOrder" unique_id=1977994436]
 position = Vector2(0, 2.9126215)
 polygon = PackedVector2Array(592.23303, 533.00977, 592.23303, 525.24274, 600, 501.94177, 615.534, 463.1068, 615.534, 455.33984, 568.93207, 466.01944, 553.3981, 520.38837, 561.16504, 528.15533)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Background/TriggerZOrder"]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Background/TriggerZOrder" unique_id=246540580]
 polygon = PackedVector2Array(506.79614, 380.58255, 429.12625, 186.40778, 879.6117, 178.64078, 856.31067, 310.67963, 716.5049, 380.58255, 708.73785, 388.34955, 576.69904, 419.4175, 561.16504, 372.81555)
 
-[node name="EnemyContainer" type="Node2D" parent="."]
+[node name="EnemyContainer" type="Node2D" parent="." unique_id=22611040]
 
-[node name="Player" type="Node2D" parent="."]
+[node name="Player" type="Node2D" parent="." unique_id=1022403729]
 position = Vector2(88, 72)
 scale = Vector2(0.9, 0.9)
 script = ExtResource("7_eb6dy")
 bird_strike_shake_strength = 20.0
 
-[node name="BakuMahou" type="Node2D" parent="Player"]
+[node name="BakuMahou" type="Node2D" parent="Player" unique_id=749772026]
 z_index = 1000
 scale = Vector2(0.5, 0.5)
 script = ExtResource("9_ids8r")
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Player/BakuMahou"]
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Player/BakuMahou" unique_id=314904471]
 position = Vector2(2314, 1082)
 sprite_frames = SubResource("SpriteFrames_dnhof")
 animation = &"shooting"
 frame = 4
 frame_progress = 1.0
 
-[node name="YunaMahou" type="Node2D" parent="Player"]
+[node name="YunaMahou" type="Node2D" parent="Player" unique_id=2062746025]
 z_index = 1000
 scale = Vector2(0.5, 0.5)
 script = ExtResource("14_dnhof")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/YunaMahou"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/YunaMahou" unique_id=770662593]
 position = Vector2(2288, 1040)
 sprite_frames = SubResource("SpriteFrames_tm6hj")
 animation = &"shooting"
 frame = 4
 frame_progress = 1.0
 
-[node name="Crosshair" type="Node2D" parent="."]
+[node name="Crosshair" type="Node2D" parent="." unique_id=1051322265]
 z_index = 1000
 position = Vector2(-144, 48)
 scale = Vector2(0.13, 0.13)
 script = ExtResource("6_85g3d")
 
-[node name="Visual" type="Node2D" parent="Crosshair"]
+[node name="Visual" type="Node2D" parent="Crosshair" unique_id=525068253]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Crosshair/Visual"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Crosshair/Visual" unique_id=390844592]
 sprite_frames = SubResource("SpriteFrames_trceg")
 animation = &"aim_baku"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Crosshair"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Crosshair" unique_id=1797354295]
 
-[node name="Area2D" type="Area2D" parent="Crosshair"]
+[node name="Area2D" type="Area2D" parent="Crosshair" unique_id=1356138721]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Crosshair/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crosshair/Area2D" unique_id=1339036985]
 
-[node name="LevelEndOverlay" type="CanvasLayer" parent="."]
+[node name="LevelEndOverlay" type="CanvasLayer" parent="." unique_id=735896219]
 layer = 20
 
-[node name="ComboCounter" type="Node2D" parent="LevelEndOverlay"]
+[node name="ComboCounter" type="Node2D" parent="LevelEndOverlay" unique_id=1115536736]
 position = Vector2(88.00001, 312.00003)
 scale = Vector2(0.65, 0.65)
 
-[node name="Label2" type="Label" parent="LevelEndOverlay/ComboCounter"]
+[node name="Label2" type="Label" parent="LevelEndOverlay/ComboCounter" unique_id=511919807]
 offset_left = -33.0
 offset_top = 134.00006
 offset_right = 88.259705
@@ -1169,7 +1169,7 @@ rotation = -0.18280539
 text = "1 HIT!"
 label_settings = SubResource("LabelSettings_avynn")
 
-[node name="Label" type="Label" parent="LevelEndOverlay/ComboCounter"]
+[node name="Label" type="Label" parent="LevelEndOverlay/ComboCounter" unique_id=1603481]
 offset_left = -34.5
 offset_top = 132.24994
 offset_right = 162.5
@@ -1178,7 +1178,7 @@ rotation = -0.18280539
 text = "1 HIT!"
 label_settings = SubResource("LabelSettings_eo1ke")
 
-[node name="ColorRect" type="ColorRect" parent="LevelEndOverlay"]
+[node name="ColorRect" type="ColorRect" parent="LevelEndOverlay" unique_id=252380856]
 visible = false
 modulate = Color(0, 0, 0, 0)
 anchors_preset = 15
@@ -1189,26 +1189,26 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="DamageHud" type="Sprite2D" parent="."]
+[node name="DamageHud" type="Sprite2D" parent="." unique_id=1372860404]
 z_index = 31
 position = Vector2(641.00006, 364)
 scale = Vector2(0.7093751, 0.7333334)
 texture = ExtResource("36_50d7c")
 
-[node name="UIMahouMeter" type="CanvasLayer" parent="."]
+[node name="UIMahouMeter" type="CanvasLayer" parent="." unique_id=1254756674]
 layer = 2
 scale = Vector2(0.7, 0.7)
 transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
 script = ExtResource("17_yc10j")
 
-[node name="MahouMeter" type="Control" parent="UIMahouMeter"]
+[node name="MahouMeter" type="Control" parent="UIMahouMeter" unique_id=1349471003]
 layout_mode = 3
 anchors_preset = 0
 offset_top = 31.714302
 offset_right = 1828.5713
 offset_bottom = 177.42859
 
-[node name="TextureRect" type="TextureRect" parent="UIMahouMeter/MahouMeter"]
+[node name="TextureRect" type="TextureRect" parent="UIMahouMeter/MahouMeter" unique_id=1204213762]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1220,30 +1220,30 @@ grow_horizontal = 2
 texture = ExtResource("18_yc10j")
 stretch_mode = 5
 
-[node name="Control" type="Control" parent="UIMahouMeter/MahouMeter/TextureRect"]
+[node name="Control" type="Control" parent="UIMahouMeter/MahouMeter/TextureRect" unique_id=2088422925]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="SlotLeft" type="TextureRect" parent="UIMahouMeter/MahouMeter/TextureRect/Control"]
+[node name="SlotLeft" type="TextureRect" parent="UIMahouMeter/MahouMeter/TextureRect/Control" unique_id=466450408]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("19_jscy8")
 
-[node name="SlotMid" type="TextureRect" parent="UIMahouMeter/MahouMeter/TextureRect/Control"]
+[node name="SlotMid" type="TextureRect" parent="UIMahouMeter/MahouMeter/TextureRect/Control" unique_id=1727292912]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("20_pm3ni")
 
-[node name="SlotRight" type="TextureRect" parent="UIMahouMeter/MahouMeter/TextureRect/Control"]
+[node name="SlotRight" type="TextureRect" parent="UIMahouMeter/MahouMeter/TextureRect/Control" unique_id=1340481011]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("21_y6deb")
 
-[node name="CastAnimation" type="AnimatedSprite2D" parent="UIMahouMeter"]
+[node name="CastAnimation" type="AnimatedSprite2D" parent="UIMahouMeter" unique_id=427517931]
 position = Vector2(914.2857, 131.7143)
 scale = Vector2(0.9, 0.9)
 sprite_frames = SubResource("SpriteFrames_yq6so")
@@ -1251,10 +1251,10 @@ animation = &"cast"
 frame = 6
 frame_progress = 1.0
 
-[node name="UIKoisuruMeter" type="CanvasLayer" parent="."]
+[node name="UIKoisuruMeter" type="CanvasLayer" parent="." unique_id=1393847386]
 layer = 2
 
-[node name="KoisuruMeter" type="Control" parent="UIKoisuruMeter"]
+[node name="KoisuruMeter" type="Control" parent="UIKoisuruMeter" unique_id=564623517]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 36.000008
@@ -1264,7 +1264,7 @@ offset_bottom = 741.7778
 scale = Vector2(0.85, 0.85)
 script = ExtResource("27_cjqg0")
 
-[node name="Container" type="Control" parent="UIKoisuruMeter/KoisuruMeter"]
+[node name="Container" type="Control" parent="UIKoisuruMeter/KoisuruMeter" unique_id=980605301]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1279,12 +1279,12 @@ grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.8, 0.8)
 
-[node name="Control" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container"]
+[node name="Control" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container" unique_id=1066267387]
 anchors_preset = 0
 offset_right = 711.1111
 offset_bottom = 144.4444
 
-[node name="Base" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container/Control"]
+[node name="Base" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container/Control" unique_id=2035752371]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1298,7 +1298,7 @@ offset_bottom = 47.333344
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BaseTexture" type="TextureRect" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/Base"]
+[node name="BaseTexture" type="TextureRect" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/Base" unique_id=1955245446]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1315,7 +1315,7 @@ scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(445, 75)
 texture = ExtResource("27_vxglm")
 
-[node name="LeftFill" type="TextureProgressBar" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/Base"]
+[node name="LeftFill" type="TextureProgressBar" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/Base" unique_id=543509781]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1334,7 +1334,7 @@ step = 10.0
 texture_under = ExtResource("48_pes4l")
 texture_progress = ExtResource("49_s5e0g")
 
-[node name="RightFill" type="TextureProgressBar" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/Base"]
+[node name="RightFill" type="TextureProgressBar" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/Base" unique_id=719084116]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1353,14 +1353,14 @@ fill_mode = 1
 texture_under = ExtResource("50_uya8e")
 texture_progress = ExtResource("51_2tiby")
 
-[node name="PathLeft" type="Path2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control"]
+[node name="PathLeft" type="Path2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control" unique_id=1279201717]
 curve = SubResource("Curve2D_chjal")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathLeft"]
+[node name="PathFollow2D" type="PathFollow2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathLeft" unique_id=999494685]
 position = Vector2(44.444458, 54.44452)
 rotates = false
 
-[node name="PointerLeftContainer2" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathLeft/PathFollow2D"]
+[node name="PointerLeftContainer2" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathLeft/PathFollow2D" unique_id=521663356]
 layout_mode = 3
 anchors_preset = 4
 anchor_top = 0.5
@@ -1370,18 +1370,18 @@ offset_right = 168.88892
 offset_bottom = 168.44446
 grow_vertical = 2
 
-[node name="LeftSprite" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathLeft/PathFollow2D/PointerLeftContainer2"]
+[node name="LeftSprite" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathLeft/PathFollow2D/PointerLeftContainer2" unique_id=1175046965]
 scale = Vector2(0.13, 0.13)
 sprite_frames = SubResource("SpriteFrames_nvyfr")
 
-[node name="PathRight" type="Path2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control"]
+[node name="PathRight" type="Path2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control" unique_id=1727856649]
 curve = SubResource("Curve2D_vchkt")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathRight"]
+[node name="PathFollow2D" type="PathFollow2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathRight" unique_id=149933981]
 position = Vector2(666.667, 57.445)
 rotates = false
 
-[node name="PointerRightContainer" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathRight/PathFollow2D"]
+[node name="PointerRightContainer" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathRight/PathFollow2D" unique_id=241619834]
 layout_mode = 3
 anchors_preset = 6
 anchor_left = 1.0
@@ -1395,13 +1395,13 @@ offset_bottom = 168.44446
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="RightSprite" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathRight/PathFollow2D/PointerRightContainer"]
+[node name="RightSprite" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter/Container/Control/PathRight/PathFollow2D/PointerRightContainer" unique_id=1576568045]
 position = Vector2(-542.2222, 0.44447136)
 scale = Vector2(0.12, 0.12)
 sprite_frames = SubResource("SpriteFrames_ty1g6")
 animation = &"blink"
 
-[node name="MidContainer" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container"]
+[node name="MidContainer" type="Control" parent="UIKoisuruMeter/KoisuruMeter/Container" unique_id=1841186652]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1416,13 +1416,13 @@ offset_bottom = 71.11105
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HeartSprite" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter/Container/MidContainer"]
+[node name="HeartSprite" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter/Container/MidContainer" unique_id=420355340]
 position = Vector2(71.11111, 77.11119)
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_ids8r")
 animation = &"default_broken"
 
-[node name="UltimateAnim" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter"]
+[node name="UltimateAnim" type="AnimatedSprite2D" parent="UIKoisuruMeter/KoisuruMeter" unique_id=1610898486]
 position = Vector2(711.11115, 97.77779)
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_od4ux")
@@ -1430,26 +1430,26 @@ animation = &"cast_ult"
 frame = 4
 frame_progress = 1.0
 
-[node name="CardUI" type="CanvasLayer" parent="."]
+[node name="CardUI" type="CanvasLayer" parent="." unique_id=1500913854]
 layer = 2
 
-[node name="CardControl" type="Control" parent="CardUI"]
+[node name="CardControl" type="Control" parent="CardUI" unique_id=1061959298]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 728.0
 
-[node name="Card" type="Node2D" parent="CardUI/CardControl"]
+[node name="Card" type="Node2D" parent="CardUI/CardControl" unique_id=814129803]
 position = Vector2(160, 536)
 script = ExtResource("14_cardg")
 
-[node name="AnimCard" type="AnimatedSprite2D" parent="CardUI/CardControl/Card"]
+[node name="AnimCard" type="AnimatedSprite2D" parent="CardUI/CardControl/Card" unique_id=1769183595]
 position = Vector2(-35, 37)
 scale = Vector2(0.22, 0.22)
 sprite_frames = SubResource("SpriteFrames_j842w")
 animation = &"yuna_idle_2"
 
-[node name="UltimateAnim" type="AnimatedSprite2D" parent="."]
+[node name="UltimateAnim" type="AnimatedSprite2D" parent="." unique_id=1160016480]
 z_index = 2000
 position = Vector2(632, 360)
 scale = Vector2(0.67, 0.67)
@@ -1457,9 +1457,9 @@ sprite_frames = SubResource("SpriteFrames_eo1ke")
 frame = 10
 frame_progress = 1.0
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1562019707]
 
-[node name="TargetBeforeDrift" type="CollisionShape2D" parent="Area2D"]
+[node name="TargetBeforeDrift" type="CollisionShape2D" parent="Area2D" unique_id=1240729030]
 position = Vector2(584, 504)
 shape = SubResource("CircleShape2D_sd6wn")
 

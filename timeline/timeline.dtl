@@ -83,7 +83,7 @@ yuna (Outlined): How long is a while?
 update baku (Outlined) right
 update yuna (DarkenedOutlined) left
 baku (Outlined): (genuinely thinking about it)
-baku (Outlined): A whiiiiiiiiileeeeeeee....
+baku (Outlined): It's a loooooongg story...
 update baku (DarkenedOutlined) right
 update yuna (Outlined) left
 yuna: (small exhale)
@@ -110,7 +110,7 @@ yuna: Then what are you doing here?
 update baku (Outlined) right
 update yuna (DarkenedOutlined) left
 baku: I live here.
-[wait time="1.0"]
+[wait time="2.0"]
 leave --All-- [animation="Fade Out Down" wait="true"]
 [wait time="2.0"]
 narrator: Yuna stares at her again.
@@ -145,6 +145,14 @@ if {ChapterRead.ReadChap1} == false:
 		baku: People who answer like that usually have a story they're not ready to tell yet.
 		baku: That's fine. This city has a way of bringing things out eventually.
 		baku: That felt like enough for now.
+		[wait time="2.0"]
+		join baku (Outlined) right
+		[wait time="1.0"]
+		baku: You'll tell me eventually.
+		[wait time="2.0"]
+		leave --All--
+		[wait time="2.0"]
+		yuna: .....
 	- (Say nothing. Refill Yuna's bowl.)
 		set {StoryBranch.SecondOption} += 1.0
 		set {ChapChoose.Chap1Choose} = 2.0
@@ -154,10 +162,11 @@ if {ChapterRead.ReadChap1} == false:
 		join yuna (Outlined) left
 		update baku (DarkenedOutlined)
 		yuna (Outlined): You're not going to ask why I'm here?
+		[wait time="2.0"]
 		update yuna (DarkenedOutlined)
 		update baku (Outlined)
 		baku: You'll tell me eventually.
-		[wait time="1.0"]
+		[wait time="2.0"]
 		leave --All-- [animation="Fade Out Down" wait="true"]
 		[wait time="2.0"]
 		baku: She didn't respond.

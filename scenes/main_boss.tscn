@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://o4vxjklhbsaj"]
+[gd_scene format=3 uid="uid://o4vxjklhbsaj"]
 
 [ext_resource type="PackedScene" uid="uid://d1u6i3t35llsd" path="res://scenes/main.tscn" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://6a1bnv075qqc" path="res://scenes/enemy_boss.tscn" id="2_boss"]
@@ -196,7 +196,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Main" instance=ExtResource("1_main")]
+[node name="Main" unique_id=1744087104 instance=ExtResource("1_main")]
 script = ExtResource("3_script")
 boss_spawn_position = Vector2(800, 512)
 post_boss_delay_before_ui_hide = 5.0
@@ -218,115 +218,115 @@ enemy_scene = ExtResource("2_boss")
 max_enemies = 1
 spawn_interval = 9999.0
 
-[node name="Background" parent="." index="3"]
+[node name="Background" parent="." index="3" unique_id=660405411]
 position = Vector2(-18.000002, -9)
 
-[node name="Sky" parent="Background" index="0"]
+[node name="Sky" parent="Background" index="0" unique_id=1125588362]
 texture = ExtResource("4_kxj6t")
 
-[node name="Back" parent="Background" index="1"]
+[node name="Back" parent="Background" index="1" unique_id=1537011722]
 visible = false
 
-[node name="Back2" parent="Background" index="2"]
+[node name="Back2" parent="Background" index="2" unique_id=307075479]
 texture = ExtResource("5_jlh21")
 
-[node name="Front" parent="Background" index="3"]
+[node name="Front" parent="Background" index="3" unique_id=816147253]
 texture = ExtResource("6_jjwca")
 
-[node name="Sea" parent="Background" index="4"]
+[node name="Sea" parent="Background" index="4" unique_id=1979331423]
 texture = ExtResource("7_i2qsl")
 
-[node name="EnemyContainer" parent="." index="4"]
+[node name="EnemyContainer" parent="." index="4" unique_id=22611040]
 position = Vector2(-8, -8)
 
-[node name="Crosshair" parent="." index="6"]
+[node name="Crosshair" parent="." index="6" unique_id=1051322265]
 position = Vector2(-232, 296)
 
-[node name="DamageHud" parent="." index="8"]
+[node name="DamageHud" parent="." index="8" unique_id=1372860404]
 position = Vector2(641.00006, 366.00003)
 scale = Vector2(0.70937514, 0.7333333)
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="." index="13"]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." index="13" unique_id=436706468]
 layer = 0
 script = ExtResource("8_eefn7")
 scroll_speed = 60
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0" unique_id=973571954]
 z_index = 50
 motion_mirroring = Vector2(1286.4, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" index="0" unique_id=1119787301]
 position = Vector2(640, 506)
 scale = Vector2(0.67, 0.67)
 texture = ExtResource("9_dcuno")
 
-[node name="ParallaxBackground2" type="ParallaxBackground" parent="." index="14"]
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="." index="14" unique_id=2107442721]
 layer = 0
 script = ExtResource("10_yuctv")
 scroll_speed = 60
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2" index="0"]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2" index="0" unique_id=721000797]
 motion_mirroring = Vector2(1286.4, 0)
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer" index="0"]
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer" index="0" unique_id=613144983]
 position = Vector2(640, 207)
 rotation = -3.1415925
 scale = Vector2(0.67, 0.67)
 texture = ExtResource("9_dcuno")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="15"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="15" unique_id=1346272206]
 layer = 0
 
-[node name="BakuYunaExpression" type="Node2D" parent="CanvasLayer" index="0"]
+[node name="BakuYunaExpression" type="Node2D" parent="CanvasLayer" index="0" unique_id=1968501169]
 z_index = 40
 position = Vector2(632, 514)
 scale = Vector2(0.45, 0.45)
 
-[node name="BakuSmile" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="0"]
+[node name="BakuSmile" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="0" unique_id=956712840]
 visible = false
 position = Vector2(0, 308.3333)
 texture = ExtResource("11_0a3hd")
 
-[node name="YunaSmile" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="1"]
+[node name="YunaSmile" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="1" unique_id=1935701691]
 visible = false
 position = Vector2(0, 240.00002)
 texture = ExtResource("12_hbfm3")
 
-[node name="BakuShock" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="2"]
+[node name="BakuShock" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="2" unique_id=1419619252]
 visible = false
 position = Vector2(0, 318.33334)
 texture = ExtResource("13_351p7")
 
-[node name="YunaShock" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="3"]
+[node name="YunaShock" type="Sprite2D" parent="CanvasLayer/BakuYunaExpression" index="3" unique_id=915354577]
 visible = false
 position = Vector2(0, 240.00002)
 texture = ExtResource("14_the8s")
 
-[node name="BossAnim" type="Node2D" parent="CanvasLayer" index="1"]
+[node name="BossAnim" type="Node2D" parent="CanvasLayer" index="1" unique_id=1015349542]
 z_index = 39
 position = Vector2(596, 320)
 scale = Vector2(1.2, 1.2)
 script = ExtResource("15_dcuno")
 
-[node name="Base" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim" index="0"]
+[node name="Base" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim" index="0" unique_id=346543973]
 visible = false
 scale = Vector2(0.45, 0.45)
 sprite_frames = SubResource("SpriteFrames_3xbsg")
 autoplay = "default"
 
-[node name="BotAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim/Base" index="0"]
+[node name="BotAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim/Base" index="0" unique_id=567338431]
 sprite_frames = SubResource("SpriteFrames_ss8hs")
 animation = &"idle"
 
-[node name="TopAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim/Base" index="1"]
+[node name="TopAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim/Base" index="1" unique_id=2138341143]
 sprite_frames = SubResource("SpriteFrames_71lyx")
 animation = &"idle"
 
-[node name="MidAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim/Base" index="2"]
+[node name="MidAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim/Base" index="2" unique_id=1022698764]
 sprite_frames = SubResource("SpriteFrames_3qsqa")
 animation = &"idle"
 
-[node name="DevourAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim" index="1"]
+[node name="DevourAnim" type="AnimatedSprite2D" parent="CanvasLayer/BossAnim" index="1" unique_id=1705519583]
 visible = false
 position = Vector2(22, 0)
 sprite_frames = SubResource("SpriteFrames_dxlj1")
@@ -334,10 +334,10 @@ animation = &"devour"
 frame = 13
 frame_progress = 1.0
 
-[node name="CanvasLayer3" type="CanvasLayer" parent="." index="16"]
+[node name="CanvasLayer3" type="CanvasLayer" parent="." index="16" unique_id=574858004]
 layer = 0
 
-[node name="Overlay" type="ColorRect" parent="CanvasLayer3" index="0"]
+[node name="Overlay" type="ColorRect" parent="CanvasLayer3" index="0" unique_id=875083620]
 visible = false
 offset_left = -8.0
 offset_top = -16.0

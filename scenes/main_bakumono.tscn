@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://cr3wgjmxu0tva"]
+[gd_scene format=3 uid="uid://cr3wgjmxu0tva"]
 
 [ext_resource type="PackedScene" uid="uid://d1u6i3t35llsd" path="res://scenes/main.tscn" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://dk61iacrvgthh" path="res://scenes/bakumono_boss.tscn" id="2_boss"]
@@ -317,7 +317,7 @@ animations = [{
 radius = 42.631226
 height = 804.8251
 
-[node name="Main" instance=ExtResource("1_main")]
+[node name="Main" unique_id=2089029990 instance=ExtResource("1_main")]
 script = ExtResource("3_script")
 boss_spawn_position = Vector2(800, 512)
 post_boss_delay_before_ui_hide = 0.4
@@ -339,68 +339,68 @@ enemy_scene = ExtResource("2_boss")
 max_enemies = 1
 spawn_interval = 9999.0
 
-[node name="Background" parent="." index="3"]
+[node name="Background" parent="." index="3" unique_id=660405411]
 position = Vector2(-18.000002, -9)
 
-[node name="Sky" parent="Background" index="0"]
+[node name="Sky" parent="Background" index="0" unique_id=1125588362]
 texture = ExtResource("4_hq3h8")
 
-[node name="Back" parent="Background" index="1"]
+[node name="Back" parent="Background" index="1" unique_id=1537011722]
 texture = ExtResource("5_rs4bm")
 
-[node name="Back2" parent="Background" index="2"]
+[node name="Back2" parent="Background" index="2" unique_id=307075479]
 texture = ExtResource("5_rs4bm")
 
-[node name="Front" parent="Background" index="3"]
+[node name="Front" parent="Background" index="3" unique_id=816147253]
 texture = ExtResource("6_w11nr")
 
-[node name="Sea" parent="Background" index="4"]
+[node name="Sea" parent="Background" index="4" unique_id=1979331423]
 texture = ExtResource("7_f8mvy")
 
-[node name="EnemyContainer" parent="." index="4"]
+[node name="EnemyContainer" parent="." index="4" unique_id=22611040]
 position = Vector2(-8, -8)
 
-[node name="BakuMahou" parent="Player" index="0"]
+[node name="BakuMahou" parent="Player" parent_id_path=PackedInt32Array(1022403729) index="0" unique_id=749772026]
 visible = false
 
-[node name="Crosshair" parent="." index="6"]
+[node name="Crosshair" parent="." index="6" unique_id=1051322265]
 position = Vector2(-232, 296)
 
-[node name="AnimatedSprite2D" parent="Crosshair/Visual" index="0"]
+[node name="AnimatedSprite2D" parent="Crosshair/Visual" parent_id_path=PackedInt32Array(525068253) index="0" unique_id=390844592]
 animation = &"shooting_baku"
 frame = 2
 frame_progress = 1.0
 
-[node name="DamageHud" parent="." index="8"]
+[node name="DamageHud" parent="." index="8" unique_id=1372860404]
 position = Vector2(641.00006, 366.00003)
 scale = Vector2(0.70937514, 0.7333333)
 
-[node name="UIMahouMeter" parent="." index="9"]
+[node name="UIMahouMeter" parent="." index="9" unique_id=1254756674]
 visible = false
 
-[node name="UIKoisuruMeter" parent="." index="10"]
+[node name="UIKoisuruMeter" parent="." index="10" unique_id=1393847386]
 visible = false
 
-[node name="AnimCard" parent="CardUI/CardControl/Card" index="0"]
+[node name="AnimCard" parent="CardUI/CardControl/Card" parent_id_path=PackedInt32Array(814129803) index="0" unique_id=1769183595]
 sprite_frames = SubResource("SpriteFrames_njdjd")
 animation = &"yuna_idle_3"
 
-[node name="Area2D2" type="Area2D" parent="." index="13"]
+[node name="Area2D2" type="Area2D" parent="." index="13" unique_id=870566747]
 
-[node name="TurnBack" type="CollisionPolygon2D" parent="Area2D2" index="0"]
+[node name="TurnBack" type="CollisionPolygon2D" parent="Area2D2" index="0" unique_id=1083385199]
 position = Vector2(-128.2172, -118.82614)
 scale = Vector2(1.11159, 1.3108511)
 polygon = PackedVector2Array(-188.72313, -30.036133, -170.0112, 751.0016, 1565.5208, 741.79626, 1558.5038, -35.70096, 1123.205, 182.47319, 1166.5563, 233.39786, 1186.8484, 294.50745, 1194.2274, 377.3449, 1173.013, 437.7755, 1138.8853, 492.0952, 1076.1642, 530.7979, 1009.75354, 551.8468, 918.43896, 565.4267, 792.9968, 568.1427, 704.44934, 575.61163, 569.7835, 581.04364, 436.96237, 570.8587, 324.43335, 569.5007, 241.42014, 538.94586, 189.76746, 491.4162, 170.3977, 447.2815, 146.4161, 390.92487, 156.56218, 323.70428, 180.54376, 256.4837, 223.89511, 194.01611, 296.76227, 149.20241, 400.0676, 121.36359, 565.93896, 119.32661, 733.9652, 115.93162, 857.0011, 117.28962, 959.9457, 124.07957, 1044.8036, 143.09145, 1115.826, 173.64624, 1544.4698, -33.576645)
 
-[node name="OrbTarget" type="CollisionShape2D" parent="Area2D2" index="1"]
+[node name="OrbTarget" type="CollisionShape2D" parent="Area2D2" index="1" unique_id=2029130436]
 position = Vector2(639, 468)
 rotation = -1.6000026
 shape = SubResource("CapsuleShape2D_5qyiw")
 
-[node name="CanvasLayer3" type="CanvasLayer" parent="." index="14"]
+[node name="CanvasLayer3" type="CanvasLayer" parent="." index="14" unique_id=1798550642]
 layer = 0
 
-[node name="Overlay" type="ColorRect" parent="CanvasLayer3" index="0"]
+[node name="Overlay" type="ColorRect" parent="CanvasLayer3" index="0" unique_id=274965757]
 offset_left = -8.0
 offset_top = -16.0
 offset_right = 1368.0

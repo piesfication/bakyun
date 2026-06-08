@@ -326,7 +326,7 @@ func _begin_level_end_sequence(is_loss: bool) -> void:
 	if not is_inside_tree():
 		return
 	
-	LoadingManager.set_target_scene("res://scenes/level_menu.tscn")
+	LoadingManager.set_target_scene("res://scenes/story_menu.tscn")
 	await AudioManager.stop_bgm(5)
 	get_tree().change_scene_to_file("res://scenes/loading_screen.tscn")
 
