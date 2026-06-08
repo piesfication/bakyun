@@ -26,12 +26,15 @@ const SKILL_CHAIN_PROJECTILE_SPEED := 900.0
 const SKILL_CHAIN_PROJECTILE_SCALE := Vector2(1, 1) * 0.1
 const SKILL_CHAIN_TARGET_SEARCH_RADIUS := 760.0
 const SKILL_CHAIN_MAX_DEPTH_DIFFERENCE := 0.35
-const SKILL_NOVA_PULL_RADIUS := 430.0
-const SKILL_NOVA_PULL_SPEED := 760.0
-const SKILL_NOVA_PULL_DURATION := 0.9
-const SKILL_NOVA_SLOW_DURATION := 1.8
+const SKILL_NOVA_PULL_RADIUS := 250.0
+const SKILL_NOVA_PULL_SPEED := 700.0
+const SKILL_NOVA_PULL_DURATION := 1
+const SKILL_NOVA_CENTER_KNOCKBACK_DEPTH := 0.115
+const SKILL_NOVA_CENTER_KNOCKBACK_SPEED := 1.5
+const SKILL_NOVA_CENTER_KNOCKBACK_DURATION := 1
+const SKILL_NOVA_SLOW_DURATION := 1
 const SKILL_NOVA_SLOW_FACTOR := 0.35
-const SKILL_AUTO_TARGET_RADIUS := 260.0
+const SKILL_AUTO_TARGET_RADIUS := 200.0
 
 enum CharacterMode {
 	CHAR_BAKU,
@@ -176,7 +179,7 @@ func _process(delta):
 		# Check if level_running property exists
 		for prop in level_controller.get_property_list():
 			if String(prop.get("name", "")) == "level_running":
-				is_level_running = bool(level_controller.get("level_running"))
+				is_level_running = level_controller.get("level_running") == true
 				break
 	
 	if is_level_running:
@@ -289,7 +292,7 @@ func _is_boss_enemy(enemy: Node, hitbox: Node = null) -> bool:
 	# cek langsung dari enemy
 	if enemy != null and enemy.is_in_group("boss"):
 		return true
-	# cek via method khas boss
+
 	if enemy != null and enemy.has_method("force_weakened_state"):
 		return true
 	return false
@@ -338,15 +341,15 @@ func _is_enemy_targetable(enemy: Node) -> bool:
 		return false
 
 	if enemy.has_method("is_targetable"):
-		return bool(enemy.call("is_targetable"))
+		return enemy.call("is_targetable") == true
 
 	if enemy.has_method("is_dead"):
-		if bool(enemy.call("is_dead")):
+		if enemy.call("is_dead") == true:
 			return false
 
 	for prop in enemy.get_property_list():
 		var prop_name := String(prop.get("name", ""))
-		if prop_name == "is_dead" and bool(enemy.get("is_dead")):
+		if prop_name == "is_dead" and enemy.get("is_dead") == true:
 			return false
 		if prop_name == "hp" and int(enemy.get("hp")) <= 0:
 			return false
@@ -495,7 +498,7 @@ func update_aim_from_lock():
 				AimLock.ENEMY:
 					play_anim_safe("aim_baku")
 				AimLock.WEAKNESS:
-					play_anim_safe("aim_weakness_baku")
+					play_anim_safe("aim_baku")
 
 		CharacterMode.CHAR_YUNA:
 			match locked_aim:
@@ -504,7 +507,7 @@ func update_aim_from_lock():
 				AimLock.ENEMY:
 					play_anim_safe("aim_yuna")
 				AimLock.WEAKNESS:
-					play_anim_safe("aim_weakness_yuna")
+					play_anim_safe("aim_yuna")
 					
 func play_anim_safe(anim: String):
 	if sprite.animation == anim:
@@ -600,7 +603,7 @@ func apply_skill_shot(enemy: Node, hitbox: Node, cast_position: Vector2) -> void
 			if target_enemy != null:
 				if target_enemy.has_method("play_redhit_effect"):
 					target_enemy.play_redhit_effect()
-				_apply_skill_hit_or_damage(target_enemy, hitbox, 2)
+				_apply_skill_hit_or_damage(target_enemy, hitbox, 1)
 				projectile_origin = target_enemy.global_position
 			spawn_pierce_projectiles(projectile_origin, target_enemy)
 
@@ -616,8 +619,8 @@ func apply_skill_shot(enemy: Node, hitbox: Node, cast_position: Vector2) -> void
 			var center_pos := cast_position
 			var target_depth := 0.5
 			
-			if target_enemy != null and target_enemy.get("visual") != null:
-				target_enemy.visual.modulate = Color(0.622, 0.644, 1.0, 1.0)
+			if target_enemy != null and not _is_boss_enemy(target_enemy, hitbox):
+				_apply_nova_target_visual_modulate(target_enemy)
 			
 			if target_enemy != null and target_enemy.has_method("play_blue3_effect"):
 					target_enemy.play_blue3_effect()
@@ -832,9 +835,14 @@ func apply_nova_pull(center_pos: Vector2, center_enemy: Node, target_depth: floa
 	
 	# Apply nova pull ke center_enemy juga
 	var target_scale = center_enemy.scale if center_enemy != null and is_instance_valid(center_enemy) else Vector2.ONE
+	var center_entered_trigger := _has_entered_trigger_zorder(center_enemy)
 	if center_enemy != null and is_instance_valid(center_enemy):
-		if center_enemy.has_method("apply_nova_pull_effect"):
+		if center_enemy.has_method("apply_nova_center_knockback_then_pull_effect"):
+			center_enemy.apply_nova_center_knockback_then_pull_effect(center_pos, target_depth, SKILL_NOVA_CENTER_KNOCKBACK_DEPTH, SKILL_NOVA_CENTER_KNOCKBACK_SPEED, SKILL_NOVA_CENTER_KNOCKBACK_DURATION, SKILL_NOVA_PULL_SPEED, SKILL_NOVA_PULL_DURATION, SKILL_NOVA_SLOW_DURATION, SKILL_NOVA_SLOW_FACTOR)
+		elif center_enemy.has_method("apply_nova_pull_effect"):
 			center_enemy.apply_nova_pull_effect(center_pos, target_depth, SKILL_NOVA_PULL_SPEED, SKILL_NOVA_PULL_DURATION)
+			if center_enemy.has_method("apply_slow"):
+				center_enemy.apply_slow(SKILL_NOVA_SLOW_DURATION, SKILL_NOVA_SLOW_FACTOR)
 	var enemies: Array = get_tree().get_nodes_in_group("enemy_nodes")
 	for enemy in enemies:
 		if enemy == null or not is_instance_valid(enemy):
@@ -845,15 +853,46 @@ func apply_nova_pull(center_pos: Vector2, center_enemy: Node, target_depth: floa
 		if enemy.is_in_group("boss"):
 			continue
 
-		if enemy.global_position.distance_to(center_pos) <= SKILL_NOVA_PULL_RADIUS:
-			if enemy.has_method("apply_nova_pull_effect"):
-				enemy.apply_nova_pull_effect(center_pos, target_depth, SKILL_NOVA_PULL_SPEED, SKILL_NOVA_PULL_DURATION)
-				enemy.scale = target_scale
-			elif enemy.has_method("pull_towards"):
-				if enemy.is_in_group("boss"):
-					continue
-				enemy.pull_towards(center_pos)
-			enemy.apply_slow(SKILL_NOVA_SLOW_DURATION, SKILL_NOVA_SLOW_FACTOR)
+		if center_entered_trigger and not _has_entered_trigger_zorder(enemy):
+			continue
+		
+		var scale_x_int = float(enemy.scale.x)
+		var nova_knockback_target_depth = clampf(enemy.depth + maxf(SKILL_NOVA_CENTER_KNOCKBACK_DEPTH, 0.0), 0.0, 1.0)
+		
+		if enemy.global_position.distance_to(center_pos) <= SKILL_NOVA_PULL_RADIUS * (scale_x_int/enemy.max_scale):
+			if (enemy.scale >= target_scale and enemy.scale <= target_scale + Vector2(0.3, 0.3)) or (enemy.scale <= target_scale and enemy.scale >= target_scale - Vector2(0.1, 0.1)):
+				if enemy.has_method("apply_nova_pull_effect"):
+						enemy.apply_nova_pull_effect(center_pos, nova_knockback_target_depth , SKILL_NOVA_PULL_SPEED, SKILL_NOVA_PULL_DURATION)
+				elif enemy.has_method("pull_towards"):
+					if enemy.is_in_group("boss"):
+						continue
+					enemy.pull_towards(center_pos)
+				if enemy.has_method("apply_slow"):
+					enemy.apply_slow(SKILL_NOVA_SLOW_DURATION, SKILL_NOVA_SLOW_FACTOR)
+
+
+func _has_entered_trigger_zorder(node: Node) -> bool:
+		if node == null or not is_instance_valid(node):
+			return false
+		if not node.has_method("get"):
+			return false
+		return node.get("has_entered_trigger_zorder") == true
+
+func _apply_nova_target_visual_modulate(target_enemy: Node) -> void:
+	if target_enemy == null or not is_instance_valid(target_enemy):
+		return
+
+	var target_visual: CanvasItem = null
+	var visual_node := target_enemy.get_node_or_null("Visual/AnimatedSprite2D")
+	if visual_node is CanvasItem:
+		target_visual = visual_node as CanvasItem
+	else:
+		visual_node = target_enemy.get_node_or_null("AnimatedSprite2D")
+		if visual_node is CanvasItem:
+			target_visual = visual_node as CanvasItem
+
+	if target_visual != null:
+		target_visual.modulate = Color(0.622, 0.644, 1.0, 1.0)
 
 func _notify_combo_counter_hit(character: String) -> void:
 	"""Notify main level controller about a successful hit"""

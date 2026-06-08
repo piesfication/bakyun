@@ -6,6 +6,7 @@ signal level_finished
 @export var enemy_scene: PackedScene
 @export var enemy_2_scene: PackedScene = preload("res://scenes/enemy_2.tscn")
 @export var enemy_3_scene: PackedScene = preload("res://scenes/enemy_3.tscn")
+@export var enemy_4_scene: PackedScene = preload("res://scenes/enemy_4.tscn")
 @onready var enemy_container = $EnemyContainer
 @onready var player_node: Node = $Player
 @onready var crosshair_node: Node = $Crosshair
@@ -187,6 +188,8 @@ func _pick_random_enemy_scene() -> PackedScene:
 		enemy_pool.append(enemy_2_scene)
 	if enemy_3_scene != null:
 		enemy_pool.append(enemy_3_scene)
+	if enemy_4_scene != null:
+		enemy_pool.append(enemy_4_scene)
 
 	if enemy_pool.is_empty():
 		return null

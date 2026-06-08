@@ -59,23 +59,32 @@ func _run_random_weighted_batch() -> void:
 	match _pick_weighted_batch_id():
 		0:
 			await _spawn_repeated(enemy_3_scene, 5)
+			await _spawn_repeated(enemy_4_scene, 3)
 		1:
-			await _spawn_repeated(enemy_3_scene, 1)
+			await _spawn_repeated(enemy_4_scene, 3)
 			await _wait_phase_gap()
-			await _spawn_repeated(enemy_2_scene, 5)
+			await _spawn_repeated(enemy_3_scene, 3)
+			await _wait_phase_gap()
+			await _spawn_repeated(enemy_2_scene, 3)
 		2:
-			await _spawn_repeated(enemy_scene, 6)
+			await _spawn_repeated(enemy_scene, 4)
+			await _spawn_repeated(enemy_4_scene, 3)
 		3:
 			await _spawn_repeated(enemy_scene, 2)
 			await _spawn_repeated(enemy_3_scene, 2)
+			await _wait_phase_gap()
+			await _spawn_repeated(enemy_4_scene, 2)
 		4:
-			await _spawn_repeated(enemy_2_scene, 3)
+			await _spawn_repeated(enemy_4_scene, 3)
+			await _wait_phase_gap()
+			await _spawn_repeated(enemy_2_scene, 5)
 			await _spawn_repeated(enemy_scene, 3)
 		5:
 			await _spawn_random_repeated(1)
 		6:
 			await _spawn_repeated(enemy_3_scene, 3)
 			await _wait_phase_gap()
+			await _spawn_repeated(enemy_4_scene, 3)
 			await _spawn_repeated(enemy_2_scene, 5)
 		7:
 			await _spawn_random_repeated(3)
@@ -119,7 +128,7 @@ func _spawn_hard_spike_mix_batch() -> void:
 	await _wait_phase_gap()
 	await _spawn_random_repeated(4)
 	await _wait_phase_gap()
-	await _spawn_repeated(enemy_2_scene, 2)
+	await _spawn_repeated(enemy_2_scene, 4)
 
 func _spawn_hard_boss_once() -> void:
 	if _hard_boss_spawned:

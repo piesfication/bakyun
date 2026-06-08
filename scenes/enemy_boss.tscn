@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=3 uid="uid://6a1bnv075qqc"]
+[gd_scene format=3 uid="uid://6a1bnv075qqc"]
 
 [ext_resource type="Texture2D" uid="uid://btjygbtf3aj75" path="res://assets/enemy/boss/Attack/Untitled934_20260316133508.png" id="1_3kk42"]
 [ext_resource type="Texture2D" uid="uid://l1kar6x52ne" path="res://assets/enemy/boss/Attack/Untitled934_20260316133603.png" id="2_fgy5c"]
@@ -555,7 +555,7 @@ animations = [{
 "speed": 14.0
 }]
 
-[node name="EnemyBoss" type="Node2D"]
+[node name="EnemyBoss" type="Node2D" unique_id=1339125107]
 scale = Vector2(0.23, 0.23)
 script = ExtResource("37_bossc")
 vortex_red_modulate = Color(1.4687854, 0.5407801, 1.011807, 1)
@@ -571,65 +571,65 @@ weakness_approach_scale = 1.2
 flap_amplitude = 50.0
 flap_frequency = 1.2
 
-[node name="SetOfWeakness" type="Area2D" parent="."]
+[node name="SetOfWeakness" type="Area2D" parent="." unique_id=364994456]
 z_index = 31
 
-[node name="WeaknessPoint9" parent="SetOfWeakness" instance=ExtResource("2_jub5w")]
+[node name="WeaknessPoint9" parent="SetOfWeakness" unique_id=2107666542 instance=ExtResource("2_jub5w")]
 position = Vector2(128, -32)
 
-[node name="WeaknessPoint7" parent="SetOfWeakness" instance=ExtResource("2_jub5w")]
+[node name="WeaknessPoint7" parent="SetOfWeakness" unique_id=1572670385 instance=ExtResource("2_jub5w")]
 position = Vector2(320, -256)
 
-[node name="WeaknessPoint6" parent="SetOfWeakness" instance=ExtResource("2_jub5w")]
+[node name="WeaknessPoint6" parent="SetOfWeakness" unique_id=574957271 instance=ExtResource("2_jub5w")]
 position = Vector2(-192, 288)
 
-[node name="WeaknessPoint5" parent="SetOfWeakness" instance=ExtResource("2_jub5w")]
+[node name="WeaknessPoint5" parent="SetOfWeakness" unique_id=906263156 instance=ExtResource("2_jub5w")]
 position = Vector2(-320, -64)
 
-[node name="WeaknessPoint3" parent="SetOfWeakness" instance=ExtResource("2_jub5w")]
+[node name="WeaknessPoint3" parent="SetOfWeakness" unique_id=1191796300 instance=ExtResource("2_jub5w")]
 position = Vector2(352, 64)
 
-[node name="WeaknessPoint2" parent="SetOfWeakness" instance=ExtResource("2_jub5w")]
+[node name="WeaknessPoint2" parent="SetOfWeakness" unique_id=924714412 instance=ExtResource("2_jub5w")]
 position = Vector2(76, -404)
 
-[node name="WeaknessPoint" parent="SetOfWeakness" instance=ExtResource("2_jub5w")]
+[node name="WeaknessPoint" parent="SetOfWeakness" unique_id=1985263194 instance=ExtResource("2_jub5w")]
 position = Vector2(-32, -192)
 
-[node name="WeaknessPoint4" parent="SetOfWeakness" instance=ExtResource("2_jub5w")]
+[node name="WeaknessPoint4" parent="SetOfWeakness" unique_id=382927080 instance=ExtResource("2_jub5w")]
 position = Vector2(168, 188)
 
-[node name="WeaknessPoint8" parent="SetOfWeakness" instance=ExtResource("2_jub5w")]
+[node name="WeaknessPoint8" parent="SetOfWeakness" unique_id=112693631 instance=ExtResource("2_jub5w")]
 position = Vector2(-96, 64)
 
-[node name="WeaknessPoint10" parent="SetOfWeakness" instance=ExtResource("2_jub5w")]
+[node name="WeaknessPoint10" parent="SetOfWeakness" unique_id=1728157513 instance=ExtResource("2_jub5w")]
 position = Vector2(416, 288)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=219643832]
 position = Vector2(4.347826, 0)
 sprite_frames = SubResource("SpriteFrames_j5ys4")
 animation = &"idle"
 
-[node name="BotAnim" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+[node name="BotAnim" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=1757237529]
 sprite_frames = SubResource("SpriteFrames_8omko")
 animation = &"idle"
 
-[node name="TopAnim" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+[node name="TopAnim" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=6646264]
 sprite_frames = SubResource("SpriteFrames_w3lkq")
 animation = &"idle"
 frame_progress = 0.37889734
 
-[node name="OrbContainer" type="Node2D" parent="AnimatedSprite2D/TopAnim"]
+[node name="OrbContainer" type="Node2D" parent="AnimatedSprite2D/TopAnim" unique_id=988165805]
 position = Vector2(78.260864, 17.391304)
 
-[node name="MidAnim" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+[node name="MidAnim" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=333534391]
 sprite_frames = SubResource("SpriteFrames_3ek2g")
 animation = &"idle"
 
-[node name="OrbContainer" type="Node2D" parent="AnimatedSprite2D/MidAnim"]
+[node name="OrbContainer" type="Node2D" parent="AnimatedSprite2D/MidAnim" unique_id=1869480413]
 position = Vector2(78.260864, 17.391312)
 scale = Vector2(1.2, 1.2)
 
-[node name="AnimateAction" type="AnimatedSprite2D" parent="."]
+[node name="AnimateAction" type="AnimatedSprite2D" parent="." unique_id=1846545580]
 position = Vector2(69.565216, 0)
 scale = Vector2(2.2, 2.2)
 sprite_frames = SubResource("SpriteFrames_gr6lc")
@@ -637,7 +637,7 @@ animation = &"dead"
 frame = 9
 frame_progress = 1.0
 
-[node name="Shield" type="AnimatedSprite2D" parent="."]
+[node name="Shield" type="AnimatedSprite2D" parent="." unique_id=1584166786]
 visible = false
 position = Vector2(32, 0)
 scale = Vector2(2.2, 2.2)
@@ -646,7 +646,7 @@ animation = &"shield"
 frame = 5
 frame_progress = 1.0
 
-[node name="WeakContainer" type="Control" parent="."]
+[node name="WeakContainer" type="Control" parent="." unique_id=640670487]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -659,7 +659,7 @@ offset_bottom = 896.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Health" type="AnimatedSprite2D" parent="WeakContainer"]
+[node name="Health" type="AnimatedSprite2D" parent="WeakContainer" unique_id=190142166]
 visible = false
 position = Vector2(800, 0)
 scale = Vector2(4, 4)
@@ -667,7 +667,7 @@ sprite_frames = SubResource("SpriteFrames_1bod0")
 animation = &"weakened"
 autoplay = "hp_10"
 
-[node name="WeaknessBar" type="TextureProgressBar" parent="WeakContainer"]
+[node name="WeaknessBar" type="TextureProgressBar" parent="WeakContainer" unique_id=1713967864]
 visible = false
 layout_mode = 0
 offset_left = 152.0

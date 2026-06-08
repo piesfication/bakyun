@@ -14,6 +14,8 @@ var _health_base_scale: Vector2 = Vector2.ONE
 var _health_squash_tween: Tween
 
 var _pending_nova_pull = null
+
+const NOVA_MODULATE := Color(0.622, 0.644, 1.0, 1.0)
 # State
 
 enum State {
@@ -32,20 +34,19 @@ func set_state(new_state: State):
 
 	match state:
 		State.MOVING:
-			if nova_pull_time_left <= 0.0:
-				visual.modulate = original_modulate
+			_apply_visual_modulate()
 			visual.play("moving")
 		State.DAMAGED:
-			if nova_pull_time_left <= 0.0:
-				visual.modulate = Color(1.0, 0.804, 0.815, 1.0)
+			_apply_visual_modulate()
 			visual.play("damaged")
 		State.ATTACK:
 			print("attack!")
 			pass
 		State.DEATH:
-			if nova_pull_time_left <= 0.0:
-				visual.modulate = Color(1.0, 0.804, 0.815, 1.0)
+			_apply_visual_modulate()
 			visual.play("death")
+			if (can_summon == true):
+				_summon_orb_batch()
 
 @export var max_hp := 3
 var hp := max_hp
@@ -55,6 +56,15 @@ var marked := false
 var mark_time_left: float = 0.0
 var slow_timer := 0.0
 var slow_factor := 1.0
+var nova_knockback_time_left := 0.0
+var nova_knockback_target_depth := 1.0
+var nova_knockback_speed := 0.0
+var nova_pending_pull_target_pos: Vector2 = Vector2.ZERO
+var nova_pending_pull_target_depth := 0.5
+var nova_pending_pull_speed := 0.0
+var nova_pending_pull_time_left := 0.0
+var nova_pending_slow_duration := 0.0
+var nova_pending_slow_factor := 1.0
 var nova_pull_time_left := 0.0
 var nova_pull_target_pos: Vector2 = Vector2.ZERO
 var nova_pull_target_depth := 0.5
@@ -292,15 +302,25 @@ func _process(delta: float):
 		if slow_timer <= 0.0:
 			slow_factor = 1.0
 
+	if nova_knockback_time_left > 0.0:
+		nova_knockback_time_left -= delta
+		depth = move_toward(depth, nova_knockback_target_depth, nova_knockback_speed * delta)
+		depth = clampf(depth, 0.0, 1.0)
+		_update_z_from_depth()
+		if nova_knockback_time_left <= 0.0:
+			_start_nova_pull_from_pending()
+
 	var sim_delta: float = delta * slow_factor
 
 	idle_move(sim_delta)
-	update_depth(sim_delta)
+	if nova_knockback_time_left <= 0.0:
+		update_depth(sim_delta)
 	update_scale()
 
 	update_drift_blend(sim_delta)
 	update_movement(sim_delta)
 	_apply_nova_pull(sim_delta)
+	_apply_visual_modulate()
 	update_scale()
 	
 	# Apply bird flapping animation AFTER movement
@@ -978,6 +998,7 @@ func explode_mark(radius: float, damage: int, visited: Array[Node] = []) -> void
 func apply_slow(duration: float, factor: float) -> void:
 	slow_timer = max(slow_timer, duration)
 	slow_factor = clampf(min(slow_factor, factor), 0.15, 1.0)
+	_apply_visual_modulate()
 
 
 func pull_towards(target_pos: Vector2, strength: float = 0.55) -> void:
@@ -993,14 +1014,45 @@ func apply_nova_pull_effect(target_pos: Vector2, target_depth: float, pull_speed
 	nova_pull_speed = maxf(pull_speed, 0.0)
 	nova_pull_time_left = maxf(duration, 0.0)
 	flap_enabled = true
+	_apply_visual_modulate()
 
+
+func apply_nova_center_knockback_then_pull_effect(target_pos: Vector2, target_depth: float, knockback_distance: float, knockback_speed: float, knockback_duration: float, pull_speed: float, pull_duration: float, slow_duration: float, slow_value: float) -> void:
+	if is_dead:
+		return
+
+	nova_knockback_target_depth = clampf(depth + maxf(knockback_distance, 0.0), 0.0, 1.0)
+	nova_knockback_speed = maxf(knockback_speed, 0.0)
+	nova_knockback_time_left = maxf(knockback_duration, 0.0)
+	nova_pending_pull_target_pos = target_pos
+	nova_pending_pull_target_depth = clampf(nova_knockback_target_depth, 0.0, 1.0)
+	nova_pending_pull_speed = maxf(pull_speed, 0.0)
+	nova_pending_pull_time_left = maxf(pull_duration, 0.0)
+	nova_pending_slow_duration = maxf(slow_duration, 0.0)
+	nova_pending_slow_factor = clampf(slow_value, 0.15, 1.0)
+	flap_enabled = true
+	_apply_visual_modulate()
+
+
+func _start_nova_pull_from_pending() -> void:
+	if nova_pending_pull_time_left <= 0.0 and nova_pending_slow_duration <= 0.0:
+		return
+		
+	nova_pull_target_pos = global_position
+	nova_pull_target_depth = nova_knockback_target_depth
+	nova_pull_speed = nova_pending_pull_speed
+	nova_pull_time_left = nova_pending_pull_time_left
+	if nova_pending_slow_duration > 0.0:
+		slow_timer = max(slow_timer, nova_pending_slow_duration)
+		slow_factor = clampf(min(slow_factor, nova_pending_slow_factor), 0.15, 1.0)
+
+	nova_pending_pull_time_left = 0.0
+	nova_pending_slow_duration = 0.0
+	_apply_visual_modulate()
 
 func _apply_nova_pull(delta: float) -> void:
 	
-	if nova_pull_time_left > 0.0:
-		visual.modulate = Color(0.622, 0.644, 1.0, 1.0) 
-	else:
-		visual.modulate = original_modulate
+	_apply_visual_modulate()
 		
 	if nova_pull_time_left <= 0.0:
 		return
@@ -1015,6 +1067,17 @@ func _apply_nova_pull(delta: float) -> void:
 	depth = clampf(depth, 0.0, 1.0)
 	# Update z-order immediately as depth changes during pull
 	_update_z_from_depth()
+
+func _apply_visual_modulate() -> void:
+	if nova_knockback_time_left > 0.0 or nova_pull_time_left > 0.0 or slow_timer > 0.0:
+		visual.modulate = NOVA_MODULATE
+		return
+
+	match state:
+		State.DAMAGED, State.DEATH:
+			visual.modulate = Color(1.0, 0.804, 0.815, 1.0)
+		_:
+			visual.modulate = original_modulate
 
 func play_bluehit_effect() -> float:
 	
@@ -1202,3 +1265,91 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 		print("aww!")
 		player_node.take_damage(attack_damage)
 	pass # Replace with function body.
+
+# Modifikasi UAS ======================================================================
+
+@onready var orb_container = $OrbContainer
+var _global_orb_spawn_order: int = 0
+
+@export var spawn_stagger: float = 0.55
+@export var can_summon: bool = false;
+
+func _summon_orb_batch() -> void:
+	var containers: Array[Node2D] = []
+	containers = [orb_container]
+
+	if containers.is_empty():
+		return
+
+	var total_orbs: int = randi_range(1,1)
+	var remaining: int = total_orbs
+
+	for idx in containers.size():
+		var container := containers[idx]
+		if container == null:
+			continue
+
+		var containers_left: int = containers.size() - idx
+		var count_for_this: int = int(ceil(float(remaining) / float(maxi(containers_left, 1))))
+		count_for_this = maxi(1, count_for_this)
+		remaining = maxi(0, remaining - count_for_this)
+
+		var leader: Node2D = null
+		for i in count_for_this:
+			if leader != null and not is_instance_valid(leader):
+				leader = null
+			leader = _spawn_single_orb(container, leader)
+			if i < count_for_this - 1 and spawn_stagger > 0.0:
+				var tree := get_tree()
+				if tree == null:
+					return
+				await tree.create_timer(spawn_stagger).timeout
+	
+const ORB_COLOR_RED := 0
+const ORB_COLOR_BLUE := 1
+@export var homing_orb_scene: PackedScene = preload("res://scenes/homing_orb.tscn")
+
+func _spawn_single_orb(container: Node2D, follow_leader: Variant = null) -> Node2D:
+	if homing_orb_scene == null:
+		return null
+	if container == null:
+		return null
+
+	var follow_leader_node: Node2D = null
+	if follow_leader != null and is_instance_valid(follow_leader) and follow_leader is Node2D:
+		follow_leader_node = follow_leader as Node2D
+
+	var orb := homing_orb_scene.instantiate()
+	if orb == null:
+		return follow_leader_node
+
+	var orb_color := _pick_spawn_orb_color()
+
+	if orb.has_method("set"):
+		orb.set("batch_seed", randi())
+		orb.set("time_offset", float(_global_orb_spawn_order) * 0.11)
+		orb.set("randomize_color_on_spawn", false)
+		orb.set("fixed_orb_color", orb_color)
+		orb.set("min_scale", 0.35 * (scale/max_scale))
+		orb.set("approach_speed", 0.05)
+
+	var spawn_parent := get_parent()
+	if spawn_parent == null:
+		spawn_parent = get_tree().current_scene
+	if spawn_parent == null:
+		return follow_leader_node
+
+	spawn_parent.add_child(orb)
+	orb.global_position = container.global_position
+	orb.z_index = z_index + 200 - _global_orb_spawn_order
+	_global_orb_spawn_order += 1
+
+	if orb.has_method("setup"):
+		if follow_leader_node != null and not is_instance_valid(follow_leader_node):
+			follow_leader_node = null
+		orb.setup(player_node, follow_leader_node)
+
+	return orb
+
+func _pick_spawn_orb_color() -> int:
+	return ORB_COLOR_RED if randf() < 0.5 else ORB_COLOR_BLUE

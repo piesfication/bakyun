@@ -81,6 +81,7 @@ const ORB_COLOR_BLUE := 1
 @onready var vortex_top: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D/TopAnim/VortexTop") as AnimatedSprite2D
 @onready var vortex_mid: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D/MidAnim/VortexMid") as AnimatedSprite2D
 @onready var top_orb_container: Node2D = _resolve_orb_container("AnimatedSprite2D/TopAnim")
+@onready var bot_orb_container: Node2D = _resolve_orb_container("AnimatedSprite2D/BotAnim")
 @onready var mid_orb_container: Node2D = _resolve_orb_container("AnimatedSprite2D/MidAnim")
 @onready var weakness_set: Area2D = $SetOfWeakness
 @onready var weak_container: Control = get_node_or_null("WeakContainer") as Control
@@ -491,10 +492,17 @@ func _summon_orb_batch() -> void:
 
 	var containers: Array[Node2D] = []
 	if current_layer == 2:
-		containers.append(top_orb_container if _container_turn == 0 else mid_orb_container)
-		_container_turn = 1 - _container_turn
+		# Fase awal boss: hanya satu container.
+		var layer2_containers: Array[Node2D] = [top_orb_container]
+		for _i in range(layer2_containers.size()):
+			var candidate := layer2_containers[_container_turn % layer2_containers.size()]
+			_container_turn = (_container_turn + 1) % layer2_containers.size()
+			if candidate != null:
+				containers.append(candidate)
+				break
 	else:
-		containers = [top_orb_container, mid_orb_container]
+		# Fase terakhir sebelum boss mati: pakai tiga container.
+		containers = [top_orb_container, bot_orb_container, mid_orb_container]
 
 	_play_summon_fx(containers)
 
@@ -614,6 +622,8 @@ func _apply_vortex_color(container: Node2D, orb_color: int) -> void:
 	var target_vortex: AnimatedSprite2D = null
 	if container == top_orb_container:
 		target_vortex = vortex_top
+	elif container == bot_orb_container:
+		target_vortex = null
 	elif container == mid_orb_container:
 		target_vortex = vortex_mid
 
@@ -626,6 +636,7 @@ func _play_summon_fx(containers: Array[Node2D]) -> void:
 	_set_summon_fx_idle()
 
 	var use_top := containers.has(top_orb_container)
+	var use_bot := containers.has(bot_orb_container)
 	var use_mid := containers.has(mid_orb_container)
 
 	if use_top:
@@ -634,6 +645,9 @@ func _play_summon_fx(containers: Array[Node2D]) -> void:
 		if vortex_top != null:
 			vortex_top.visible = true
 			vortex_top.play("default")
+
+	if use_bot and bot_anim != null:
+		bot_anim.play("idle")
 
 	if use_mid:
 		if mid_anim != null:

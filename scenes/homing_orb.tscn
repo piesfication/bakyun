@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://xagbf7jd1fhf"]
+[gd_scene format=3 uid="uid://xagbf7jd1fhf"]
 
 [ext_resource type="Texture2D" uid="uid://bhpqv4qqud1c3" path="res://assets/enemy/Orb/Blue/Spawn/Untitled1022_20260409103636.png" id="4_yb70x"]
 [ext_resource type="Texture2D" uid="uid://d2vaco6aksnhq" path="res://assets/enemy/Orb/Blue/Spawn/Untitled1022_20260409103851.png" id="6_ol664"]
@@ -128,7 +128,7 @@ animations = [{
 "speed": 7.0
 }]
 
-[node name="HomingOrb" type="Node2D"]
+[node name="HomingOrb" type="Node2D" unique_id=776225963]
 scale = Vector2(0.4, 0.4)
 script = ExtResource("11_orbsc")
 drift_speed = 3.0
@@ -136,14 +136,14 @@ drift_move_speed = 350.0
 leader_wave_frequency = 3.0
 leader_wander_strength = 1.0
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1557513260]
 scale = Vector2(0.99999994, 0.99999994)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1584240201]
 shape = SubResource("CircleShape2D_l855h")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2054971230]
 sprite_frames = SubResource("SpriteFrames_nvgyg")
 animation = &"enlarge_blue"

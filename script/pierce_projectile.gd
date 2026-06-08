@@ -161,7 +161,9 @@ func deal_damage_on_overlap() -> void:
 		visual.scale = Vector2.ONE * scale_val
 
 		hit_enemies.append(enemy)
-		enemy.apply_damage(damage)
+		var enemies: Array = get_tree().get_nodes_in_group("enemy_nodes")
+		if (enemy in enemies):
+			enemy.apply_damage(damage)
 
 func set_projectile_visual_sync(new_z_index: int, scale_val: float) -> void:
 	z_index = new_z_index

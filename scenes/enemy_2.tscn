@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cbf4f6104em5y"]
+[gd_scene format=3 uid="uid://cbf4f6104em5y"]
 
 [ext_resource type="Script" uid="uid://y3d5ikqahssd" path="res://script/enemy.gd" id="1_enemy"]
 [ext_resource type="Texture2D" uid="uid://cwnuno0gcdx3u" path="res://assets/enemy/type_2/Attack/Untitled691_20260319091647.png" id="2_a0"]
@@ -238,16 +238,16 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Enemy2" type="Node2D"]
+[node name="Enemy2" type="Node2D" unique_id=545785314]
 script = ExtResource("1_enemy")
 max_hp = 1
-approach_speed = 0.4
+approach_speed = 0.35
 approach_move_speed = 600.0
 flip_when_moving_right = true
 drift_move_speed = 320.0
 flap_speed = 16
 
-[node name="SkillBlue3Effect" type="AnimatedSprite2D" parent="."]
+[node name="SkillBlue3Effect" type="AnimatedSprite2D" parent="." unique_id=215255752]
 visible = false
 z_index = 12
 position = Vector2(16, 32)
@@ -257,14 +257,14 @@ animation = &"blue3_cast"
 frame = 6
 frame_progress = 1.0
 
-[node name="Visual" type="Node2D" parent="."]
+[node name="Visual" type="Node2D" parent="." unique_id=1819823654]
 scale = Vector2(1.15, 1.15)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual" unique_id=379437474]
 sprite_frames = SubResource("SpriteFrames_visual")
 animation = &"attack"
 
-[node name="Health" type="AnimatedSprite2D" parent="Visual"]
+[node name="Health" type="AnimatedSprite2D" parent="Visual" unique_id=216349719]
 position = Vector2(-8, -8)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_health")
@@ -272,31 +272,31 @@ animation = &"dead"
 frame = 2
 frame_progress = 1.0
 
-[node name="SkillRed3Effect" type="AnimatedSprite2D" parent="."]
+[node name="SkillRed3Effect" type="AnimatedSprite2D" parent="." unique_id=1808311437]
 visible = false
 scale = Vector2(2.4, 2.4)
 sprite_frames = SubResource("SpriteFrames_red3")
 animation = &"red3_cast"
 
-[node name="Hitbox" type="Area2D" parent="." groups=["enemy"]]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1772041378 groups=["enemy"]]
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=243888494]
 position = Vector2(-8, 128)
 shape = SubResource("CapsuleShape2D_r53gs")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hitbox" unique_id=806404880]
 position = Vector2(224, 48)
 rotation = 1.538147
 shape = SubResource("CapsuleShape2D_772e2")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox" unique_id=1188792438]
 position = Vector2(-248, 8)
 rotation = -1.5628763
 shape = SubResource("CapsuleShape2D_772e2")
 
-[node name="HitVisual" type="AnimatedSprite2D" parent="."]
+[node name="HitVisual" type="AnimatedSprite2D" parent="." unique_id=152984715]
 visible = false
 z_index = 12
 position = Vector2(-8, 128)

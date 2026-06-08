@@ -79,7 +79,7 @@ var time_offset: float = 0.0
 var follow_target: Node2D
 
 func _ready() -> void:
-	add_to_group("enemy_nodes")
+	#add_to_group("enemy_nodes")
 	add_to_group("orb_nodes")
 	hp = 1
 	scale = Vector2.ONE * min_scale

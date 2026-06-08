@@ -46,19 +46,23 @@ func _run_random_weighted_batch() -> void:
 
 	match _pick_weighted_batch_id():
 		0:
-			await _spawn_repeated(enemy_3_scene, 5)
+			await _spawn_repeated(enemy_3_scene, 3)
+			await _spawn_repeated(enemy_4_scene, 3)
 		1:
 			await _spawn_repeated(enemy_3_scene, 1)
 			await _wait_phase_gap()
 			await _spawn_repeated(enemy_2_scene, 5)
 		2:
-			await _spawn_repeated(enemy_scene, 6)
+			await _spawn_repeated(enemy_scene, 4)
+			await _spawn_repeated(enemy_4_scene, 2)
 		3:
 			await _spawn_repeated(enemy_scene, 2)
-			await _spawn_repeated(enemy_3_scene, 2)
+			await _spawn_repeated(enemy_4_scene, 3)
 		4:
 			await _spawn_repeated(enemy_2_scene, 3)
 			await _spawn_repeated(enemy_scene, 3)
+			await _wait_phase_gap()
+			await _spawn_repeated(enemy_4_scene, 3)
 		5:
 			await _spawn_random_repeated(1)
 		6:
@@ -143,6 +147,8 @@ func _pick_random_enemy_scene() -> PackedScene:
 		enemy_pool.append(enemy_2_scene)
 	if enemy_3_scene != null:
 		enemy_pool.append(enemy_3_scene)
+	if enemy_4_scene != null:
+		enemy_pool.append(enemy_4_scene)
 
 	if enemy_pool.is_empty():
 		return null
